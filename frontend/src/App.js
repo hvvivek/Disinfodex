@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1 style={{"width":"100%", "text-align":"center"}}></h1>
+        <h1 style={{"width":"100%", "text-align":"center"}}>Disinfodex: Coming soon.</h1>
       </header>
     </div>
   );
