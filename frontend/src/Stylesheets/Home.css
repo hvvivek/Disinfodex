@@ -1,0 +1,84 @@
+
+#navbar .navbar-brand
+{
+    font-family: adobe-garamond-pro, serif;
+    font-size: 4rem;
+    font-style: italic;
+    background: #003358;
+    color: white;
+}
+
+#navbar
+{
+    background: #003358;;
+
+}
+
+#info-section
+{
+    background: #003358;
+    color: white;
+}
+
+#info-section p
+{
+    font-family: adobe-garamond-pro, serif;
+}
+
+#info-section a
+{
+    font-family: helvetica, sans-serif;
+    font-weight: 600;
+}
+
+#info-section a.active
+{
+    color: grey;
+}
+
+#search-section
+{
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+}
+
+#search-section input
+{
+    font-size: 1rem;
+    padding: 1.5rem;
+    border-radius: 2rem;
+}
+
+#filters-section
+{
+    /* padding-left: 3rem;
+    padding-right: 2rem; */
+}
+
+#filters-section label
+{
+    font-weight: 600;
+}
+
+#filters-section input, #filters-section select
+{
+    background-color: rgb(236, 236, 236);
+}
+
+#filters-section .btn
+{
+    color: #B18C5A;
+    background-color: white;
+    border: 2px solid #B18C5A;
+    width: 100%;
+    box-shadow: 4px 4px 0px #d6a96e;;
+}
+
+#footer
+{
+    margin-top: 3rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    color: grey;
+}

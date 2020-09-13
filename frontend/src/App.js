@@ -1,15 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom' 
+
+import Home from './Pages/Home'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1 style={{"width":"100%", "text-align":"center"}}>Disinfodex: Coming soon.</h1>
-      </header>
-    </div>
-  );
+      <Router>
+        <Switch>
+          <Route path="/">
+            <Home></Home>
+          </Route>
+        </Switch>
+      </Router>
+    );
 }
 
 export default App;
