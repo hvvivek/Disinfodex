@@ -8,16 +8,16 @@ import { useTable } from 'react-table'
 
      () => [
        {
-         col1: 'Hello',
-         col2: 'World',
+         col1: 'Record 1 Col 1',
+         col2: 'Record 1 Col 2',
        },
        {
-         col1: 'react-table',
-         col2: 'rocks',
+         col1: 'Record 2 Col 1',
+         col2: 'Record 2 Col 2',
        },
        {
-         col1: 'whatever',
-         col2: 'you want',
+         col1: 'Record 3 Col 1',
+         col2: 'Record 3 Col 2',
        },
      ],
      []
