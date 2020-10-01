@@ -173,6 +173,12 @@
     box-shadow: 4px 4px 0px #d6a96e;;
 }
 
+#table-section
+{
+    padding-left: 60px;
+    padding-right: 60px
+}
+
 #footer
 {
     margin-top: 3rem;

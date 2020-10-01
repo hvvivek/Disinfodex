@@ -22,19 +22,50 @@ var base = Airtable.base('app9iX4yxpJsbOxAK');
 let sync_ids = []
 let log = {add: 0, error: 0, update: 0, delete: 0}
 
-async function startSync(syncRecord)
+const TABLES_TO_SYNC = [
+    {
+        "route": "platforms",
+        "base": "Platform Reports",
+        "view": "All Records"
+    },
+    {
+        "route": "third_party_reports",
+        "base": "3rd Party Reports",
+        "view": "Grid view"
+    },
+    {
+        "route": "screenshots",
+        "base": "Screenshots",
+        "view": "Grid view"
+    },
+    {
+        "route": "companies",
+        "base": "Companies",
+        "view": "Grid view"
+    },
+    {
+        "route": "networks",
+        "base": "Networks",
+        "view": "Grid view"
+    }
+]
+
+async function startSync(syncRecord, table)
 {
+
+    console.log(table)
     log = {add: 0, error: 0, update: 0, delete: 0}
 
     ///////////////////////////////////////////////////////
     // Get already existing sync ids
-    sync_ids = await axios.get("http://localhost:3010/disclosure?count=true")
+    sync_ids = []
+    sync_ids = await axios.get(`http://localhost:3010/${table['route']}?count=true`)
     sync_ids = sync_ids.data["sync_ids"]
     ///////////////////////////////////////////////////////
 
-    let pages = await base('Disclosures').select({
+    let pages = await base(table['base']).select({
         // maxRecords: 3,
-        view: "Grid view"}
+        view: table["view"]}
         )
         
     pages.eachPage(async (records, fetchNextPage) => {
@@ -42,7 +73,7 @@ async function startSync(syncRecord)
         {
             let record = records[i]
             sync_ids.pop(record.id)
-            log = await addOrUpdateRecord(record, log)
+            log = await addOrUpdateRecord(record, table, log)
             // console.log(record.id, index)
         }
         fetchNextPage()
@@ -66,7 +97,7 @@ async function startSync(syncRecord)
                     // console.log("Inside loop")
                     let sync_id = sync_ids[i]
     
-                    let delete_result = await axios.delete(`http://localhost:3010/disclosure?sync_id=${sync_id}`)
+                    let delete_result = await axios.delete(`http://localhost:3010/${table['route']}?sync_id=${sync_id}`)
                     
                     delete_result = delete_result.data
                     // console.log(delete_result)
@@ -84,10 +115,10 @@ async function startSync(syncRecord)
     })
 }
 
-async function addOrUpdateRecord(record, current_log)
+async function addOrUpdateRecord(record, table, current_log)
 {
     let return_value = current_log
-    let response = await axios.get(`http://localhost:3010/disclosure?sync_id=${record.id}`)
+    let response = await axios.get(`http://localhost:3010/${table['route']}?sync_id=${record.id}`)
     // console.log(response.data)
 
     response = response.data
@@ -96,7 +127,7 @@ async function addOrUpdateRecord(record, current_log)
     {
         let payload = {_id: response.data._id, sync_id:record.id, ...record.fields}
         try {
-            let response = await axios.put("http://localhost:3010/disclosure", payload)
+            let response = await axios.put(`http://localhost:3010/${table['route']}`, payload)
             response = response.data
             return_value = {...return_value, update: return_value.update + 1}
         } catch (error) {
@@ -109,7 +140,7 @@ async function addOrUpdateRecord(record, current_log)
     {
         let payload = {sync_id:record.id, ...record.fields}
         try {
-            let response = await axios.post("http://localhost:3010/disclosure", payload)
+            let response = await axios.post(`http://localhost:3010/${table['route']}`, payload)
             response = response.data
             return_value = {...return_value, add: return_value.add + 1}
 
@@ -133,9 +164,15 @@ let PORT = process.env.PORT || 3020
 app.get("/sync", async (req, res) => {
     
     let syncRecord = await axios.post("http://localhost:3010/sync", {log: {add: 0, update:0, delete:0, error:0}, processed: false})
-    let result = startSync(syncRecord.data)
 
-    console.log(result)
+    for(let i=0; i<TABLES_TO_SYNC.length; i++)
+    {
+        let result = startSync(syncRecord.data, TABLES_TO_SYNC[i])
+        console.log(result)
+
+    }
+    // let result = startSync(syncRecord.data)
+
     res.json({
         "status": true,
         "message": "Syncing process has started. Come back in a few minutes to see the results",

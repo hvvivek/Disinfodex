@@ -7,7 +7,12 @@ from pymongo import MongoClient
 from flask import jsonify
 from bson.objectid import ObjectId
 
-from models.Models import Disclosure
+from models.Models import Platforms
+from models.Models import ThirdPartyReports
+from models.Models import Screenshots
+from models.Models import Companies
+from models.Models import Networks
+
 from models.Models import Sync
 
 # # Get port from env variable, use 3010 otherwise
@@ -38,75 +43,157 @@ def all_routes():
         "/disclosure": "GET, POST, PUT, DELETE"
     }, 200, headers
 
-# Routes for Disclosure Content
-@app.route('/disclosure', methods=['GET', 'POST', 'PUT', 'DELETE'])
-def route_disclosure():
 
+
+# Create
+def create_record(request, Model, db, headers):
+    new_record = Model(data=request.get_json(), db=db)
+    new_record = new_record.save(return_data=True)
+    print(new_record)
+    if "data" in new_record and "_id" in new_record["data"]:
+        new_record["data"]["_id"] = str(new_record["data"]["_id"])
+    return_result = jsonify(new_record), 200, headers
+    return return_result
+
+# Read
+def read_record(request, Model, db, headers):
+    if "count" in request.args.to_dict():
+        record = Model(db=db)
+        sync_ids = record.get_sync_ids()
+        print(sync_ids)
+        return_result = jsonify({"sync_ids": sync_ids}), 200, headers
+    else:
+        record = Model(db=db)
+        record = record.get(request.args.to_dict())
+        if "data" in record and "_id" in record["data"]:
+            record["data"]["_id"] = str(record["data"]["_id"])
+        return_result = jsonify(record), 200, headers
+    return return_result
+
+# Update
+def update_record(request, Model, db, headers):
+    record = Model(db=db)
+    record.get({"_id":request.get_json()["_id"]})
+    for key, value in request.get_json().items():
+        if key != "_id":
+            record.data[key] = value
+    record = record.save(return_data=True)
+    if "data" in record and "_id" in record["data"]:
+        record["data"]["_id"] = str(record["data"]["_id"])
+    return_result = jsonify(record), 200, headers
+    return return_result
+
+# Delete
+def delete_record(request, Model, db, headers):
+    if "_id" in request.args.to_dict():
+        record = Model(db=db)
+        record.get(request.args.to_dict())
+        result = record.delete()
+        return_result = jsonify(result), 200, headers
+    else:
+        record = Model(db=db)
+        result = record.delete_filter(request.args.to_dict())
+        return_result = jsonify(result), 200, headers
+    return return_result
+
+
+# Routes for Platform Content
+@app.route('/platforms', methods=['GET', 'POST', 'PUT', 'DELETE'])
+def route_platform():
+    Model = Platforms
     headers = {'Content-Type': 'application/json'}
     if request.method == 'GET':
-        if "count" in request.args.to_dict():
-            disclosure = Disclosure(db=db)
-            sync_ids = disclosure.get_sync_ids()
-            print(sync_ids)
-            return_result = jsonify({"sync_ids": sync_ids}), 200, headers
-        else:
-            disclosure = Disclosure(db=db)
-            disclosure = disclosure.get(request.args.to_dict())
-            if "data" in disclosure and "_id" in disclosure["data"]:
-                disclosure["data"]["_id"] = str(disclosure["data"]["_id"])
-            return_result = jsonify(disclosure), 200, headers
+        return_result = read_record(request, Model, db, headers)
 
     elif request.method == 'POST':
-        # if "sync_id" in request.get_json():
-        #     print("Trying sync")
-        #     disclosure = Disclosure(db=db)
-        #     disclosure.get({"sync_id":request.get_json()["sync_id"]})
-        #     for key, value in request.get_json().items():
-        #         if key != "_id":
-        #             disclosure.data[key] = value
-        #     disclosure = disclosure.save(return_data=True)
-        #     if "data" in disclosure and "_id" in disclosure["data"]:
-        #         disclosure["data"]["_id"] = str(disclosure["data"]["_id"])
-        #     print(disclosure)
-        #     return_result = jsonify(disclosure), 200, headers
-        
-        # else:
-        
-        new_disclosure = Disclosure(data=request.get_json(), db=db)
-        new_disclosure = new_disclosure.save(return_data=True)
-        print(new_disclosure)
-        if "data" in new_disclosure and "_id" in new_disclosure["data"]:
-            new_disclosure["data"]["_id"] = str(new_disclosure["data"]["_id"])
-        return_result = jsonify(new_disclosure), 200, headers
-        
-        
+        return_result = create_record(request, Model, db, headers)
 
     elif request.method == 'PUT':
-        disclosure = Disclosure(db=db)
-        disclosure.get({"_id":request.get_json()["_id"]})
-        for key, value in request.get_json().items():
-            if key != "_id":
-                disclosure.data[key] = value
-        disclosure = disclosure.save(return_data=True)
-        if "data" in disclosure and "_id" in disclosure["data"]:
-            disclosure["data"]["_id"] = str(disclosure["data"]["_id"])
-        return_result = jsonify(disclosure), 200, headers
-        
+        return_result = update_record(request, Model, db, headers)
+
     elif request.method == 'DELETE':
-        if "_id" in request.args.to_dict():
-            disclosure = Disclosure(db=db)
-            disclosure.get(request.args.to_dict())
-            result = disclosure.delete()
-            return_result = jsonify(result), 200, headers
-        else:
-            disclosure = Disclosure(db=db)
-            result = disclosure.delete_filter(request.args.to_dict())
-            return_result = jsonify(result), 200, headers
+        return_result = delete_record(request, Model, db, headers)
+
+    return return_result
+
+# Routes for Third Party Reports Content
+@app.route('/third_party_reports', methods=['GET', 'POST', 'PUT', 'DELETE'])
+def route_third_party_reports():
+    Model = ThirdPartyReports
+    headers = {'Content-Type': 'application/json'}
+    if request.method == 'GET':
+        return_result = read_record(request, Model, db, headers)
+
+    elif request.method == 'POST':
+        return_result = create_record(request, Model, db, headers)
+
+    elif request.method == 'PUT':
+        return_result = update_record(request, Model, db, headers)
+
+    elif request.method == 'DELETE':
+        return_result = delete_record(request, Model, db, headers)
 
     return return_result
 
 
-# Routes for Disclosure Content
+# Routes for Screenshots Content
+@app.route('/screenshots', methods=['GET', 'POST', 'PUT', 'DELETE'])
+def route_screenshots():
+    Model = Screenshots
+    headers = {'Content-Type': 'application/json'}
+    if request.method == 'GET':
+        return_result = read_record(request, Model, db, headers)
+
+    elif request.method == 'POST':
+        return_result = create_record(request, Model, db, headers)
+
+    elif request.method == 'PUT':
+        return_result = update_record(request, Model, db, headers)
+
+    elif request.method == 'DELETE':
+        return_result = delete_record(request, Model, db, headers)
+
+    return return_result
+
+# Routes for Companies Content
+@app.route('/companies', methods=['GET', 'POST', 'PUT', 'DELETE'])
+def route_companies():
+    Model = Companies
+    headers = {'Content-Type': 'application/json'}
+    if request.method == 'GET':
+        return_result = read_record(request, Model, db, headers)
+
+    elif request.method == 'POST':
+        return_result = create_record(request, Model, db, headers)
+
+    elif request.method == 'PUT':
+        return_result = update_record(request, Model, db, headers)
+
+    elif request.method == 'DELETE':
+        return_result = delete_record(request, Model, db, headers)
+
+    return return_result
+
+# Routes for Networks Content
+@app.route('/networks', methods=['GET', 'POST', 'PUT', 'DELETE'])
+def route_networks():
+    Model = Networks
+    headers = {'Content-Type': 'application/json'}
+    if request.method == 'GET':
+        return_result = read_record(request, Model, db, headers)
+
+    elif request.method == 'POST':
+        return_result = create_record(request, Model, db, headers)
+
+    elif request.method == 'PUT':
+        return_result = update_record(request, Model, db, headers)
+
+    elif request.method == 'DELETE':
+        return_result = delete_record(request, Model, db, headers)
+
+    return return_result
+
+# Routes for Sync records
 @app.route('/sync', methods=['GET', 'POST', 'PUT'])
 def route_sync():
 

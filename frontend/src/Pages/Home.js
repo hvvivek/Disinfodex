@@ -20,6 +20,7 @@ import logo_3 from '../Assets/Images/miami_foundation.png'
 import Table from '../Components/Table'
 import '../Stylesheets/Home.css'
 import Collapse from 'react-bootstrap/esm/Collapse'
+import axios from 'axios'
 class Home extends React.Component
 {
     constructor(props)
@@ -36,7 +37,9 @@ class Home extends React.Component
 
     componentDidMount()
     {
-        this.getDataFromAirtable()
+        // this.getDataFromAirtable()
+
+        this.getDataFromBackend()
     }
 
     getDataFromAirtable = () => {
@@ -64,8 +67,79 @@ class Home extends React.Component
         });
     }
 
+    getDataFromBackend = async () => {
+        let sync_ids = await axios.get("http://localhost:3010/platforms?count=true")
+        sync_ids = sync_ids.data["sync_ids"]
+
+        let platform_records = []
+
+        console.log(sync_ids)
+        for(let i=0; i<sync_ids.length; i++)
+        {
+            let record = await axios.get(`http://localhost:3010/platforms?sync_id=${sync_ids[i]}`)
+            // console.log(record.data.data)
+            platform_records.push(record.data.data)
+        }
+
+        this.setState({platform_records: platform_records})
+
+    }
+
+    render_row = (data) => {
+        let Date_Of_Disclosure = data["DISCLOSURE_DATE"]
+        let Company = data["COMPANY"]
+        let Network = data["Networks"]
+        let Affected_Product = data["REMOVAL_TYPE"]
+        let Number_of_removals = data["COMPANY"]
+        let Engagement = ""
+        let Targeted_country = data["ORIGIN_COUNTRY"]
+        let id = data["ID"]
+        return <tr key={id}>
+            <td xs={2}>
+                <p>
+                    {Date_Of_Disclosure}
+                </p>
+            </td>
+            <td xs={2}>
+                <p>
+                    {Company}
+                </p>
+            </td>
+            <td xs={2}>
+                <p>
+                    {Network}
+                </p>
+            </td>
+            <td xs={2}>
+                <p>
+                    {Affected_Product}
+                </p>
+            </td>
+            <td xs={2}>
+                <p>
+                    {Number_of_removals}
+                </p>
+            </td>
+            <td xs={2}>
+                <p>
+                    {Targeted_country}
+                </p>
+            </td>
+        </tr>
+    }
+
     render()
     {
+        let row_renders = []
+        if(this.state.platform_records && this.state.platform_records.length > 0)
+        {
+            for(let i=0; i<this.state.platform_records.length; i++)
+            {
+                let row_data = this.state.platform_records[i]
+                row_renders.push(this.render_row(row_data))
+            }
+        }
+        
         return <>
                 {/* NAVBAR COMPONENT */}
                 <Navbar id="navbar">
@@ -193,9 +267,20 @@ class Home extends React.Component
                                     </Form>
                                 </Collapse>
                             </Col>
-                            <Col xs={12} lg={7} id="table-section">
-                                <Table></Table>
+                            <Col xs={12} lg={12} id="table-section">
+                                {/* <table>
+                                    {this.state.platform_records && this.state.platform_records.length>0 && row_renders}
+                                </table> */}
+
+                                <iframe class="airtable-embed" 
+                                        src="https://airtable.com/embed/shriACI6lIfKFxV9u?backgroundColor=red&viewControls=on" 
+                                        frameborder="0" 
+                                        onmousewheel="" 
+                                        width="100%" 
+                                        height="533" 
+                                        style={{"background": "transparent", "border": "1px solid #ccc"}}></iframe>
                             </Col>
+
                             </Row>
                         </Col>
                     </Row>

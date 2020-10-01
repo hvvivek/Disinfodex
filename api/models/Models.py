@@ -80,19 +80,121 @@ class MongoORM:
 
 
 
-class Disclosure(MongoORM):
+class Platforms(MongoORM):
     # Schema:
         # name - String
         # content_type - String (HTML, Attachment)
         # html_content - String
         # attachments - [String]
     def __init__(self, data=None, db=None):
-        MongoORM.__init__(self, model_name="Disclosure", data=data, db=db)
+        MongoORM.__init__(self, model_name="Platforms", data=data, db=db)
+
     def get_sync_ids(self):
         results = self.collection.find({}, projection={'_id': False, 'sync_id': True})
         # results = [result for result in results]
         results = [result['sync_id'] for result in results]
         return results
+
+    def delete_filter(self, filter):
+        if self.collection:
+            delete_result = self.collection.delete_many(filter)
+            if delete_result.acknowledged:
+                return {"status": True, "count": delete_result.deleted_count}
+            else:
+                return {"status": False, "error": "Deleted failed in DB"}
+        else:
+            return {"status": False, "error": "Not connected to Database"}
+
+class ThirdPartyReports(MongoORM):
+    # Schema:
+        # name - String
+        # content_type - String (HTML, Attachment)
+        # html_content - String
+        # attachments - [String]
+    def __init__(self, data=None, db=None):
+        MongoORM.__init__(self, model_name="ThirdPartyReports", data=data, db=db)
+        
+    def get_sync_ids(self):
+        results = self.collection.find({}, projection={'_id': False, 'sync_id': True})
+        # results = [result for result in results]
+        results = [result['sync_id'] for result in results]
+        return results
+
+    def delete_filter(self, filter):
+        if self.collection:
+            delete_result = self.collection.delete_many(filter)
+            if delete_result.acknowledged:
+                return {"status": True, "count": delete_result.deleted_count}
+            else:
+                return {"status": False, "error": "Deleted failed in DB"}
+        else:
+            return {"status": False, "error": "Not connected to Database"}
+
+class Screenshots(MongoORM):
+    # Schema:
+        # name - String
+        # content_type - String (HTML, Attachment)
+        # html_content - String
+        # attachments - [String]
+    def __init__(self, data=None, db=None):
+        MongoORM.__init__(self, model_name="Screenshots", data=data, db=db)
+        
+    def get_sync_ids(self):
+        results = self.collection.find({}, projection={'_id': False, 'sync_id': True})
+        # results = [result for result in results]
+        results = [result['sync_id'] for result in results]
+        return results
+
+    def delete_filter(self, filter):
+        if self.collection:
+            delete_result = self.collection.delete_many(filter)
+            if delete_result.acknowledged:
+                return {"status": True, "count": delete_result.deleted_count}
+            else:
+                return {"status": False, "error": "Deleted failed in DB"}
+        else:
+            return {"status": False, "error": "Not connected to Database"}
+
+class Companies(MongoORM):
+    # Schema:
+        # name - String
+        # content_type - String (HTML, Attachment)
+        # html_content - String
+        # attachments - [String]
+    def __init__(self, data=None, db=None):
+        MongoORM.__init__(self, model_name="Companies", data=data, db=db)
+        
+    def get_sync_ids(self):
+        results = self.collection.find({}, projection={'_id': False, 'sync_id': True})
+        # results = [result for result in results]
+        results = [result['sync_id'] for result in results]
+        return results
+
+    def delete_filter(self, filter):
+        if self.collection:
+            delete_result = self.collection.delete_many(filter)
+            if delete_result.acknowledged:
+                return {"status": True, "count": delete_result.deleted_count}
+            else:
+                return {"status": False, "error": "Deleted failed in DB"}
+        else:
+            return {"status": False, "error": "Not connected to Database"}
+
+class Networks(MongoORM):
+    # Schema:
+        # name - String
+        # content_type - String (HTML, Attachment)
+        # html_content - String
+        # attachments - [String]
+    def __init__(self, data=None, db=None):
+        MongoORM.__init__(self, model_name="Networks", data=data, db=db)
+        
+    def get_sync_ids(self):
+        results = self.collection.find({}, projection={'_id': False, 'sync_id': True})
+        # results = [result for result in results]
+        results = [result['sync_id'] for result in results]
+        return results
+
     def delete_filter(self, filter):
         if self.collection:
             delete_result = self.collection.delete_many(filter)
