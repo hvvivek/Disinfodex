@@ -49,7 +49,8 @@ class Home extends React.Component
               sourceFilterPanelCollapsed: false,
               productFilterPanelCollapsed: false,
               policyFilterPanelCollapsed: false,
-              geogrphicAreaFilterPanelCollapsed: false
+              geogrphicAreaFilterPanelCollapsed: false,
+              active: "table"
         }
     }
 
@@ -430,7 +431,7 @@ class Home extends React.Component
                         </Col>
                         <Col xs={12} id="search-section">
                             <Col xs={12} lg={{span:6, offset:3}}>
-                            <InputGroup>
+                            {/* <InputGroup>
                                 <InputGroup.Prepend>
                                     <InputGroup.Text>
                                         <i class="fas fa-search"></i>
@@ -440,7 +441,7 @@ class Home extends React.Component
                                     type="text"
                                     placeholder="Search the database"
                                 />
-                            </InputGroup>
+                            </InputGroup> */}
                                 {/* <FormControl type="text" placeholder={"Search the database"} className="mr-sm-2">
                                 <i class="fas fa-search"></i>
                                 </FormControl> */}
@@ -458,19 +459,19 @@ class Home extends React.Component
                                         </Col> */}
                                     </Row>
                                 </Col>
-                                <Col xs={6}>
+                                <Col xs={12} md={6} lg={4} xl={3}>
                                     <Row className="justify-content-end">
                                         <Col>
                                             <p>View As:</p>
                                         </Col>
                                         <Col>
-                                            <p><i class="fas fa-table"></i> Table</p>
+                                            <p className={this.state.active === "table"? "active-view view-link": "view-link"}><i class="fas fa-table"></i> Table</p>
                                         </Col>
-                                        <Col>
+                                        {/* <Col>
                                             <p><i class="fas fa-stream"></i> Timeline</p>
-                                        </Col>
+                                        </Col> */}
                                         <Col>
-                                            <p><i class="fas fa-globe"></i> Map</p>
+                                            <p className={this.state.active === "map"? "active-view view-link": "view-link"}><i class="fas fa-globe"></i> Map</p>
                                         </Col>
                                     </Row>
                                 </Col>
@@ -585,8 +586,16 @@ class Home extends React.Component
                                     </table>
                                 </div> */}
 
-                                <iframe class="airtable-embed" 
+                                {/* <iframe class="airtable-embed" 
                                         src="https://airtable.com/embed/shriACI6lIfKFxV9u?backgroundColor=red&viewControls=on" 
+                                        frameborder="0" 
+                                        onmousewheel="" 
+                                        width="100%" 
+                                        height="533" 
+                                        style={{"background": "transparent", "border": "1px solid #ccc"}}></iframe> */}
+
+                                <iframe class="airtable-embed" 
+                                        src="https://airtable.com/embed/shriEI5wcHayYPZNp?backgroundColor=gray" 
                                         frameborder="0" 
                                         onmousewheel="" 
                                         width="100%" 
