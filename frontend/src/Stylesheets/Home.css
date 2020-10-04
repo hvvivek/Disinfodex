@@ -348,14 +348,14 @@ max-width: 100%;
     color: #9e8166;
 }
 
-.links
+.links a
 {
     cursor: pointer;
-
+    color: white;
 }
 
-.links:hover
+.links a:hover
 {
     color: #9b7d62;
-    
+    text-decoration: none;
 }

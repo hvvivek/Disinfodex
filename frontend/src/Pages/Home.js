@@ -66,7 +66,7 @@ class Home extends React.Component
     {
         // this.getDataFromAirtable()
 
-        this.getDataFromBackend()
+        // this.getDataFromBackend()
     }
 
     getDataFromAirtable = () => {
@@ -423,9 +423,9 @@ class Home extends React.Component
                                 <p>Disinfodex is an online database indexing public disclosures of disinformation campaigns issued by major online platforms, currently including Facebook, Instagram, Google, YouTube, Twitter, and Reddit. The database aims to help those working in the disinformation field to better analyze the information on actions taken against disinformation networks from these companies.</p>
                             </Col>
                             <Col xs={12} lg={{span:4, offset:4}}>
-                                <p className="links"><a>About this project</a></p>
-                                <p className="links"><a className="active">Database</a></p>
-                                <p className="links"><a>Whitepaper</a></p>
+                                <p className="links"><a href="/about">About this project</a></p>
+                                <p className="links"><a href="/" className="active">Database</a></p>
+                                <p className="links"><a href="whitepaper">Whitepaper</a></p>
                             </Col>
                             </Row>
                         </Col>
