@@ -206,3 +206,128 @@ max-width: 100%;
 {
     text-align: center;
 }
+
+
+#table-section
+{
+    overflow-x: auto;
+}
+
+#table-section .table-wrapper
+{
+    overflow-x: auto;
+    border: 1px solid #c4c4c4;
+}
+
+#table-section td>div, #table-section th>div 
+{
+    font-size: 0.85rem;
+    height: 1.5rem;
+    width: 10rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+}
+
+#table-section td>div:hover, #table-section th>div:hover
+{
+    resize: horizontal;
+
+}
+
+#table-section th>div 
+{
+    height: max-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+#table-section td, #table-section th
+{
+    padding: 0.2rem;
+    padding-bottom: 0.3rem;
+    padding-top: 0.3rem;
+    border: 1px solid rgb(236, 236, 236);
+    border-bottom: 1px solid rgb(202, 202, 202);
+    vertical-align: middle;
+}
+
+#table-section th
+{
+    background-color: #F6F6F6;
+    font-weight: 500;
+}
+
+#table-section table i
+{
+    color: rgba(0,0,0,0.3);
+    margin-left: 2rem;
+    margin-right: 0.5rem;
+
+}
+
+#table-section table a
+{
+    text-decoration-line: underline;
+
+}
+
+#table-section .id-column
+{
+    width: 3rem;
+}
+
+#filters-section .filter-dropdown
+{
+    border: 1px solid #B18C5A;
+    height: 2.5rem;
+    border-radius: 5px;
+}
+
+#filters-section .filter-dropdown-panel
+{
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+    border-radius: 5px;
+    border: 2px solid #e7e7e7;
+    padding-left: 0px;
+    padding-right: 0px;
+    /* box-shadow: 3px 3px 5px #f0f0f0; */
+}
+
+#filters-section .react-toggle-track
+{
+    width: 20px;
+    height: 10px;
+}
+
+#filters-section .react-toggle-thumb
+{
+    height: 8px;
+    width: 8px;
+}
+
+#filters-section .react-toggle--checked .react-toggle-thumb
+{
+    left: 10px;
+}
+
+#filters-section .option
+{
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+#filters-section .option:hover
+{
+    /* background-color: #F6F6F6; */
+}
+
+#filters-section .option .react-toggle
+{
+    margin-right: 0.5rem;
+}

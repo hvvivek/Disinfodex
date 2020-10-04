@@ -21,18 +21,44 @@ import Table from '../Components/Table'
 import '../Stylesheets/Home.css'
 import Collapse from 'react-bootstrap/esm/Collapse'
 import axios from 'axios'
+import Toggle from 'react-toggle'
+
+import "react-toggle/style.css" // for ES6 modules
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+
+
+import { DateRangePicker } from 'react-date-range';
+
+
 class Home extends React.Component
 {
     constructor(props)
     {
         super(props)
         this.state = {
-            filterPanelCollapsed: true
+            filterPanelCollapsed: true,
+            selection: {
+                startDate: new Date(),
+                endDate: new Date(),
+                key: 'selection',
+              },
+              sourceFilters: {},
+              dodFilterPanelCollapsed: false,
+              platformFilterPanelCollapsed: false,
+              sourceFilterPanelCollapsed: false,
+              productFilterPanelCollapsed: false,
+              policyFilterPanelCollapsed: false,
+              geogrphicAreaFilterPanelCollapsed: false
         }
     }
 
     toggleFilterPanel = (e) => {
         this.setState({filterPanelCollapsed: !this.state.filterPanelCollapsed})
+    }
+
+    toggleFilterDropdown = (panelName) => {
+        this.setState({[panelName]: !this.state[panelName]})
     }
 
     componentDidMount()
@@ -74,7 +100,7 @@ class Home extends React.Component
         let platform_records = []
 
         console.log(sync_ids)
-        for(let i=0; i<sync_ids.length; i++)
+        for(let i=0; i<15; i++)
         {
             let record = await axios.get(`http://localhost:3010/platforms?sync_id=${sync_ids[i]}`)
             // console.log(record.data.data)
@@ -86,59 +112,298 @@ class Home extends React.Component
     }
 
     render_row = (data) => {
+
+
+        let ID = data["ID"]
         let Date_Of_Disclosure = data["DISCLOSURE_DATE"]
         let Company = data["COMPANY"]
         let Network = data["Networks"]
-        let Affected_Product = data["REMOVAL_TYPE"]
-        let Number_of_removals = data["COMPANY"]
-        let Engagement = ""
-        let Targeted_country = data["ORIGIN_COUNTRY"]
-        let id = data["ID"]
-        return <tr key={id}>
+
+        let Removal_Type = data["REMOVAL_TYPE"]
+        let Removal_Number = data["REMOVAL_NUMBER"]
+
+        let Engagement_Context = data["ENGAGEMENT_CONTEXT"]
+        let Engagement_Number = data["ENGAGEMENT_NUMBER"]
+
+        let Origin_Country = data["ORIGIN_COUNTRY"]
+        let Targeted_Country = data["DESTINATION_COUNTRY"]
+
+        let Named_Entities = data["NAMED_ENTITIES_FULL"]
+        let Policy_Violations = data["POLICY_VIOLATIONS"]
+
+        let URL = data["MAIN_URL"]
+        let Secondary_URL = data["SECONDARY_URL"]
+
+        let Description_Long = data["DESCRIPTION_LONG"]
+        let Notes = data["NOTES"]
+        let Archive_URL = data["ARCHIVE_URL"]
+
+        return <tr key={ID}>
             <td xs={2}>
-                <p>
+                <div className="id-column">
+                    {ID}
+                </div>
+            </td>
+            <td xs={2} className="dod-column">
+                <div>
                     {Date_Of_Disclosure}
-                </p>
+                </div>
             </td>
             <td xs={2}>
-                <p>
+                <div>
                     {Company}
-                </p>
+                </div>
             </td>
             <td xs={2}>
-                <p>
+                <div>
                     {Network}
-                </p>
+                </div>
             </td>
             <td xs={2}>
-                <p>
-                    {Affected_Product}
-                </p>
+                <div>
+                    {Removal_Type}
+                </div>
             </td>
             <td xs={2}>
-                <p>
-                    {Number_of_removals}
-                </p>
+                <div>
+                    {Removal_Number}
+                </div>
             </td>
             <td xs={2}>
-                <p>
-                    {Targeted_country}
-                </p>
+                <div>
+                    {Engagement_Context}
+                </div>
+            </td>
+            <td xs={2}>
+                <div>
+                    {Engagement_Number}
+                </div>
+            </td>
+            <td xs={2}>
+                <div>
+                    {Targeted_Country}
+                </div>
+            </td>
+            <td xs={2}>
+                <div>
+                    {Origin_Country}
+                </div>
+            </td>
+            <td xs={2}>
+                <div>
+                    {Named_Entities}
+                </div>
+            </td>
+            <td xs={2}>
+                <div>
+                    {Policy_Violations}
+                </div>
+            </td>
+            <td xs={2}>
+                <div>
+                    <a href={URL}>
+                    {URL}</a>
+                </div>
+            </td>
+            <td xs={2}>
+                <div>
+                <a href={Secondary_URL}>
+                    {Secondary_URL}
+                    </a>
+                </div>
+            </td>
+            <td xs={2}>
+                <div>
+                    {Description_Long}
+                </div>
+            </td>
+            <td xs={2}>
+                <div>
+                    {Notes}
+                </div>
+            </td>
+            <td xs={2}>
+                <div>
+                <a href={Archive_URL}>
+                    {Archive_URL}
+                    </a>
+                </div>
             </td>
         </tr>
     }
 
+    handleSelect = (ranges) => {
+        console.log(ranges);
+        this.setState({selection: ranges["selection"]})
+        // {
+        //   selection: {
+        //     startDate: [native Date Object],
+        //     endDate: [native Date Object],
+        //   }
+        // }
+      }
+
+    toggleFilter = (filter, name) => {
+        let temp = this.state[filter]
+        temp[name] = !temp[name]
+        this.setState({[filter]: temp})
+    }
+
+    renderCompanyFilterOptions = () => {
+        let temp = this.state.platform_records
+        if(temp)
+        {
+            console.log(temp.map(record => record["COMPANY"]))
+            let companies = Array.from(new Set(temp.map(record => record["COMPANY"][0])))
+            console.log(companies)
+            // this.setState({company_filter_options: companies})
+            if(companies.length > 0)
+            {
+                let renders = []
+                for(let i=0; i<companies.length; i++)
+                {
+                    let company = companies[i]
+                    renders.push(
+                        <Col xs={12} className="option">
+                            <Toggle
+                                defaultChecked={this.state.sourceFilters[company]}
+                                icons={false}
+                                aria-label={company}
+                                onChange={() => this.toggleFilter("sourceFilters", company)} />
+                            <span>{company}</span>
+                        </Col>
+                    )
+                }
+                return renders
+            }
+
+        }
+        return []
+    }
+
+
+
     render()
     {
         let row_renders = []
-        if(this.state.platform_records && this.state.platform_records.length > 0)
+        if(this.state.platform_records && this.state.platform_records.length > 14)
         {
-            for(let i=0; i<this.state.platform_records.length; i++)
+            row_renders.push(
+                <tr>
+                    <th>
+                        <div className="id-column">
+                            ID
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </th>
+                    <th>
+                        <div className="dod-column">
+                            Date of Disclosure
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            Company
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            Network
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            Removal Type
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            Removal Number
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            Engagement Context
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            Engagement Number
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            Target Country
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            Origin Country
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            Named Entities
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            Policy Violations
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            URL
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            Secondary URL
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            Description
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            Notes
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </th>
+                    <th>
+                        <div>
+                            Archive URL
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                    </th>
+                </tr>
+            )
+            for(let i=0; i<10; i++)
             {
                 let row_data = this.state.platform_records[i]
                 row_renders.push(this.render_row(row_data))
             }
         }
+
+        let companyFilterOptions = this.renderCompanyFilterOptions()
+
+
         
         return <>
                 {/* NAVBAR COMPONENT */}
@@ -157,9 +422,9 @@ class Home extends React.Component
                                 <p>Disinfodex is an online database indexing public disclosures of disinformation campaigns issued by major online platforms, currently including Facebook, Instagram, Google, YouTube, Twitter, and Reddit. The database aims to help those working in the disinformation field to better analyze the information on actions taken against disinformation networks from these companies.</p>
                             </Col>
                             <Col xs={12} lg={{span:4, offset:4}}>
-                                <p class="links"><a>About this project</a></p>
-                                <p class="links"><a className="active">Database</a></p>
-                                <p class="links"><a>Whitepaper</a></p>
+                                <p className="links"><a>About this project</a></p>
+                                <p className="links"><a className="active">Database</a></p>
+                                <p className="links"><a>Whitepaper</a></p>
                             </Col>
                             </Row>
                         </Col>
@@ -188,9 +453,9 @@ class Home extends React.Component
                             <Row className="justify-content-end">
                                 <Col xs={6}>
                                     <Row className="justify-content-end">
-                                        <Col>
+                                        {/* <Col>
                                             <Button onClick={this.toggleFilterPanel}><span>{!this.state.filterPanelCollapsed? "⯅": "⯆"}</span> Filters</Button>
-                                        </Col>
+                                        </Col> */}
                                     </Row>
                                 </Col>
                                 <Col xs={6}>
@@ -213,7 +478,7 @@ class Home extends React.Component
                         </Col>
                         <Col xs={12}>
                             <Row>
-                            <Col xs={12} id="filters-section">
+                            {/* <Col xs={12} id="filters-section">
                                 <Collapse in={this.state.filterPanelCollapsed}>
 
                                     <Form>
@@ -221,56 +486,104 @@ class Home extends React.Component
                                             <Col>
                                                 <Form.Group>
                                                     <Form.Label>Date of Disclosure</Form.Label>
-                                                    <Form.Control type="date" name="date" placeholder="Date" />
+                                                    <Form.Control type="date" name="date" placeholder="Date" onClick={() => this.toggleFilterDropdown("dodFilterPanelCollapsed")} />
+                                                    <Collapse in={this.state.dodFilterPanelCollapsed}>
+                                                        <div style={{"width":"200px"}}>
+                                                            <DateRangePicker
+                                                                ranges={[this.state.selection]}
+                                                                onChange={this.handleSelect}
+                                                            />
+                                                        </div>
+                                                    </Collapse>
                                                 </Form.Group>
                                             </Col>
 
                                             <Col>
                                                 <Form.Group>
                                                     <Form.Label>Disclosure Source</Form.Label>
-                                                    <Form.Control as="select" name="disclosure_source" placeholder="" />
+                                                    <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("sourceFilterPanelCollapsed")}></Col>
+                                                    <Collapse in={this.state.sourceFilterPanelCollapsed}>
+                                                        <Col xs={12} className="filter-dropdown-panel">
+                                                        {companyFilterOptions}
+                                                        </Col>
+                                                    </Collapse>
                                                 </Form.Group>
                                             </Col>
 
                                             <Col>
                                                 <Form.Group>
                                                     <Form.Label>Platform</Form.Label>
-                                                    <Form.Control as="select" name="platform" placeholder="Platform" />
+                                                    <Form.Control as="select" name="platform" placeholder="Platform"   onClick={() => this.toggleFilterDropdown("platformFilterPanelCollapsed")}/>
+                                                    <Collapse in={this.state.platformFilterPanelCollapsed}>
+                                                        <div style={{"width":"200px"}}>
+                                                            <p>Platform 1</p>
+                                                            <p>Platform 2</p>
+                                                            <p>Platform 3</p>
+                                                        </div>
+                                                    </Collapse>
                                                 </Form.Group>
                                             </Col>
                                             <Col>
                                                 <Form.Group>
                                                     <Form.Label>Affected Product</Form.Label>
-                                                    <Form.Control as="select" name="removed_content" placeholder="Removed Content" />
+                                                    <Form.Control as="select" name="removed_content" placeholder="Removed Content"   onClick={() => this.toggleFilterDropdown("productFilterPanelCollapsed")}/>
+                                                    <Collapse in={this.state.productFilterPanelCollapsed}>
+                                                        <div style={{"width":"200px"}}>
+                                                            <p>Product 1</p>
+                                                            <p>Product 2</p>
+                                                            <p>Product 3</p>
+                                                        </div>
+                                                    </Collapse>
                                                 </Form.Group>
                                             </Col>
                                             <Col>
                                                 <Form.Group>
                                                     <Form.Label>Geographic Area</Form.Label>
-                                                    <Form.Control as="select" name="geography" placeholder="Geography" />
+                                                    <Form.Control as="select" name="geography" placeholder="Geography"   onClick={() => this.toggleFilterDropdown("geogrphicAreaFilterPanelCollapsed")}/>
+                                                    <Collapse in={this.state.geogrphicAreaFilterPanelCollapsed}>
+
+                                                    <div style={{"width":"200px"}}>
+                                                            <p>Geographic Area 1</p>
+                                                            <p>Geographic Area 2</p>
+                                                            <p>Geographic Area 3</p>
+                                                        </div>
+                                                        </Collapse>
                                                 </Form.Group>
                                             </Col>
                                             <Col>
                                                 <Form.Group>
                                                     <Form.Label>Policy Infringement</Form.Label>
-                                                    <Form.Control as="select" name="policy_infringement" placeholder="Policy Infringement" />
+                                                    <Form.Control as="select" name="policy_infringement" placeholder="Policy Infringement"   onClick={() => this.toggleFilterDropdown("policyFilterPanelCollapsed")}/>
+                                                    <Collapse in={this.state.policyFilterPanelCollapsed}>
+                                                        <div style={{"width":"200px"}}>
+                                                            <p>Policy 1</p>
+                                                            <p>Policy 2</p>
+                                                            <p>Policy 3</p>
+                                                        </div>
+                                                    </Collapse>
                                                 </Form.Group>
                                             </Col>
                                             <Col>
                                                 <Form.Group>
                                                     <Form.Label></Form.Label>
                                                     <Form.Check type="checkbox" name="date" label="Contains Screenshots" />
+                                                    
                                                 </Form.Group>
                                             </Col>
 
                                         </Row>
                                     </Form>
                                 </Collapse>
-                            </Col>
+                            </Col> */}
                             <Col xs={12} lg={12} id="table-section">
-                                {/* <table>
-                                    {this.state.platform_records && this.state.platform_records.length>0 && row_renders}
-                                </table> */}
+                                {/* <div className="table-wrapper">
+                                    <table>
+                                        <tbody>
+                                            
+                                            {this.state.platform_records && this.state.platform_records.length>0 && row_renders}
+                                        </tbody>
+                                    </table>
+                                </div> */}
 
                                 <iframe class="airtable-embed" 
                                         src="https://airtable.com/embed/shriACI6lIfKFxV9u?backgroundColor=red&viewControls=on" 
