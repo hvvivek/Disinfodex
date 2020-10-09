@@ -66,7 +66,7 @@ class Home extends React.Component
     {
         // this.getDataFromAirtable()
 
-        // this.getDataFromBackend()
+        this.getDataFromBackend()
     }
 
     getDataFromAirtable = () => {
@@ -286,6 +286,47 @@ class Home extends React.Component
 
     render()
     {
+        
+
+        let companyFilterOptions = this.renderCompanyFilterOptions()
+
+
+        let filteredRecords = []
+        if(this.state.platform_records)
+        {
+            filteredRecords = [...this.state.platform_records]
+
+            let allFilters = [this.state.sourceFilters]
+    
+            for(let i=0; i<allFilters.length; i++)
+            {
+                console.log(Object.keys(allFilters[0]))
+                if(Object.keys(allFilters[0]).length > 0)
+                {
+                    let companies_selected = []
+                    for(let j=0; j<Object.keys(allFilters[0]).length; j++)
+                    {
+                        if(allFilters[0][Object.keys(allFilters[0])[j]])
+                        {
+                            companies_selected.push(Object.keys(allFilters[0])[j])
+                        }
+                    }
+                    console.log(companies_selected)
+                    if(companies_selected.length > 0 )
+                    {
+                        filteredRecords = filteredRecords.filter(a =>  {
+                            console.log(a["COMPANY"][0])
+    
+                            return companies_selected.includes(a["COMPANY"][0])
+                        })
+                    }
+                                                                                               
+                }
+            }
+            console.log(filteredRecords)
+
+        }
+
         let row_renders = []
         if(this.state.platform_records && this.state.platform_records.length > 14)
         {
@@ -395,16 +436,13 @@ class Home extends React.Component
                     </th>
                 </tr>
             )
-            for(let i=0; i<10; i++)
+            for(let i=0; i<filteredRecords.length; i++)
             {
-                let row_data = this.state.platform_records[i]
+                let row_data = filteredRecords[i]
                 row_renders.push(this.render_row(row_data))
             }
         }
-
-        let companyFilterOptions = this.renderCompanyFilterOptions()
-
-
+        
         
         return <>
                 {/* NAVBAR COMPONENT */}
@@ -431,7 +469,7 @@ class Home extends React.Component
                         </Col>
                         <Col xs={12} id="search-section">
                             <Col xs={12} lg={{span:6, offset:3}}>
-                            {/* <InputGroup>
+                            <InputGroup>
                                 <InputGroup.Prepend>
                                     <InputGroup.Text>
                                         <i class="fas fa-search"></i>
@@ -441,7 +479,7 @@ class Home extends React.Component
                                     type="text"
                                     placeholder="Search the database"
                                 />
-                            </InputGroup> */}
+                            </InputGroup>
                                 {/* <FormControl type="text" placeholder={"Search the database"} className="mr-sm-2">
                                 <i class="fas fa-search"></i>
                                 </FormControl> */}
@@ -479,7 +517,7 @@ class Home extends React.Component
                         </Col>
                         <Col xs={12}>
                             <Row>
-                            {/* <Col xs={12} id="filters-section">
+                            <Col xs={12} id="filters-section">
                                 <Collapse in={this.state.filterPanelCollapsed}>
 
                                     <Form>
@@ -575,32 +613,23 @@ class Home extends React.Component
                                         </Row>
                                     </Form>
                                 </Collapse>
-                            </Col> */}
+                            </Col>
                             <Col xs={12} lg={12} id="table-section">
-                                {/* <div className="table-wrapper">
+                                <div className="table-wrapper">
                                     <table>
                                         <tbody>
-                                            
-                                            {this.state.platform_records && this.state.platform_records.length>0 && row_renders}
+                                            {this.state.platform_records && filteredRecords.length>0 && row_renders}
                                         </tbody>
                                     </table>
-                                </div> */}
+                                </div>
 
-                                {/* <iframe class="airtable-embed" 
-                                        src="https://airtable.com/embed/shriACI6lIfKFxV9u?backgroundColor=red&viewControls=on" 
+                                <iframe className="airtable-embed" 
+                                        src="https://airtable.com/embed/shrYU6XDj0F0slvSP?backgroundColor=yellow&viewControls=on" 
                                         frameborder="0" 
                                         onmousewheel="" 
                                         width="100%" 
                                         height="533" 
-                                        style={{"background": "transparent", "border": "1px solid #ccc"}}></iframe> */}
-
-                                <iframe class="airtable-embed" 
-                                        src="https://airtable.com/embed/shriEI5wcHayYPZNp?backgroundColor=gray" 
-                                        frameborder="0" 
-                                        onmousewheel="" 
-                                        width="100%" 
-                                        height="533" 
-                                        style={{"background": "transparent", "border": "1px solid #ccc"}}></iframe>
+                                        style={{"background": "transparent", "border": "1px solid #ccc;"}}></iframe>
                             </Col>
 
                             </Row>
