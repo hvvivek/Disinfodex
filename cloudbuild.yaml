@@ -11,7 +11,8 @@ steps:
   args: ["push", "gcr.io/$PROJECT_ID/disinfodex-frontend-production:${SHORT_SHA}"]
 - name: 'gcr.io/cloud-builders/gcloud'
   args: ['beta', 'run', 'deploy', 'disinfodex-frontend-production', '--image', 'gcr.io/$PROJECT_ID/disinfodex-frontend-production:${SHORT_SHA}', '--region', 'us-east1', '--platform', 'managed']
-#####################################################################
+
+  #####################################################################
 # BACKEND
 # build the container image
 - name: "gcr.io/cloud-builders/docker"
@@ -42,6 +43,13 @@ steps:
       - "--platform"
       - "managed"
 #####################################################################
+
+#####################################################################
+# SYNC
+
+#####################################################################
+
+
 images:
 - 'gcr.io/$PROJECT_ID/disinfodex-frontend-production'
 - "gcr.io/$PROJECT_ID/disinfodex-backend-production:$SHORT_SHA"
