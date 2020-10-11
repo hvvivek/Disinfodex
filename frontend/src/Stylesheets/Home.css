@@ -230,7 +230,7 @@ max-width: 100%;
 
 }
 
-#table-section td>div:hover, #table-section th>div:hover
+#table-section tr:hover, #table-section tr:hover
 {
     resize: horizontal;
 
@@ -358,4 +358,35 @@ max-width: 100%;
 {
     color: #9b7d62;
     text-decoration: none;
+}
+
+#pagination-wrapper .btn
+{
+    color: #B18C5A;
+    outline: none;
+    border: 2px solid #B18C5A;
+    /* border-radius: 0px; */
+    background-color: white;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+}
+#filters-section .filter-dropdown
+{
+    display: flex;
+    align-items: center;
+    padding-left: 0.25rem;
+    height: 3rem;
+}
+
+.filter-dropdown p
+{
+    background-color: rgb(255, 194, 194);
+    color: black;
+    margin-bottom: 0px;
+    padding: 0.2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    border-radius: 2rem;
 }

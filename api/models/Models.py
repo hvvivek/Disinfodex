@@ -95,6 +95,16 @@ class Platforms(MongoORM):
         results = [result['sync_id'] for result in results]
         return results
 
+    # TODO: Include skip and limit to enable pagination here
+    def get_multiple_records(self):
+        results = self.collection.find({})
+        results = [result for result in results]
+        for result in results:
+            result["_id"] = str(result["_id"])
+        # results = [result for result in results]
+        # results = [result['sync_id'] for result in results]
+        return results
+
     def delete_filter(self, filter):
         if self.collection:
             delete_result = self.collection.delete_many(filter)

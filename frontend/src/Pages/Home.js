@@ -29,8 +29,6 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 
 
 import { DateRangePicker } from 'react-date-range';
-
-
 class Home extends React.Component
 {
     constructor(props)
@@ -39,18 +37,31 @@ class Home extends React.Component
         this.state = {
             filterPanelCollapsed: true,
             selection: {
-                startDate: new Date(),
+                startDate: new Date('2000-01-01'),
                 endDate: new Date(),
                 key: 'selection',
               },
               sourceFilters: {},
+              search_term: "",
+
+              removal_type_filters: {},
+              geography_filters: {},
+              infringement_filters: {},
+              source_filters: {},
+              company_filters: {},
+              contains_screenshots_filter: false,
+
+
               dodFilterPanelCollapsed: false,
               platformFilterPanelCollapsed: false,
               sourceFilterPanelCollapsed: false,
               productFilterPanelCollapsed: false,
               policyFilterPanelCollapsed: false,
               geogrphicAreaFilterPanelCollapsed: false,
-              active: "table"
+              active: "table",
+
+              skip: 0,
+              limit: 10
         }
     }
 
@@ -100,13 +111,16 @@ class Home extends React.Component
 
         let platform_records = []
 
-        console.log(sync_ids)
-        for(let i=0; i<15; i++)
-        {
-            let record = await axios.get(`http://localhost:3010/platforms?sync_id=${sync_ids[i]}`)
-            // console.log(record.data.data)
-            platform_records.push(record.data.data)
-        }
+        // console.log(sync_ids)
+        // for(let i=0; i<15; i++)
+        // {
+        //     let record = await axios.get(`http://localhost:3010/platforms?sync_id=${sync_ids[i]}`)
+        //     // console.log(record.data.data)
+        //     platform_records.push(record.data.data)
+        // }
+
+        let records = await axios.get(`http://localhost:3010/platforms?all=true`)
+        platform_records = records.data
 
         this.setState({platform_records: platform_records})
 
@@ -250,28 +264,82 @@ class Home extends React.Component
         this.setState({[filter]: temp})
     }
 
-    renderCompanyFilterOptions = () => {
+    renderFilterOptions = (key, filter) => {
+
+        //Empty array for render options
+        let final_renders = []
+
+        // Create a copy of the platform records
+        let records = []
+
+        if(this.state.platform_records)
+        {
+            records = [...this.state.platform_records]
+        }
+
+        // Make sure that there are atleast 1 record available
+        if(records && records.length > 0)
+        {
+            let all_options = records.flatMap(function(record){
+                // Extract
+                let cell_data = record[key]
+                if(cell_data)
+                {
+                    return cell_data
+                }
+            })
+
+            let unique_options = Array.from(new Set(all_options))
+            unique_options = unique_options.filter(Boolean)
+            // If there are atleast 1 option
+            if(unique_options.length > 0)
+            {
+                for(let i=0; i<unique_options.length; i++)
+                {
+                    let option = unique_options[i]
+
+                    // Create dropdown renders
+                    final_renders.push(
+                        <Col xs={12} className="option">
+                            <Toggle
+                                defaultChecked={this.state[filter][option]}
+                                icons={false}
+                                aria-label={option}
+                                onChange={() => this.toggleFilter(filter, option)} />
+                            <span>{option}</span>
+                        </Col>
+                    )
+                }
+            }
+
+            return final_renders
+        }
+    }   
+
+
+    renderCategoryFilterOptions = (key, filterState) => {
         let temp = this.state.platform_records
+
         if(temp)
         {
-            console.log(temp.map(record => record["COMPANY"]))
-            let companies = Array.from(new Set(temp.map(record => record["COMPANY"][0])))
-            console.log(companies)
-            // this.setState({company_filter_options: companies})
-            if(companies.length > 0)
+            console.log(key)
+            let options = Array.from(new Set(temp.map(record => record[key])))
+            
+            if(options.length > 0)
             {
+
                 let renders = []
-                for(let i=0; i<companies.length; i++)
+                for(let i=0; i<options.length; i++)
                 {
-                    let company = companies[i]
+                    let option = options[i]
                     renders.push(
                         <Col xs={12} className="option">
                             <Toggle
-                                defaultChecked={this.state.sourceFilters[company]}
+                                defaultChecked={this.state[filterState][option]}
                                 icons={false}
-                                aria-label={company}
-                                onChange={() => this.toggleFilter("sourceFilters", company)} />
-                            <span>{company}</span>
+                                aria-label={option}
+                                onChange={() => this.toggleFilter(filterState, option)} />
+                            <span>{option}</span>
                         </Col>
                     )
                 }
@@ -282,49 +350,176 @@ class Home extends React.Component
         return []
     }
 
-
+    
 
     render()
     {
         
 
-        let companyFilterOptions = this.renderCompanyFilterOptions()
+        //Company Filter
+        let company_filter_options    = this.renderFilterOptions('COMPANY', 'company_filters')
+
+        //Removal Type Filter
+        let removal_type_options      = this.renderFilterOptions('REMOVAL_TYPE', 'removal_type_filters')
+
+        //Policy Violation Filter
+        let infringement_options     = this.renderFilterOptions('POLICY_VIOLATIONS', 'infringement_filters')
 
 
-        let filteredRecords = []
+        //Policy Violation Filter
+        let source_options     = this.renderFilterOptions('SOURCE_TYPE', 'source_filters')
+
+        //Geography
+        let origin_country_options     = this.renderFilterOptions('ORIGIN_COUNTRY', 'geography_filters')
+        let destination_country_options     = this.renderFilterOptions('DESTINATION_COUNTRY', 'geography_filters')
+        let geography_options = []
+        if(origin_country_options && destination_country_options)
+        {
+            geography_options = [...origin_country_options, ...destination_country_options]
+        }
+        // let removealTypeOptions = this.renderCategoryFilterOptions('REMOVAL_TYPE', removal_type_filters)
+
+
+        let FILTERS = ['COMPANY', 'REMOVAL_TYPE', 'POLICY_VIOLATIONS', 'SOURCE_TYPE', 'GEOGRAPHY', 'SCREENSHOTS', 'DOD', 'SEARCH']
+        
+        let filtered_records = []
+        
         if(this.state.platform_records)
         {
-            filteredRecords = [...this.state.platform_records]
+            filtered_records = [...this.state.platform_records]
+        }
 
-            let allFilters = [this.state.sourceFilters]
-    
-            for(let i=0; i<allFilters.length; i++)
+        let filter_labels = {}
+
+        for(let i=0; i<FILTERS.length; i++)
+        {
+            let FILTER = FILTERS[i]
+
+            switch(FILTER)
             {
-                console.log(Object.keys(allFilters[0]))
-                if(Object.keys(allFilters[0]).length > 0)
-                {
-                    let companies_selected = []
-                    for(let j=0; j<Object.keys(allFilters[0]).length; j++)
+                case 'COMPANY':
+                    let companies_to_filter = this.state.company_filters && Object.keys(this.state.company_filters)
+                    if(companies_to_filter)
                     {
-                        if(allFilters[0][Object.keys(allFilters[0])[j]])
+                        companies_to_filter = companies_to_filter.filter(key => this.state.company_filters[key])
+                        if(companies_to_filter.length > 0)
                         {
-                            companies_selected.push(Object.keys(allFilters[0])[j])
+                            filter_labels["COMPANY"] = true
+                            filtered_records = filtered_records.filter(function(record){
+                                let result = false
+                                if(record['COMPANY'])
+                                {
+                                    for(let j=0; j<record['COMPANY'].length; j++)
+                                    {
+                                        if(companies_to_filter.includes(record['COMPANY'][j]))
+                                        {
+                                            result = true
+                                            break
+                                        }
+                                    }
+                                }
+                                
+                                return result
+                            } 
+                        )
                         }
+                        
                     }
-                    console.log(companies_selected)
-                    if(companies_selected.length > 0 )
+                    break
+
+                case 'REMOVAL_TYPE':
+                    let removal_types_to_filter = this.state.removal_type_filters && Object.keys(this.state.removal_type_filters)
+
+                    if(removal_types_to_filter)
                     {
-                        filteredRecords = filteredRecords.filter(a =>  {
-                            console.log(a["COMPANY"][0])
-    
-                            return companies_selected.includes(a["COMPANY"][0])
+                        removal_types_to_filter = removal_types_to_filter.filter(key => this.state.removal_type_filters[key])
+                        if(removal_types_to_filter.length > 0)
+                        {
+                            filter_labels["REMOVAL_TYPE"] = true
+                            filtered_records = filtered_records.filter((record) => removal_types_to_filter.includes(record['REMOVAL_TYPE']))
+                        }
+                        
+                    }
+                    break
+
+                case 'POLICY_VIOLATIONS':
+                    let policy_infringements_to_filter = this.state.infringement_filters && Object.keys(this.state.infringement_filters)
+
+                    if(policy_infringements_to_filter)
+                    {
+                        policy_infringements_to_filter = policy_infringements_to_filter.filter(key => this.state.infringement_filters[key])
+                        if(policy_infringements_to_filter.length > 0)
+                        {
+                            filter_labels["POLICY_VIOLATIONS"] = true
+                            filtered_records = filtered_records.filter((record) => policy_infringements_to_filter.includes(record['POLICY_VIOLATIONS']))
+                        }
+                        
+                    }
+                    break
+                case 'SOURCE_TYPE':
+                    let sources_to_filter = this.state.source_filters && Object.keys(this.state.source_filters)
+
+                    if(sources_to_filter)
+                    {
+                        sources_to_filter = sources_to_filter.filter(key => this.state.source_filters[key])
+                        if(sources_to_filter.length > 0)
+                        {
+                            filter_labels["SOURCE_TYPE"] = true
+                            filtered_records = filtered_records.filter((record) => sources_to_filter.includes(record['SOURCE_TYPE']))
+                        }
+                        
+                    }
+                    break
+                case 'GEOGRAPHY':
+                    let geo_to_filter = this.state.geography_filters && Object.keys(this.state.geography_filters)
+
+                    if(geo_to_filter)
+                    {
+                        geo_to_filter = geo_to_filter.filter(key => this.state.geography_filters[key])
+                        if(geo_to_filter.length > 0)
+                        {
+                            filter_labels["GEOGRAPHY"] = true
+                            filtered_records = filtered_records.filter((record) => geo_to_filter.includes(record['ORIGIN_COUNTRY']) || geo_to_filter.includes(record['DESTINATION_COUNTRY']))
+                        }
+                        
+                    }
+                    break
+                // case 'SCREENSHOTS':
+                //     if(this.state.contains_screenshots_filter)
+                //     {
+                //         filtered_records = filtered_records.filter((record) => record['SCREENSHOTS'] && record['SCREENSHOTS'].length > 0)
+                //     }
+                //     break
+
+                case 'DOD':
+                    let dates_to_filter = this.state.selection
+
+                    if(dates_to_filter)
+                    {
+                        filter_labels["DOD"] = true
+
+                        filtered_records = filtered_records.filter((record) => {
+                            return new Date(record["DISCLOSURE_DATE"]) >= dates_to_filter.startDate && new Date(record["DISCLOSURE_DATE"]) <= dates_to_filter.endDate
                         })
                     }
-                                                                                               
-                }
-            }
-            console.log(filteredRecords)
+                    break
 
+                case 'SEARCH':
+                    let search_term = this.state.search_term.trim()
+
+                    if(search_term.length > 0)
+                    {
+                        filter_labels["SEARCH"] = true
+
+                        filtered_records = filtered_records.filter((record) => {
+                            console.log(JSON.stringify(record))
+
+                            return JSON.stringify(record).includes(search_term)
+                        })
+                    }
+                default:
+                    break
+            }
         }
 
         let row_renders = []
@@ -436,9 +631,11 @@ class Home extends React.Component
                     </th>
                 </tr>
             )
-            for(let i=0; i<filteredRecords.length; i++)
+
+            let data_to_show = filtered_records.slice(this.state.skip, this.state.skip + this.state.limit)
+            for(let i=0; i<data_to_show.length; i++)
             {
-                let row_data = filteredRecords[i]
+                let row_data = data_to_show[i]
                 row_renders.push(this.render_row(row_data))
             }
         }
@@ -477,6 +674,8 @@ class Home extends React.Component
                                 </InputGroup.Prepend>
                                 <Form.Control
                                     type="text"
+                                    value={this.state.search_term}
+                                    onChange={(e) => this.setState({search_term: e.target.value})}
                                     placeholder="Search the database"
                                 />
                             </InputGroup>
@@ -525,25 +724,13 @@ class Home extends React.Component
                                             <Col>
                                                 <Form.Group>
                                                     <Form.Label>Date of Disclosure</Form.Label>
-                                                    <Form.Control type="date" name="date" placeholder="Date" onClick={() => this.toggleFilterDropdown("dodFilterPanelCollapsed")} />
+                                                    <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("dodFilterPanelCollapsed")}></Col>
                                                     <Collapse in={this.state.dodFilterPanelCollapsed}>
-                                                        <div style={{"width":"200px"}}>
+                                                        <Col xs={12} className="filter-dropdown-panel">
                                                             <DateRangePicker
                                                                 ranges={[this.state.selection]}
                                                                 onChange={this.handleSelect}
                                                             />
-                                                        </div>
-                                                    </Collapse>
-                                                </Form.Group>
-                                            </Col>
-
-                                            <Col>
-                                                <Form.Group>
-                                                    <Form.Label>Disclosure Source</Form.Label>
-                                                    <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("sourceFilterPanelCollapsed")}></Col>
-                                                    <Collapse in={this.state.sourceFilterPanelCollapsed}>
-                                                        <Col xs={12} className="filter-dropdown-panel">
-                                                        {companyFilterOptions}
                                                         </Col>
                                                     </Collapse>
                                                 </Form.Group>
@@ -551,61 +738,75 @@ class Home extends React.Component
 
                                             <Col>
                                                 <Form.Group>
-                                                    <Form.Label>Platform</Form.Label>
-                                                    <Form.Control as="select" name="platform" placeholder="Platform"   onClick={() => this.toggleFilterDropdown("platformFilterPanelCollapsed")}/>
+                                                    <Form.Label>Companies</Form.Label>
+                                                    <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("sourceFilterPanelCollapsed")}>
+                                                        {filter_labels["COMPANY"] && <p>Filter Active</p>}
+                                                    </Col>
+                                                    <Collapse in={this.state.sourceFilterPanelCollapsed}>
+                                                        <Col xs={12} className="filter-dropdown-panel">
+                                                            {company_filter_options}
+                                                        </Col>
+                                                    </Collapse>
+                                                </Form.Group>
+                                            </Col>
+
+                                            <Col>
+                                                <Form.Group>
+                                                    <Form.Label>Source Type</Form.Label>
+                                                    <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("platformFilterPanelCollapsed")}>
+                                                        {filter_labels["SOURCE_TYPE"] && <p>Filter Active</p>}
+                                                    </Col>
                                                     <Collapse in={this.state.platformFilterPanelCollapsed}>
-                                                        <div style={{"width":"200px"}}>
-                                                            <p>Platform 1</p>
-                                                            <p>Platform 2</p>
-                                                            <p>Platform 3</p>
-                                                        </div>
+                                                        <Col xs={12} className="filter-dropdown-panel">
+                                                            {source_options}
+                                                        </Col>
                                                     </Collapse>
                                                 </Form.Group>
                                             </Col>
                                             <Col>
                                                 <Form.Group>
-                                                    <Form.Label>Affected Product</Form.Label>
-                                                    <Form.Control as="select" name="removed_content" placeholder="Removed Content"   onClick={() => this.toggleFilterDropdown("productFilterPanelCollapsed")}/>
+                                                    <Form.Label>Removal Type</Form.Label>
+                                                    <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("productFilterPanelCollapsed")}>
+                                                        {filter_labels["REMOVAL_TYPE"] && <p>Filter Active</p>}
+                                                    </Col>
                                                     <Collapse in={this.state.productFilterPanelCollapsed}>
-                                                        <div style={{"width":"200px"}}>
-                                                            <p>Product 1</p>
-                                                            <p>Product 2</p>
-                                                            <p>Product 3</p>
-                                                        </div>
+                                                        <Col xs={12} className="filter-dropdown-panel">
+                                                        {removal_type_options}
+                                                        </Col>
                                                     </Collapse>
                                                 </Form.Group>
                                             </Col>
                                             <Col>
                                                 <Form.Group>
                                                     <Form.Label>Geographic Area</Form.Label>
-                                                    <Form.Control as="select" name="geography" placeholder="Geography"   onClick={() => this.toggleFilterDropdown("geogrphicAreaFilterPanelCollapsed")}/>
+                                                    <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("geogrphicAreaFilterPanelCollapsed")}>
+                                                        {filter_labels["GEOGRAPHY"] && <p>Filter Active</p>}
+                                                    </Col>
                                                     <Collapse in={this.state.geogrphicAreaFilterPanelCollapsed}>
 
-                                                    <div style={{"width":"200px"}}>
-                                                            <p>Geographic Area 1</p>
-                                                            <p>Geographic Area 2</p>
-                                                            <p>Geographic Area 3</p>
-                                                        </div>
+                                                        <Col xs={12} className="filter-dropdown-panel">
+                                                            {geography_options}
+                                                        </Col>
                                                         </Collapse>
                                                 </Form.Group>
                                             </Col>
                                             <Col>
                                                 <Form.Group>
                                                     <Form.Label>Policy Infringement</Form.Label>
-                                                    <Form.Control as="select" name="policy_infringement" placeholder="Policy Infringement"   onClick={() => this.toggleFilterDropdown("policyFilterPanelCollapsed")}/>
+                                                    <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("policyFilterPanelCollapsed")}>
+                                                        {filter_labels["POLICY_VIOLATIONS"] && <p>Filter Active</p>}
+                                                    </Col>
                                                     <Collapse in={this.state.policyFilterPanelCollapsed}>
-                                                        <div style={{"width":"200px"}}>
-                                                            <p>Policy 1</p>
-                                                            <p>Policy 2</p>
-                                                            <p>Policy 3</p>
-                                                        </div>
+                                                    <Col xs={12} className="filter-dropdown-panel">
+                                                        {infringement_options}
+                                                        </Col>
                                                     </Collapse>
                                                 </Form.Group>
                                             </Col>
                                             <Col>
                                                 <Form.Group>
                                                     <Form.Label></Form.Label>
-                                                    <Form.Check type="checkbox" name="date" label="Contains Screenshots" />
+                                                    <Form.Check type="checkbox" name="date" value={this.state.contains_screenshots_filter} onChange={(e) => this.setState({contains_screenshots_filter: e.target.checked})} label="Contains Screenshots" />
                                                     
                                                 </Form.Group>
                                             </Col>
@@ -618,18 +819,24 @@ class Home extends React.Component
                                 <div className="table-wrapper">
                                     <table>
                                         <tbody>
-                                            {this.state.platform_records && filteredRecords.length>0 && row_renders}
+                                            {this.state.platform_records && filtered_records.length>0 && row_renders}
                                         </tbody>
                                     </table>
                                 </div>
+                                <Col xs={12} id="pagination-wrapper">
+                                    <Row className="justify-content-end">
+                                        {(this.state.skip >= this.state.limit) && <Button onClick={(e) => {this.setState({skip: this.state.skip - this.state.limit})}}>Previous</Button> }
+                                        {(this.state.skip + this.state.limit) < filtered_records.length && <Button onClick={(e) => {this.setState({skip: this.state.skip + this.state.limit})}}>Next</Button> }
+                                    </Row>
+                                </Col>
 
-                                <iframe className="airtable-embed" 
+                                {/* <iframe className="airtable-embed" 
                                         src="https://airtable.com/embed/shrYU6XDj0F0slvSP?backgroundColor=yellow&viewControls=on" 
                                         frameborder="0" 
                                         onmousewheel="" 
                                         width="100%" 
                                         height="533" 
-                                        style={{"background": "transparent", "border": "1px solid #ccc;"}}></iframe>
+                                        style={{"background": "transparent", "border": "1px solid #ccc;"}}></iframe> */}
                             </Col>
 
                             </Row>

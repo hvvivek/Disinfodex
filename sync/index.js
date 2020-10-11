@@ -17,7 +17,7 @@ Airtable.configure({
     endpointUrl: 'https://api.airtable.com',
     apiKey: 'keyLO3BE5Awy7vWSg'
 });
-var base = Airtable.base('app9iX4yxpJsbOxAK');
+var base = Airtable.base('app63O7FQvnBiwp90');
 
 let sync_ids = []
 let log = {add: 0, error: 0, update: 0, delete: 0}
@@ -28,21 +28,21 @@ const TABLES_TO_SYNC = [
         "base": "Platform Reports",
         "view": "All Records"
     },
-    {
-        "route": "third_party_reports",
-        "base": "3rd Party Reports",
-        "view": "Grid view"
-    },
+    // {
+    //     "route": "third_party_reports",
+    //     "base": "3rd Party Reports",
+    //     "view": "Grid view"
+    // },
     {
         "route": "screenshots",
         "base": "Screenshots",
         "view": "Grid view"
     },
-    {
-        "route": "companies",
-        "base": "Companies",
-        "view": "Grid view"
-    },
+    // {
+    //     "route": "companies",
+    //     "base": "Companies",
+    //     "view": "Grid view"
+    // },
     {
         "route": "networks",
         "base": "Networks",

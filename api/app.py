@@ -62,6 +62,10 @@ def read_record(request, Model, db, headers):
         sync_ids = record.get_sync_ids()
         print(sync_ids)
         return_result = jsonify({"sync_ids": sync_ids}), 200, headers
+    elif "all" in request.args.to_dict():
+        records = Model(db=db)
+        records = records.get_multiple_records()
+        return_result = jsonify(records), 200, headers
     else:
         record = Model(db=db)
         record = record.get(request.args.to_dict())
