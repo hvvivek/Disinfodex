@@ -10,6 +10,7 @@ let app = express()
 app.use(cors())
 
 let API_URI = process.env.API_URI || "http://localhost:3010"
+console.log(API_URI)
 
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
@@ -110,7 +111,7 @@ async function startSync(syncRecord, table)
                 }
             }
             // console.log(log)
-            let final_result = await axios.put("${API_URI}/sync", {"_id": syncRecord.data._id, processed: true, log: log})
+            let final_result = await axios.put(`${API_URI}/sync`, {"_id": syncRecord.data._id, processed: true, log: log})
             console.log(final_result.data)
         }
     })
@@ -164,7 +165,7 @@ let PORT = process.env.PORT || 3020
 
 app.get("/sync", async (req, res) => {
     
-    let syncRecord = await axios.post("${API_URI}/sync", {log: {add: 0, update:0, delete:0, error:0}, processed: false})
+    let syncRecord = await axios.post(`${API_URI}/sync`, {log: {add: 0, update:0, delete:0, error:0}, processed: false})
 
     for(let i=0; i<TABLES_TO_SYNC.length; i++)
     {

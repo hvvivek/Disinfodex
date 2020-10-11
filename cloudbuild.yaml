@@ -21,7 +21,7 @@ steps:
           "build",
           "-t",
           "gcr.io/$PROJECT_ID/disinfodex-backend-production:$SHORT_SHA",
-          "./backend",
+          "./api",
       ]
     # push the container image to Container Registry
 - name: "gcr.io/cloud-builders/docker"
