@@ -390,3 +390,16 @@ max-width: 100%;
 
     border-radius: 2rem;
 }
+
+.record-index
+{
+    display: flex;
+    align-items: center;
+    padding-left: 0px;
+
+}
+
+.record-index  p
+{
+    margin-bottom: 0px;
+}

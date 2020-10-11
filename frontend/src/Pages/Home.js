@@ -825,6 +825,9 @@ class Home extends React.Component
                                 </div>
                                 <Col xs={12} id="pagination-wrapper">
                                     <Row className="justify-content-end">
+                                        <Col className="record-index">
+                                            <p>Viewing {this.state.skip} - {(this.state.skip + this.state.limit) <= filtered_records.length? this.state.skip + this.state.limit: filtered_records.length} out of {filtered_records.length}</p>
+                                        </Col>
                                         {(this.state.skip >= this.state.limit) && <Button onClick={(e) => {this.setState({skip: this.state.skip - this.state.limit})}}>Previous</Button> }
                                         {(this.state.skip + this.state.limit) < filtered_records.length && <Button onClick={(e) => {this.setState({skip: this.state.skip + this.state.limit})}}>Next</Button> }
                                     </Row>
