@@ -9,6 +9,7 @@ let app = express()
 
 app.use(cors())
 
+let API_URI = process.env.API_URI || "http://localhost:3010"
 
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
@@ -59,7 +60,7 @@ async function startSync(syncRecord, table)
     ///////////////////////////////////////////////////////
     // Get already existing sync ids
     sync_ids = []
-    sync_ids = await axios.get(`http://localhost:3010/${table['route']}?count=true`)
+    sync_ids = await axios.get(`${API_URI}/${table['route']}?count=true`)
     sync_ids = sync_ids.data["sync_ids"]
     ///////////////////////////////////////////////////////
 
@@ -97,7 +98,7 @@ async function startSync(syncRecord, table)
                     // console.log("Inside loop")
                     let sync_id = sync_ids[i]
     
-                    let delete_result = await axios.delete(`http://localhost:3010/${table['route']}?sync_id=${sync_id}`)
+                    let delete_result = await axios.delete(`${API_URI}/${table['route']}?sync_id=${sync_id}`)
                     
                     delete_result = delete_result.data
                     // console.log(delete_result)
@@ -109,7 +110,7 @@ async function startSync(syncRecord, table)
                 }
             }
             // console.log(log)
-            let final_result = await axios.put("http://localhost:3010/sync", {"_id": syncRecord.data._id, processed: true, log: log})
+            let final_result = await axios.put("${API_URI}/sync", {"_id": syncRecord.data._id, processed: true, log: log})
             console.log(final_result.data)
         }
     })
@@ -118,7 +119,7 @@ async function startSync(syncRecord, table)
 async function addOrUpdateRecord(record, table, current_log)
 {
     let return_value = current_log
-    let response = await axios.get(`http://localhost:3010/${table['route']}?sync_id=${record.id}`)
+    let response = await axios.get(`${API_URI}/${table['route']}?sync_id=${record.id}`)
     // console.log(response.data)
 
     response = response.data
@@ -127,7 +128,7 @@ async function addOrUpdateRecord(record, table, current_log)
     {
         let payload = {_id: response.data._id, sync_id:record.id, ...record.fields}
         try {
-            let response = await axios.put(`http://localhost:3010/${table['route']}`, payload)
+            let response = await axios.put(`${API_URI}/${table['route']}`, payload)
             response = response.data
             return_value = {...return_value, update: return_value.update + 1}
         } catch (error) {
@@ -140,7 +141,7 @@ async function addOrUpdateRecord(record, table, current_log)
     {
         let payload = {sync_id:record.id, ...record.fields}
         try {
-            let response = await axios.post(`http://localhost:3010/${table['route']}`, payload)
+            let response = await axios.post(`${API_URI}/${table['route']}`, payload)
             response = response.data
             return_value = {...return_value, add: return_value.add + 1}
 
@@ -163,7 +164,7 @@ let PORT = process.env.PORT || 3020
 
 app.get("/sync", async (req, res) => {
     
-    let syncRecord = await axios.post("http://localhost:3010/sync", {log: {add: 0, update:0, delete:0, error:0}, processed: false})
+    let syncRecord = await axios.post("${API_URI}/sync", {log: {add: 0, update:0, delete:0, error:0}, processed: false})
 
     for(let i=0; i<TABLES_TO_SYNC.length; i++)
     {

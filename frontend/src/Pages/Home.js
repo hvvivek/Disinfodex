@@ -29,6 +29,7 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 
 
 import { DateRangePicker } from 'react-date-range';
+import {BACKEND_URI, SYNC_URI} from '../constants'
 class Home extends React.Component
 {
     constructor(props)
@@ -106,7 +107,7 @@ class Home extends React.Component
     }
 
     getDataFromBackend = async () => {
-        let sync_ids = await axios.get("http://localhost:3010/platforms?count=true")
+        let sync_ids = await axios.get(`${BACKEND_URI}/platforms?count=true`)
         sync_ids = sync_ids.data["sync_ids"]
 
         let platform_records = []
@@ -114,12 +115,12 @@ class Home extends React.Component
         // console.log(sync_ids)
         // for(let i=0; i<15; i++)
         // {
-        //     let record = await axios.get(`http://localhost:3010/platforms?sync_id=${sync_ids[i]}`)
+        //     let record = await axios.get(`${BACKEND_URI}/platforms?sync_id=${sync_ids[i]}`)
         //     // console.log(record.data.data)
         //     platform_records.push(record.data.data)
         // }
 
-        let records = await axios.get(`http://localhost:3010/platforms?all=true`)
+        let records = await axios.get(`${BACKEND_URI}/platforms?all=true`)
         platform_records = records.data
 
         this.setState({platform_records: platform_records})
@@ -724,7 +725,9 @@ class Home extends React.Component
                                             <Col>
                                                 <Form.Group>
                                                     <Form.Label>Date of Disclosure</Form.Label>
-                                                    <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("dodFilterPanelCollapsed")}></Col>
+                                                    <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("dodFilterPanelCollapsed")}>
+                                                        {filter_labels["DOD"] && <p>Filter Active</p>}
+                                                    </Col>
                                                     <Collapse in={this.state.dodFilterPanelCollapsed}>
                                                         <Col xs={12} className="filter-dropdown-panel">
                                                             <DateRangePicker

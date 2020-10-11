@@ -14,6 +14,8 @@ import axios from 'axios'
 import logo_1 from '../Assets/Images/sponsor_logo_1.png'
 
 
+import {BACKEND_URI, SYNC_URI} from '../constants'
+
 import Table from '../Components/Table'
 import '../Stylesheets/Home.css'
 import '../Stylesheets/Sync.css'
@@ -32,7 +34,7 @@ class Sync extends React.Component
     }
 
     getSyncRecords = async () => {
-        let syncs = await axios.get("http://localhost:3010/sync?all=true")
+        let syncs = await axios.get(`${BACKEND_URI}/sync?all=true`)
         syncs = syncs.data
         console.log(syncs)
         syncs.reverse()
@@ -40,7 +42,7 @@ class Sync extends React.Component
     }
 
     startSync = async () => {
-        let result = await axios.get("http://localhost:3020/sync")
+        let result = await axios.get(`${SYNC_URI}/sync`)
         result = result.data
         if(result.status)
         {
