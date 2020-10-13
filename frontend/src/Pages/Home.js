@@ -38,7 +38,7 @@ class Home extends React.Component
         this.state = {
             filterPanelCollapsed: true,
             selection: {
-                startDate: new Date('2000-01-01'),
+                startDate: new Date("Jan 01 2000"),
                 endDate: new Date(),
                 key: 'selection',
               },
@@ -262,7 +262,7 @@ class Home extends React.Component
     toggleFilter = (filter, name) => {
         let temp = this.state[filter]
         temp[name] = !temp[name]
-        this.setState({[filter]: temp})
+        this.setState({[filter]: temp, skip:0})
     }
 
     renderFilterOptions = (key, filter) => {
