@@ -562,12 +562,20 @@ class Home extends React.Component
                         
                     }
                     break
-                // case 'SCREENSHOTS':
-                //     if(this.state.contains_screenshots_filter)
-                //     {
-                //         filtered_records = filtered_records.filter((record) => record['SCREENSHOTS'] && record['SCREENSHOTS'].length > 0)
-                //     }
-                //     break
+                case 'SCREENSHOTS':
+                    if(this.state.contains_screenshots_filter)
+                    {
+                        filtered_records = filtered_records.filter((record) => {
+                                            console.log(this.state.networks.filter(network => network.sync_id === record['NETWORK_ID'][0]))
+
+                                            return record['NETWORK_ID'] && 
+                                                    this.state.networks.filter(network => network.sync_id === record['NETWORK_ID'][0]) && 
+                                                    this.state.networks.filter(network => network.sync_id === record['NETWORK_ID'][0]).length > 0 &&
+                                                    "Screenshots" in this.state.networks.filter(network => network.sync_id === record['NETWORK_ID'][0])[0]
+                                        }
+                                            )
+                    }
+                    break
 
                 case 'DOD':
                     let dates_to_filter = this.state.selection
