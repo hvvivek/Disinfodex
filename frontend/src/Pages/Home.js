@@ -718,11 +718,16 @@ class Home extends React.Component
         }
     // }
     // else{
-        
+
+        let filtered_networks = filtered_records.flatMap(record=> record["NETWORK_ID"])
+        filtered_networks = [...new Set(filtered_networks)]
+
         let card_renders = []
         let networks = this.state.networks || []
         let cards_pagination = []
 
+        networks = networks.filter(network => filtered_networks.indexOf(network["sync_id"])>=0)
+        
         if(networks.length > 10)
         {
             let start = this.state.cards_page * 10

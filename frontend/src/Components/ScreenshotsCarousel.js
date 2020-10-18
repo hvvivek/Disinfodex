@@ -31,7 +31,7 @@ class ScreenshotsCarousel extends React.Component
             case "Reddit":
                 company_logo = reddit_logo
                 break
-            case "Google/Youtube":
+            case "Google/YouTube":
                 company_logo = youtube_logo
                 break
             case "Graphika":
