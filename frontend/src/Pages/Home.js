@@ -35,6 +35,16 @@ import cards_active from "../Assets/Icons/cards_active.png"
 
 import { DateRangePicker } from 'react-date-range';
 import {BACKEND_URI, SYNC_URI} from '../constants'
+
+let COMPANY_COLORS = {
+    "Facebook": "rgba(59, 89, 152, 0.2)",
+    "Twitter": "rgba(0, 172, 238, 0.2)",
+    "Reddit": "rgb(255, 87, 0, 0.2)",
+    "Google/YouTube": "rgb(196, 48, 43, 0.2)",
+    "Graphika": "#AAAAAA",
+    "DFRLab": "rgb(0, 134, 125, 0.2)"
+}
+
 class Home extends React.Component
 {
     constructor(props)
@@ -52,6 +62,8 @@ class Home extends React.Component
 
               removal_type_filters: {},
               geography_filters: {},
+              origin_country_filters: {},
+              destination_country_filters: {},
               infringement_filters: {},
               source_filters: {},
               company_filters: {},
@@ -64,6 +76,9 @@ class Home extends React.Component
               productFilterPanelCollapsed: false,
               policyFilterPanelCollapsed: false,
               geogrphicAreaFilterPanelCollapsed: false,
+              originCountryFilterPanelCollapased: false,
+              destinationCountryFilterPanelCollapsed: false,
+
               active: "table",
 
               skip: 0,
@@ -189,23 +204,18 @@ class Home extends React.Component
         let Archive_URL = data["ARCHIVE_URL"]
 
         return <tr key={ID}>
-            <td xs={2}>
-                <div className="id-column">
-                    {ID}
-                </div>
-            </td>
             <td xs={2} className="dod-column">
                 <div>
                     {Date_Of_Disclosure}
                 </div>
             </td>
             <td xs={2}>
-                <div>
+                <div style={{backgroundColor: COMPANY_COLORS[Company]}} className="table-company">
                     {Company}
                 </div>
             </td>
             <td xs={2}>
-                <div>
+                <div className="table-network">
                     {Network}
                 </div>
             </td>
@@ -408,8 +418,8 @@ class Home extends React.Component
         let source_options     = this.renderFilterOptions('SOURCE_TYPE', 'source_filters')
 
         //Geography
-        let origin_country_options     = this.renderFilterOptions('ORIGIN_COUNTRY', 'geography_filters')
-        let destination_country_options     = this.renderFilterOptions('DESTINATION_COUNTRY', 'geography_filters')
+        let origin_country_options     = this.renderFilterOptions('ORIGIN_COUNTRY', 'origin_country_filters')
+        let destination_country_options     = this.renderFilterOptions('DESTINATION_COUNTRY', 'destination_country_filters')
         let geography_options = []
         if(origin_country_options && destination_country_options)
         {
@@ -418,7 +428,7 @@ class Home extends React.Component
         // let removealTypeOptions = this.renderCategoryFilterOptions('REMOVAL_TYPE', removal_type_filters)
 
 
-        let FILTERS = ['COMPANY', 'REMOVAL_TYPE', 'POLICY_VIOLATIONS', 'SOURCE_TYPE', 'GEOGRAPHY', 'SCREENSHOTS', 'DOD', 'SEARCH']
+        let FILTERS = ['COMPANY', 'REMOVAL_TYPE', 'POLICY_VIOLATIONS', 'SOURCE_TYPE', 'ORIGIN_COUNTRY','DESTINATION_COUNTRY', 'SCREENSHOTS', 'DOD', 'SEARCH']
         
         let filtered_records = []
         
@@ -508,6 +518,36 @@ class Home extends React.Component
                         
                     }
                     break
+                case 'DESTINATION_COUNTRY':
+                    let dest_geo_to_filter = this.state.destination_country_filters && Object.keys(this.state.destination_country_filters)
+
+                    if(dest_geo_to_filter)
+                    {
+                        dest_geo_to_filter = dest_geo_to_filter.filter(key => this.state.destination_country_filters[key])
+                        if(dest_geo_to_filter.length > 0)
+                        {
+                            filter_labels["DESTINATION_COUNTRY"] = true
+                            filtered_records = filtered_records.filter((record) => dest_geo_to_filter.includes(record['DESTINATION_COUNTRY']) || (record['DESTINATION_COUNTRY'] && record['DESTINATION_COUNTRY'].includes(dest_geo_to_filter)))
+                        }
+                        
+                    }
+                    break
+
+                case 'ORIGIN_COUNTRY':
+                    let origin_geo_to_filter = this.state.origin_country_filters && Object.keys(this.state.origin_country_filters)
+
+                    if(origin_geo_to_filter)
+                    {
+                        origin_geo_to_filter = origin_geo_to_filter.filter(key => this.state.origin_country_filters[key])
+                        if(origin_geo_to_filter.length > 0)
+                        {
+                            filter_labels["ORIGIN_COUNTRY"] = true
+                            filtered_records = filtered_records.filter((record) => origin_geo_to_filter.includes(record['ORIGIN_COUNTRY']) || (record['ORIGIN_COUNTRY'] && record['ORIGIN_COUNTRY'].includes(origin_geo_to_filter)))
+                        }
+                        
+                    }
+                    break
+
                 case 'GEOGRAPHY':
                     let geo_to_filter = this.state.geography_filters && Object.keys(this.state.geography_filters)
 
@@ -564,12 +604,12 @@ class Home extends React.Component
         {
             row_renders.push(
                 <tr>
-                    <th>
+                    {/* <th>
                         <div className="id-column">
                             ID
                             <i class="fas fa-caret-down"></i>
                         </div>
-                    </th>
+                    </th> */}
                     <th>
                         <div className="dod-column">
                             Date of Disclosure
@@ -854,19 +894,36 @@ class Home extends React.Component
                                             </Col>
                                             <Col>
                                                 <Form.Group>
-                                                    <Form.Label>Geographic Area</Form.Label>
-                                                    <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("geogrphicAreaFilterPanelCollapsed")}>
-                                                        {filter_labels["GEOGRAPHY"] && <p>Filter Active</p>}
+                                                    <Form.Label>Origin Country</Form.Label>
+                                                    <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("originCountryFilterPanelCollapased")}>
+                                                        {filter_labels["ORIGIN_COUNTRY"] && <p>Filter Active</p>}
                                                     </Col>
-                                                    <Collapse in={this.state.geogrphicAreaFilterPanelCollapsed}>
+                                                    <Collapse in={this.state.originCountryFilterPanelCollapased}>
 
                                                         <Col xs={12} className="filter-dropdown-panel">
-                                                            {geography_options}
+                                                            {origin_country_options}
                                                         </Col>
                                                         </Collapse>
                                                 </Form.Group>
                                             </Col>
+
                                             <Col>
+                                                <Form.Group>
+                                                    <Form.Label>Target Country</Form.Label>
+                                                    <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("destinationCountryFilterPanelCollapsed")}>
+                                                        {filter_labels["DESTINATION_COUNTRY"] && <p>Filter Active</p>}
+                                                    </Col>
+                                                    <Collapse in={this.state.destinationCountryFilterPanelCollapsed}>
+
+                                                        <Col xs={12} className="filter-dropdown-panel">
+                                                            {destination_country_options}
+                                                        </Col>
+                                                        </Collapse>
+                                                </Form.Group>
+                                            </Col>
+
+                                            {/* REMOVED ON OCT 18 */}
+                                            {/* <Col>
                                                 <Form.Group>
                                                     <Form.Label>Policy Infringement</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("policyFilterPanelCollapsed")}>
@@ -878,7 +935,9 @@ class Home extends React.Component
                                                         </Col>
                                                     </Collapse>
                                                 </Form.Group>
-                                            </Col>
+                                            </Col> */}
+
+
                                             <Col>
                                                 <Form.Group>
                                                     <Form.Label></Form.Label>
@@ -904,7 +963,7 @@ class Home extends React.Component
                                 <Col xs={12} id="pagination-wrapper">
                                     <Row className="justify-content-end">
                                         <Col className="record-index">
-                                            <p>Viewing {this.state.skip} - {(this.state.skip + this.state.limit) <= filtered_records.length? this.state.skip + this.state.limit: filtered_records.length} out of {filtered_records.length}</p>
+                                            <p>Viewing {this.state.skip+1} - {(this.state.skip + this.state.limit) <= filtered_records.length? this.state.skip + this.state.limit: filtered_records.length} out of {filtered_records.length}</p>
                                         </Col>
                                         {(this.state.skip >= this.state.limit) && <Button onClick={(e) => {this.setState({skip: this.state.skip - this.state.limit})}}>Previous</Button> }
                                         {(this.state.skip + this.state.limit) < filtered_records.length && <Button onClick={(e) => {this.setState({skip: this.state.skip + this.state.limit})}}>Next</Button> }
