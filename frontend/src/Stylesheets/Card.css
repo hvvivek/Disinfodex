@@ -1,0 +1,103 @@
+.subtitle
+{
+    text-transform: uppercase;
+    color: #8b8b8b;
+    margin-bottom: 0px;
+    font-size: 0.6rem;
+}
+
+.network
+{
+    background-color: #D5EFFB;
+    border-radius: 1rem;
+    padding: 0.2rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    font-size: 0.85rem;
+
+}
+
+.platform
+{
+    background-color: rgb(231, 231, 231);
+    border-radius: 1rem;
+    padding: 0.2rem;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+    font-size: 0.85rem;
+    /* color: white; */
+}
+
+.type:not(:last-child):after {
+    content: ", ";
+}
+
+.type, .active-date
+{
+    font-size: 0.85rem;
+
+}
+
+.wrapper
+{
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    /* padding: 1rem; */
+}
+
+.company-logo
+{
+    max-width: 60%;
+
+}
+
+.company-logo-wrapper
+{
+    height: 100%;
+    display: grid;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    background-color: #EEEEEE;
+}
+
+.company-logo-wrapper img
+{
+    position: absolute;
+    margin: auto;
+    opacity: 0.5;
+}
+
+.company-logo-wrapper p
+{
+    margin-top: auto;
+    color: rgb(92, 92, 92);
+    font-size: 0.85rem;
+}
+
+.description-section
+{
+    padding: 1rem;
+}
+
+.cards-pagination-wrapper
+{
+    text-align: center;
+    color: rgb(168, 168, 168);
+}
+
+.cards-pagination-wrapper span
+{
+    cursor: pointer;
+    /* text-decoration-line: underline; */
+    margin-left: 0.4rem;
+    color: rgb(168, 168, 168);
+}
+
+.cards-pagination-wrapper span.active
+{ 
+    color: black;
+    font-weight: 900;
+}

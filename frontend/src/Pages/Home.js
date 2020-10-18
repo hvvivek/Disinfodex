@@ -10,7 +10,7 @@ import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
 
-
+import Card from "../Components/Card"
 
 import logo_1 from '../Assets/Images/sponsor_logo_1.png'
 import logo_2 from '../Assets/Images/berkman_klein.png'
@@ -59,10 +59,12 @@ class Home extends React.Component
               productFilterPanelCollapsed: false,
               policyFilterPanelCollapsed: false,
               geogrphicAreaFilterPanelCollapsed: false,
-              active: "table",
+              active: "cards",
 
               skip: 0,
-              limit: 10
+              limit: 10,
+
+              cards_page: 0
         }
     }
 
@@ -111,20 +113,46 @@ class Home extends React.Component
         sync_ids = sync_ids.data["sync_ids"]
 
         let platform_records = []
+        let networks = []
+        let screenshots = []
 
-        // console.log(sync_ids)
-        // for(let i=0; i<15; i++)
-        // {
-        //     let record = await axios.get(`${BACKEND_URI}/platforms?sync_id=${sync_ids[i]}`)
-        //     // console.log(record.data.data)
-        //     platform_records.push(record.data.data)
-        // }
+        platform_records = await axios.get(`${BACKEND_URI}/platforms?all=true`)
+        networks = await axios.get(`${BACKEND_URI}/networks?all=true`)
+        screenshots = await axios.get(`${BACKEND_URI}/screenshots?all=true`)
 
-        let records = await axios.get(`${BACKEND_URI}/platforms?all=true`)
-        platform_records = records.data
+        platform_records = platform_records.data
+        networks = networks.data
+        screenshots = screenshots.data
 
-        this.setState({platform_records: platform_records})
+        this.setState({platform_records: platform_records, networks: networks, screenshots: screenshots})
 
+    }
+
+    render_card = (data) => {
+
+        let screenshots = []
+        if(data["Screenshots"])
+        {
+            for(let i=0; i<data["Screenshots"].length; i++)
+            {
+                let SYNC_ID = data["Screenshots"][i]
+                let filtered = this.state.screenshots.filter(image => image.sync_id === SYNC_ID)
+                if(filtered && filtered.length > 0 )
+                {
+                    screenshots.push(filtered[0])
+                }
+            }
+        }
+
+        let payload = {
+            networks: [data.Name],
+            startDate: data["Earliest Date"],
+            endDate: data["Latest Date"],
+            platforms: data["Company"],
+            removal_types: data["Removal Type"],
+            screenshots: screenshots
+        }
+        return <Card data={payload}></Card>
     }
 
     render_row = (data) => {
@@ -133,7 +161,8 @@ class Home extends React.Component
         let ID = data["ID"]
         let Date_Of_Disclosure = data["DISCLOSURE_DATE"]
         let Company = data["COMPANY"]
-        let Network = data["Networks"]
+        let Network = data["NETWORK_ID"]
+        Network = this.state.networks.filter(network => network.sync_id === Network[0])[0]['Name']
 
         let Removal_Type = data["REMOVAL_TYPE"]
         let Removal_Number = data["REMOVAL_NUMBER"]
@@ -249,7 +278,6 @@ class Home extends React.Component
     }
 
     handleSelect = (ranges) => {
-        console.log(ranges);
         this.setState({selection: ranges["selection"]})
         // {
         //   selection: {
@@ -323,7 +351,6 @@ class Home extends React.Component
 
         if(temp)
         {
-            console.log(key)
             let options = Array.from(new Set(temp.map(record => record[key])))
             
             if(options.length > 0)
@@ -351,12 +378,17 @@ class Home extends React.Component
         return []
     }
 
+    handlePageSwitch = (i) => {
+        console.log(i)
+        this.setState({cards_page: i})
+    }
+
     
 
     render()
     {
-        
-
+        // if(this.state.active === "table")
+        // {
         //Company Filter
         let company_filter_options    = this.renderFilterOptions('COMPANY', 'company_filters')
 
@@ -513,7 +545,6 @@ class Home extends React.Component
                         filter_labels["SEARCH"] = true
 
                         filtered_records = filtered_records.filter((record) => {
-                            console.log(JSON.stringify(record))
 
                             return JSON.stringify(record).includes(search_term)
                         })
@@ -640,6 +671,41 @@ class Home extends React.Component
                 row_renders.push(this.render_row(row_data))
             }
         }
+    // }
+    // else{
+        
+        let card_renders = []
+        let networks = this.state.networks || []
+        let cards_pagination = []
+
+        if(networks.length > 10)
+        {
+            let start = this.state.cards_page * 10
+            let end = (this.state.cards_page+1) * 10
+
+            if(end>networks.length)
+            {
+                end = networks.length
+            }
+
+            for(let i=start; i<end; i++)
+            {
+                let card_data = networks[i]
+                card_renders.push(this.render_card(card_data))
+            }
+
+            let num_pages = Math.ceil(networks.length/10)
+            for(let i=0; i<num_pages; i++)
+            {
+                cards_pagination.push(<span className={this.state.cards_page === i? "card-pages active": "card-pages"} onClick={() => this.handlePageSwitch(i)}>{i+1}</span>)
+            }
+        }
+
+        console.log(cards_pagination)
+        
+    // }
+
+
         
         
         return <>
@@ -703,13 +769,13 @@ class Home extends React.Component
                                             <p>View As:</p>
                                         </Col>
                                         <Col>
-                                            <p className={this.state.active === "table"? "active-view view-link": "view-link"}><i class="fas fa-table"></i> Table</p>
+                                            <p className={this.state.active === "table"? "active-view view-link": "view-link"} onClick={() => this.setState({active: "table"})}><i class="fas fa-table"></i> Table</p>
                                         </Col>
                                         {/* <Col>
                                             <p><i class="fas fa-stream"></i> Timeline</p>
                                         </Col> */}
                                         <Col>
-                                            <p className={this.state.active === "map"? "active-view view-link": "view-link"}><i class="fas fa-globe"></i> Map</p>
+                                            <p className={this.state.active === "cards"? "active-view view-link": "view-link"} onClick={() => this.setState({active: "cards"})}><i class="fas fa-globe"></i> Cards</p>
                                         </Col>
                                     </Row>
                                 </Col>
@@ -819,6 +885,8 @@ class Home extends React.Component
                                 </Collapse>
                             </Col>
                             <Col xs={12} lg={12} id="table-section">
+                                {this.state.active === "table" && 
+                                <>
                                 <div className="table-wrapper">
                                     <table>
                                         <tbody>
@@ -835,6 +903,19 @@ class Home extends React.Component
                                         {(this.state.skip + this.state.limit) < filtered_records.length && <Button onClick={(e) => {this.setState({skip: this.state.skip + this.state.limit})}}>Next</Button> }
                                     </Row>
                                 </Col>
+                                </>}
+                                {
+                                    this.state.active === "cards" && 
+                                    <Col xs={12}>
+                                        <Row>
+                                            {card_renders}
+                                            <Col xs={12} className="cards-pagination-wrapper">
+                                                <p>Viewing page: {cards_pagination} </p>
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                    
+                                }
 
                                 {/* <iframe className="airtable-embed" 
                                         src="https://airtable.com/embed/shrYU6XDj0F0slvSP?backgroundColor=yellow&viewControls=on" 

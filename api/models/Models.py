@@ -36,6 +36,16 @@ class MongoORM:
                 return {"status": False, "error": "Could not find matching data"}
         else:
             return {"status": False, "error": "Not connected to Database"}
+
+    # TODO: Include skip and limit to enable pagination here
+    def get_multiple_records(self):
+        results = self.collection.find({})
+        results = [result for result in results]
+        for result in results:
+            result["_id"] = str(result["_id"])
+        # results = [result for result in results]
+        # results = [result['sync_id'] for result in results]
+        return results
     
     def save(self, return_data = False):
         now = datetime.now().isoformat()
@@ -95,15 +105,7 @@ class Platforms(MongoORM):
         results = [result['sync_id'] for result in results]
         return results
 
-    # TODO: Include skip and limit to enable pagination here
-    def get_multiple_records(self):
-        results = self.collection.find({})
-        results = [result for result in results]
-        for result in results:
-            result["_id"] = str(result["_id"])
-        # results = [result for result in results]
-        # results = [result['sync_id'] for result in results]
-        return results
+    
 
     def delete_filter(self, filter):
         if self.collection:
