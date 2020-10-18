@@ -27,6 +27,11 @@ import "react-toggle/style.css" // for ES6 modules
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 
+import table from "../Assets/Icons/table.png"
+import table_active from "../Assets/Icons/table_active.png"
+import cards from "../Assets/Icons/cards.png"
+import cards_active from "../Assets/Icons/cards_active.png"
+
 
 import { DateRangePicker } from 'react-date-range';
 import {BACKEND_URI, SYNC_URI} from '../constants'
@@ -59,7 +64,7 @@ class Home extends React.Component
               productFilterPanelCollapsed: false,
               policyFilterPanelCollapsed: false,
               geogrphicAreaFilterPanelCollapsed: false,
-              active: "cards",
+              active: "table",
 
               skip: 0,
               limit: 10,
@@ -768,14 +773,16 @@ class Home extends React.Component
                                         <Col>
                                             <p>View As:</p>
                                         </Col>
-                                        <Col>
-                                            <p className={this.state.active === "table"? "active-view view-link": "view-link"} onClick={() => this.setState({active: "table"})}><i class="fas fa-table"></i> Table</p>
+                                        <Col className="icon-wrapper" onClick={() => this.setState({active: "table"})}>
+                                            {this.state.active === "table"? <img src={table_active} ></img> : <img src={table} ></img>}
+                                            <span className={this.state.active === "table"? "active-view view-link": "view-link"} >Table</span>
                                         </Col>
                                         {/* <Col>
                                             <p><i class="fas fa-stream"></i> Timeline</p>
                                         </Col> */}
-                                        <Col>
-                                            <p className={this.state.active === "cards"? "active-view view-link": "view-link"} onClick={() => this.setState({active: "cards"})}><i class="fas fa-globe"></i> Cards</p>
+                                        <Col className="icon-wrapper" onClick={() => this.setState({active: "cards"})}>
+                                            {this.state.active === "cards"? <img src={cards_active} ></img> : <img src={cards}></img>}
+                                            <span className={this.state.active === "cards"? "active-view view-link": "view-link"}>Cards</span>
                                         </Col>
                                     </Row>
                                 </Col>
@@ -908,6 +915,9 @@ class Home extends React.Component
                                     this.state.active === "cards" && 
                                     <Col xs={12}>
                                         <Row>
+                                            <Col xs={12} className="cards-pagination-wrapper">
+                                                <p>Viewing page: {cards_pagination} </p>
+                                            </Col>
                                             {card_renders}
                                             <Col xs={12} className="cards-pagination-wrapper">
                                                 <p>Viewing page: {cards_pagination} </p>

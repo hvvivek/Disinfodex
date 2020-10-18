@@ -335,17 +335,18 @@ max-width: 100%;
 .active-view
 {
     font-weight: 600;
-    color: #BBA38C;
+    color: #3586FF;
 }
 
 .view-link
 {
     cursor: pointer;
+    margin-left: 0.5rem;
 }
 
 .view-link:hover
 {
-    color: #9e8166;
+    color: #3586FF;
 }
 
 .links a
@@ -402,4 +403,11 @@ max-width: 100%;
 .record-index  p
 {
     margin-bottom: 0px;
+}
+
+.icon-wrapper img
+{
+    height: 25px;
+    width: auto;
+    cursor: pointer;
 }

@@ -1,3 +1,9 @@
+._card
+{
+    /* height: 300px;
+    overflow: hidden; */
+}
+
 .subtitle
 {
     text-transform: uppercase;
@@ -44,6 +50,8 @@
     border-radius: 5px;
     margin-bottom: 1rem;
     margin-top: 1rem;
+    height: 300px;
+    overflow: hidden;
     /* padding: 1rem; */
 }
 
@@ -80,11 +88,13 @@
 .description-section
 {
     padding: 1rem;
+    cursor: pointer;
 }
 
 .cards-pagination-wrapper
 {
     text-align: center;
+    margin-top: 2rem;
     color: rgb(168, 168, 168);
 }
 
@@ -94,10 +104,31 @@
     /* text-decoration-line: underline; */
     margin-left: 0.4rem;
     color: rgb(168, 168, 168);
+    /* font-size: 0.9rem; */
 }
+
+.cards-pagination-wrapper span:hover
+{
+    color: black;
+    text-decoration-line: underline;
+}
+
+
 
 .cards-pagination-wrapper span.active
 { 
     color: black;
+    font-size: 1rem;
     font-weight: 900;
+}
+
+
+.modal-description-section
+{
+    background-color: #ECECEC;
+}
+
+.modal-body
+{
+    padding: 0px;
 }

@@ -46,8 +46,8 @@ class ScreenshotsCarousel extends React.Component
         let render = null
         if(this.props.screenshots && this.props.screenshots.length > 0)
         {
-            render = <Carousel showThumbs={false}>
-                {this.props.screenshots.map(screenshot => <img style={{"maxHeight":"200px"}} src={screenshot["SCREENSHOT"]}></img>)}
+            render = <Carousel showThumbs={false} autoPlay={true}>
+                {this.props.screenshots.map(screenshot => <img style={{"width":"100%", "height":"auto"}} src={screenshot["SCREENSHOT"]}></img>)}
             </Carousel>
         }
         else
