@@ -62,8 +62,18 @@ class About extends React.Component
                                 <p className="links"><a href="/about" className="active">About this project</a></p>
                                 <p className="links"><a href="/">Database</a></p>
                                 <p className="links"><a href="whitepaper">Whitepaper</a></p>
+                                <p className="links"><a href="how-to">How to read the database?</a></p>
                             </Col>
                             </Row>
+                        </Col>
+                    </Row>
+                </Container>
+                <Container>
+                    <Row>
+                        <Col xs={12} style={{"paddingTop":"3rem", "paddingBottom":"3rem"}}>
+                        <p>Disinfodex is a database of publicly available information about disinformation campaigns. It currently includes disclosures issued by major online platforms and accompanying reports from independent open source investigators. </p>
+                        <p>Disinfodex is an independent index created to help those working in the disinformation space to better aggregate, analyze and interpret publicly available information about disinformation campaigns. Neither Disinfodex nor its team take position on the practices or findings of the entities whose reports they index. </p>
+                        <p>Disinfodex was created by a team of journalists and technology professionals taking part in the 2020 Assembly Fellowship at Harvard’s Berkman Klein Center. The team includes Clement Wolf, Rhona Tarrant, Jenny Fan, Neal Ungerleider, Ashley Tolbert, and Gulsin Harman. You can read more about the background of the project in our white paper. </p>
                         </Col>
                     </Row>
                 </Container>

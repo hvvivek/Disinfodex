@@ -31,7 +31,7 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRangePicker } from 'react-date-range';
 
 
-class Whitepaper extends React.Component
+class About extends React.Component
 {
     constructor(props)
     {
@@ -59,34 +59,22 @@ class Whitepaper extends React.Component
                                 <p>Disinfodex is an online database indexing public disclosures of disinformation campaigns issued by major online platforms, currently including Facebook, Instagram, Google, YouTube, Twitter, and Reddit. The database aims to help those working in the disinformation field to better analyze the information on actions taken against disinformation networks from these companies.</p>
                             </Col>
                             <Col xs={12} lg={{span:4, offset:4}}>
-                                <p className="links"><a href="/about">About this project</a></p>
+                                <p className="links"><a href="/about" className="active">About this project</a></p>
                                 <p className="links"><a href="/">Database</a></p>
-                                <p className="links"><a href="whitepaper" className="active">Whitepaper</a></p>
+                                <p className="links"><a href="whitepaper">Whitepaper</a></p>
                                 <p className="links"><a href="how-to">How to read the database?</a></p>
-
                             </Col>
                             </Row>
                         </Col>
                     </Row>
                 </Container>
-
                 <Container>
                     <Row>
                         <Col xs={12} style={{"paddingTop":"3rem", "paddingBottom":"3rem"}}>
-                            <h2>
-                                Disinfodex white paper
-                            </h2>
                         
-                            <p>You can read our white paper <a href={"https://drive.google.com/file/d/1tZNYX_STN6OfO8r-IDzzprtMolKl2aGK/view?usp=sharing"}>here.</a></p>
-
-                            <h3>Executive summary:</h3>
-                            <p>This  paper outlines the creation of the Disinfodex project, an online database indexing public disclosures of disinformation campaigns issued by major online platforms, currently including Facebook, Instagram, Google, YouTube, Twitter, and Reddit. The project was created by participants of the Assembly:Disinformation Fellowship at Harvard’s Berkman Klein Center.</p>
-                            <p>By aggregating the resources in one searchable database, Disinfodex provides a way to analyze publicly available information on actions taken against disinformation networks from these companies. This paper explores considerations taken into account when building the database, which continues to be a work in progress at the time of this paper’s release, and outlines current practices around public disclosure of disinformation campaigns by major online platforms.</p>
-                            <p>Advancing the discussion further, the paper explores the current landscape of publicly available information for those researching and working to combat online disinformation, and examines how the Disinfodex project may be built upon to create a useful shared infrastructure within the space. The paper frames an approach to thinking about challenges and risks of building a shared infrastructure, and calls for future steps for collaboration.</p>
                         </Col>
                     </Row>
                 </Container>
-
                 <Container fluid id="footer">
                     <footer>
                         <Row className="align-items-end">
@@ -115,4 +103,4 @@ class Whitepaper extends React.Component
     }
 }
 
-export default Whitepaper
+export default About
