@@ -429,3 +429,25 @@ max-width: 100%;
     padding-right: 0.8rem;
     width: fit-content;
 }
+
+.limit-dropdown
+{
+    border: 2px solid #B18C5A;
+    color: #B18C5A;
+    margin-top: 1rem;
+    text-align: center;
+    padding: 0.375rem;
+    /* display: inline; */
+    /* margin-left: 1rem */
+}
+
+.limit-dropdown-wrapper
+{
+    margin-top: 1rem;
+}
+
+.filter-dropdown-panel.limit-dropdown-options
+{
+    position: absolute;
+    z-index: 100;
+}

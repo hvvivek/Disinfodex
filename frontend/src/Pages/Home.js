@@ -56,6 +56,7 @@ class Home extends React.Component
                 startDate: new Date("Jan 01 2000"),
                 endDate: new Date(),
                 key: 'selection',
+                default: true
               },
               sourceFilters: {},
               search_term: "",
@@ -163,6 +164,20 @@ class Home extends React.Component
                 }
             }
         }
+        let platform_records = []
+
+        if(data["Platform Reports"])
+        {
+            for(let i=0; i<data["Platform Reports"].length; i++)
+            {
+                let SYNC_ID = data["Platform Reports"][i]
+                let filtered = this.state.platform_records.filter(record => record.sync_id === SYNC_ID)
+                if(filtered && filtered.length > 0 )
+                {
+                    platform_records.push(filtered[0])
+                }
+            }
+        }
 
         let payload = {
             networks: [data.Name],
@@ -170,7 +185,9 @@ class Home extends React.Component
             endDate: data["Latest Date"],
             platforms: data["Company"],
             removal_types: data["Removal Type"],
-            screenshots: screenshots
+            description: data["Description"],
+            screenshots: screenshots,
+            platform_records: platform_records
         }
         return <Card data={payload}></Card>
     }
@@ -580,7 +597,7 @@ class Home extends React.Component
                 case 'DOD':
                     let dates_to_filter = this.state.selection
 
-                    if(dates_to_filter)
+                    if(dates_to_filter && !dates_to_filter["default"])
                     {
                         filter_labels["DOD"] = true
 
@@ -978,6 +995,27 @@ class Home extends React.Component
                                     <Row className="justify-content-end">
                                         <Col className="record-index">
                                             <p>Viewing {this.state.skip+1} - {(this.state.skip + this.state.limit) <= filtered_records.length? this.state.skip + this.state.limit: filtered_records.length} out of {filtered_records.length}</p>
+                                        </Col>
+                                        <Col xs={1} style={{"textAlign": "right", "display": "grid", "alignItems": "center", "justifyItems": "end"}}>
+                                            <span>Showing</span>
+                                        </Col>
+                                        <Col xs={1}>
+                                            <Col xs={12} className="filter-dropdown limit-dropdown" onClick={() => this.setState({"limit_dropdown": !this.state.limit_dropdown})}>
+                                                {this.state.limit}
+                                            </Col>
+                                            <Collapse in={this.state.limit_dropdown}>
+                                                <Col xs={12} className="filter-dropdown-panel limit-dropdown-options">
+                                                    <Row>
+                                                        {[10, 25, 50, 100].map(num => <Col xs={12}><p onClick={() => this.setState({limit_dropdown: false, limit: num})}>{num}</p></Col>)}
+                                                    </Row>
+                                                </Col>
+                                                </Collapse>
+                                            {/* <select value={this.state.limit} onChange={(e) => this.setState({limit: parseInt(e.target.value)})}>
+                                                <option value={10}>10</option>
+                                                <option value={25}>25</option>
+                                                <option value={50}>50</option>
+                                                <option value={100}>100</option>
+                                            </select> */}
                                         </Col>
                                         {(this.state.skip >= this.state.limit) && <Button onClick={(e) => {this.setState({skip: this.state.skip - this.state.limit})}}>Previous</Button> }
                                         {(this.state.skip + this.state.limit) < filtered_records.length && <Button onClick={(e) => {this.setState({skip: this.state.skip + this.state.limit})}}>Next</Button> }

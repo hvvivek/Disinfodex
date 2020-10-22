@@ -130,5 +130,32 @@
 
 .modal-body
 {
+    max-height: 50vh;
+    overflow: scroll;
+}
+
+.modal-body
+{
     padding: 0px;
+}
+
+.description.section
+{
+    max-height: 100%;
+    overflow: scroll;
+}
+
+.description.section p
+{
+    font-size: 0.75rem;
+}
+
+.description.section .subtitle
+{
+    margin-top: 1rem;
+    font-size: 0.6rem;
+}
+
+.description
+{background-color: #ECECEC;
 }
