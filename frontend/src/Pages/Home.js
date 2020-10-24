@@ -1,5 +1,5 @@
 import React from 'react'
-
+import moment from 'moment'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -469,7 +469,7 @@ class Home extends React.Component
                         companies_to_filter = companies_to_filter.filter(key => this.state.company_filters[key])
                         if(companies_to_filter.length > 0)
                         {
-                            filter_labels["COMPANY"] = true
+                            filter_labels["COMPANY"] = companies_to_filter
                             filtered_records = filtered_records.filter(function(record){
                                 let result = false
                                 if(record['COMPANY'])
@@ -500,7 +500,7 @@ class Home extends React.Component
                         removal_types_to_filter = removal_types_to_filter.filter(key => this.state.removal_type_filters[key])
                         if(removal_types_to_filter.length > 0)
                         {
-                            filter_labels["REMOVAL_TYPE"] = true
+                            filter_labels["REMOVAL_TYPE"] = removal_types_to_filter
                             filtered_records = filtered_records.filter((record) => removal_types_to_filter.includes(record['REMOVAL_TYPE']))
                         }
                         
@@ -515,7 +515,7 @@ class Home extends React.Component
                         policy_infringements_to_filter = policy_infringements_to_filter.filter(key => this.state.infringement_filters[key])
                         if(policy_infringements_to_filter.length > 0)
                         {
-                            filter_labels["POLICY_VIOLATIONS"] = true
+                            filter_labels["POLICY_VIOLATIONS"] = policy_infringements_to_filter
                             filtered_records = filtered_records.filter((record) => policy_infringements_to_filter.includes(record['POLICY_VIOLATIONS']))
                         }
                         
@@ -529,7 +529,7 @@ class Home extends React.Component
                         sources_to_filter = sources_to_filter.filter(key => this.state.source_filters[key])
                         if(sources_to_filter.length > 0)
                         {
-                            filter_labels["SOURCE_TYPE"] = true
+                            filter_labels["SOURCE_TYPE"] = sources_to_filter
                             filtered_records = filtered_records.filter((record) => sources_to_filter.includes(record['SOURCE_TYPE']))
                         }
                         
@@ -543,7 +543,7 @@ class Home extends React.Component
                         dest_geo_to_filter = dest_geo_to_filter.filter(key => this.state.destination_country_filters[key])
                         if(dest_geo_to_filter.length > 0)
                         {
-                            filter_labels["DESTINATION_COUNTRY"] = true
+                            filter_labels["DESTINATION_COUNTRY"] = dest_geo_to_filter
                             filtered_records = filtered_records.filter((record) => dest_geo_to_filter.includes(record['DESTINATION_COUNTRY']) || (record['DESTINATION_COUNTRY'] && record['DESTINATION_COUNTRY'].includes(dest_geo_to_filter)))
                         }
                         
@@ -558,7 +558,7 @@ class Home extends React.Component
                         origin_geo_to_filter = origin_geo_to_filter.filter(key => this.state.origin_country_filters[key])
                         if(origin_geo_to_filter.length > 0)
                         {
-                            filter_labels["ORIGIN_COUNTRY"] = true
+                            filter_labels["ORIGIN_COUNTRY"] = origin_geo_to_filter
                             filtered_records = filtered_records.filter((record) => origin_geo_to_filter.includes(record['ORIGIN_COUNTRY']) || (record['ORIGIN_COUNTRY'] && record['ORIGIN_COUNTRY'].includes(origin_geo_to_filter)))
                         }
                         
@@ -870,7 +870,7 @@ class Home extends React.Component
                                                 <Form.Group>
                                                     <Form.Label>Date of Disclosure</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("dodFilterPanelCollapsed")}>
-                                                        {filter_labels["DOD"]? <p>Filter Active</p> : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
+                                                    {filter_labels["DOD"]? <p className="time-filter">{moment(this.state.selection["startDate"]).format("MMM DD YYYY")  + " - " + moment(this.state.selection["endDate"]).format("MMM DD YYYY")}</p> : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
                                                     </Col>
                                                     <Collapse in={this.state.dodFilterPanelCollapsed}>
                                                         <Col xs={12} className="filter-dropdown-panel">
@@ -887,7 +887,7 @@ class Home extends React.Component
                                                 <Form.Group>
                                                     <Form.Label>Companies</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("sourceFilterPanelCollapsed")}>
-                                                        {filter_labels["COMPANY"] ? <p>Filter Active</p> : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
+                                                        {filter_labels["COMPANY"]? filter_labels["COMPANY"].map(company => <p className={"pill " + company.replace("/", "")}>{company}</p>): <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
                                                     </Col>
                                                     <Collapse in={this.state.sourceFilterPanelCollapsed}>
                                                         <Col xs={12} className="filter-dropdown-panel">
@@ -901,7 +901,7 @@ class Home extends React.Component
                                                 <Form.Group>
                                                     <Form.Label>Source Type</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("platformFilterPanelCollapsed")}>
-                                                        {filter_labels["SOURCE_TYPE"] ? <p>Filter Active</p> : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
+                                                        {filter_labels["SOURCE_TYPE"] ? filter_labels["SOURCE_TYPE"].map(company => <p className={"pill " + company.replace("/", "")}>{company}</p>) : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
                                                     </Col>
                                                     <Collapse in={this.state.platformFilterPanelCollapsed}>
                                                         <Col xs={12} className="filter-dropdown-panel">
@@ -914,7 +914,7 @@ class Home extends React.Component
                                                 <Form.Group>
                                                     <Form.Label>Removal Type</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("productFilterPanelCollapsed")}>
-                                                        {filter_labels["REMOVAL_TYPE"] ? <p>Filter Active</p> : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
+                                                        {filter_labels["REMOVAL_TYPE"] ? filter_labels["REMOVAL_TYPE"].map(company => <p className={"pill " + company.replace("/", "")}>{company}</p>) : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
                                                     </Col>
                                                     <Collapse in={this.state.productFilterPanelCollapsed}>
                                                         <Col xs={12} className="filter-dropdown-panel">
@@ -927,7 +927,7 @@ class Home extends React.Component
                                                 <Form.Group>
                                                     <Form.Label>Origin Country</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("originCountryFilterPanelCollapased")}>
-                                                        {filter_labels["ORIGIN_COUNTRY"] ? <p>Filter Active</p> : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
+                                                        {filter_labels["ORIGIN_COUNTRY"] ? filter_labels["ORIGIN_COUNTRY"].map(company => <p className={"pill " + company.replace("/", "")}>{company}</p>) : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
                                                     </Col>
                                                     <Collapse in={this.state.originCountryFilterPanelCollapased}>
 
@@ -942,7 +942,7 @@ class Home extends React.Component
                                                 <Form.Group>
                                                     <Form.Label>Target Country</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("destinationCountryFilterPanelCollapsed")}>
-                                                        {filter_labels["DESTINATION_COUNTRY"] ? <p>Filter Active</p> : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
+                                                        {filter_labels["DESTINATION_COUNTRY"] ? filter_labels["DESTINATION_COUNTRY"].map(company => <p className={"pill " + company.replace("/", "")}>{company}</p>) : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
                                                     </Col>
                                                     <Collapse in={this.state.destinationCountryFilterPanelCollapsed}>
 
