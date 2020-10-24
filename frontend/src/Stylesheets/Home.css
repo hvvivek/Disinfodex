@@ -451,3 +451,36 @@ max-width: 100%;
     position: absolute;
     z-index: 100;
 }
+
+.filter-dropdown
+{
+
+}
+
+.filter-dropdown p.no-filter
+{
+    background-color: transparent;
+    width: 100%;
+    color: #B18C5A;
+    cursor: pointer;
+
+}
+
+.filter-dropdown p span
+{
+    position: absolute;
+    right: 1rem;
+}
+
+#pagination-section
+{
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+.limit-dropdown-options
+{
+    background-color: white;
+    border-radius: 5px;
+    border: 2px solid #e7e7e7;
+}

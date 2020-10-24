@@ -310,7 +310,7 @@ class Home extends React.Component
     }
 
     handleSelect = (ranges) => {
-        this.setState({selection: ranges["selection"]})
+        this.setState({selection: {...ranges["selection"], default: false}})
         // {
         //   selection: {
         //     startDate: [native Date Object],
@@ -870,7 +870,7 @@ class Home extends React.Component
                                                 <Form.Group>
                                                     <Form.Label>Date of Disclosure</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("dodFilterPanelCollapsed")}>
-                                                        {filter_labels["DOD"] && <p>Filter Active</p>}
+                                                        {filter_labels["DOD"]? <p>Filter Active</p> : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
                                                     </Col>
                                                     <Collapse in={this.state.dodFilterPanelCollapsed}>
                                                         <Col xs={12} className="filter-dropdown-panel">
@@ -887,7 +887,7 @@ class Home extends React.Component
                                                 <Form.Group>
                                                     <Form.Label>Companies</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("sourceFilterPanelCollapsed")}>
-                                                        {filter_labels["COMPANY"] && <p>Filter Active</p>}
+                                                        {filter_labels["COMPANY"] ? <p>Filter Active</p> : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
                                                     </Col>
                                                     <Collapse in={this.state.sourceFilterPanelCollapsed}>
                                                         <Col xs={12} className="filter-dropdown-panel">
@@ -901,7 +901,7 @@ class Home extends React.Component
                                                 <Form.Group>
                                                     <Form.Label>Source Type</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("platformFilterPanelCollapsed")}>
-                                                        {filter_labels["SOURCE_TYPE"] && <p>Filter Active</p>}
+                                                        {filter_labels["SOURCE_TYPE"] ? <p>Filter Active</p> : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
                                                     </Col>
                                                     <Collapse in={this.state.platformFilterPanelCollapsed}>
                                                         <Col xs={12} className="filter-dropdown-panel">
@@ -914,7 +914,7 @@ class Home extends React.Component
                                                 <Form.Group>
                                                     <Form.Label>Removal Type</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("productFilterPanelCollapsed")}>
-                                                        {filter_labels["REMOVAL_TYPE"] && <p>Filter Active</p>}
+                                                        {filter_labels["REMOVAL_TYPE"] ? <p>Filter Active</p> : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
                                                     </Col>
                                                     <Collapse in={this.state.productFilterPanelCollapsed}>
                                                         <Col xs={12} className="filter-dropdown-panel">
@@ -927,7 +927,7 @@ class Home extends React.Component
                                                 <Form.Group>
                                                     <Form.Label>Origin Country</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("originCountryFilterPanelCollapased")}>
-                                                        {filter_labels["ORIGIN_COUNTRY"] && <p>Filter Active</p>}
+                                                        {filter_labels["ORIGIN_COUNTRY"] ? <p>Filter Active</p> : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
                                                     </Col>
                                                     <Collapse in={this.state.originCountryFilterPanelCollapased}>
 
@@ -942,7 +942,7 @@ class Home extends React.Component
                                                 <Form.Group>
                                                     <Form.Label>Target Country</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("destinationCountryFilterPanelCollapsed")}>
-                                                        {filter_labels["DESTINATION_COUNTRY"] && <p>Filter Active</p>}
+                                                        {filter_labels["DESTINATION_COUNTRY"] ? <p>Filter Active</p> : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
                                                     </Col>
                                                     <Collapse in={this.state.destinationCountryFilterPanelCollapsed}>
 
@@ -991,7 +991,22 @@ class Home extends React.Component
                                         </tbody>
                                     </table>
                                 </div>
-                                <Col xs={12} id="pagination-wrapper">
+                                
+                                </>}
+                                
+
+                                {/* <iframe className="airtable-embed" 
+                                        src="https://airtable.com/embed/shrYU6XDj0F0slvSP?backgroundColor=yellow&viewControls=on" 
+                                        frameborder="0" 
+                                        onmousewheel="" 
+                                        width="100%" 
+                                        height="533" 
+                                        style={{"background": "transparent", "border": "1px solid #ccc;"}}></iframe> */}
+                            </Col>
+                            <Col xs={12} id="pagination-section">
+
+                                {   this.state.active === "table" && 
+                                    <Col xs={12} id="pagination-wrapper">
                                     <Row className="justify-content-end">
                                         <Col className="record-index">
                                             <p>Viewing {this.state.skip+1} - {(this.state.skip + this.state.limit) <= filtered_records.length? this.state.skip + this.state.limit: filtered_records.length} out of {filtered_records.length}</p>
@@ -1021,7 +1036,7 @@ class Home extends React.Component
                                         {(this.state.skip + this.state.limit) < filtered_records.length && <Button onClick={(e) => {this.setState({skip: this.state.skip + this.state.limit})}}>Next</Button> }
                                     </Row>
                                 </Col>
-                                </>}
+                                }
                                 {
                                     this.state.active === "cards" && 
                                     <Col xs={12}>
@@ -1037,14 +1052,6 @@ class Home extends React.Component
                                     </Col>
                                     
                                 }
-
-                                {/* <iframe className="airtable-embed" 
-                                        src="https://airtable.com/embed/shrYU6XDj0F0slvSP?backgroundColor=yellow&viewControls=on" 
-                                        frameborder="0" 
-                                        onmousewheel="" 
-                                        width="100%" 
-                                        height="533" 
-                                        style={{"background": "transparent", "border": "1px solid #ccc;"}}></iframe> */}
                             </Col>
 
                             </Row>
