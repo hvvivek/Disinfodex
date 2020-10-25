@@ -660,7 +660,7 @@ class Home extends React.Component
         return <>
                 {/* NAVBAR COMPONENT */}
                 <Navbar id="navbar">
-                    <Navbar.Brand href="#home">dis<span>•</span>info<span>•</span>dex</Navbar.Brand>
+                    <Navbar.Brand href="/">dis<span>•</span>info<span>•</span>dex</Navbar.Brand>
 
                 </Navbar>
                 {/* NAVBAR COMPONENT */}

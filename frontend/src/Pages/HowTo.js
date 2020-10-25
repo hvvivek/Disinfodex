@@ -45,7 +45,7 @@ class HowTo extends React.Component
         return <>
                 {/* NAVBAR COMPONENT */}
                 <Navbar id="navbar">
-                    <Navbar.Brand href="#home">dis<span>•</span>info<span>•</span>dex</Navbar.Brand>
+                    <Navbar.Brand href="/">dis<span>•</span>info<span>•</span>dex</Navbar.Brand>
                     {/* <hr style={{"width":"100%", "height":"2px", "backgroundColor":"red"}}></hr> */}
 
                 </Navbar>

@@ -84,7 +84,7 @@ class Sync extends React.Component
         return <>
                 {/* NAVBAR COMPONENT */}
                 <Navbar id="navbar">
-                    <Navbar.Brand href="#home">disinfodex</Navbar.Brand>
+                    <Navbar.Brand href="/">disinfodex</Navbar.Brand>
                     <Nav className="mr-auto">
                     
                     </Nav>
