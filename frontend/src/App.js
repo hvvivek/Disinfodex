@@ -5,6 +5,7 @@ import About from './Pages/About';
 import Home from './Pages/Home'
 import Sync from './Pages/Sync';
 import Whitepaper from './Pages/Whitepaper';
+import HowTo from './Pages/HowTo';
 
 function App() {
   return (
@@ -20,6 +21,10 @@ function App() {
 
           <Route path="/whitepaper">
             <Whitepaper></Whitepaper>
+          </Route>
+
+          <Route path="/how-to">
+            <HowTo></HowTo>
           </Route>
 
 
