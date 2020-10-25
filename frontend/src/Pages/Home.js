@@ -87,7 +87,7 @@ class Home extends React.Component
 
               currentSort: null,
               ascendingSort: false,
-              active: "table",
+              active: "cards",
 
               skip: 0,
               limit: 10,
@@ -871,15 +871,6 @@ class Home extends React.Component
                                 </div>
                                 
                                 </>}
-                                
-
-                                {/* <iframe className="airtable-embed" 
-                                        src="https://airtable.com/embed/shrYU6XDj0F0slvSP?backgroundColor=yellow&viewControls=on" 
-                                        frameborder="0" 
-                                        onmousewheel="" 
-                                        width="100%" 
-                                        height="533" 
-                                        style={{"background": "transparent", "border": "1px solid #ccc;"}}></iframe> */}
                             </Col>
                             <Col xs={12} id="pagination-section">
 
@@ -903,12 +894,6 @@ class Home extends React.Component
                                                     </Row>
                                                 </Col>
                                                 </Collapse>
-                                            {/* <select value={this.state.limit} onChange={(e) => this.setState({limit: parseInt(e.target.value)})}>
-                                                <option value={10}>10</option>
-                                                <option value={25}>25</option>
-                                                <option value={50}>50</option>
-                                                <option value={100}>100</option>
-                                            </select> */}
                                         </Col>
                                         {(this.state.skip >= this.state.limit) && <Button onClick={(e) => {this.setState({skip: this.state.skip - this.state.limit})}}>Previous</Button> }
                                         {(this.state.skip + this.state.limit) < filtered_records.length && <Button onClick={(e) => {this.setState({skip: this.state.skip + this.state.limit})}}>Next</Button> }
