@@ -564,7 +564,7 @@ class Home extends React.Component
 
                         filtered_records = filtered_records.filter((record) => {
 
-                            return JSON.stringify(record).includes(search_term)
+                            return JSON.stringify(record).toLowerCase().includes(search_term.toLowerCase())
                         })
                     }
                 default:
