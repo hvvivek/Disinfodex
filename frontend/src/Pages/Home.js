@@ -1,5 +1,7 @@
 import React from 'react'
 import moment from 'moment'
+import ColumnResizer from 'react-column-resizer'
+
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -9,8 +11,11 @@ import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
-
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Modal from 'react-bootstrap/Modal'
+import NetworkModal from "../Components/NetworkModal"
 import Card from "../Components/Card"
+import TableRow from "../Components/TableRow"
 
 import logo_1 from '../Assets/Images/sponsor_logo_1.png'
 import logo_2 from '../Assets/Images/berkman_klein.png'
@@ -80,6 +85,8 @@ class Home extends React.Component
               originCountryFilterPanelCollapased: false,
               destinationCountryFilterPanelCollapsed: false,
 
+              currentSort: null,
+              ascendingSort: false,
               active: "table",
 
               skip: 0,
@@ -192,131 +199,74 @@ class Home extends React.Component
         return <Card data={payload}></Card>
     }
 
-    render_row = (data) => {
+    handleClose = () => {
+        this.setState({showRowModal: false})
+    }
 
+    render_network_card = (key, value) => {
+        if(key === "Network")
+        {
+            let data = this.state.networks && this.state.networks.filter(network => network.Name === value)
+            
+            if(data.length > 0)
+            {
+                data = data[0]
+            }
 
-        let ID = data["ID"]
-        let Date_Of_Disclosure = data["DISCLOSURE_DATE"]
-        let Company = data["COMPANY"]
-        let Network = data["NETWORK_ID"]
-        Network = this.state.networks.filter(network => network.sync_id === Network[0])[0]['Name']
+            let screenshots = []
+            if(data["Screenshots"])
+            {
+                for(let i=0; i<data["Screenshots"].length; i++)
+                {
+                    let SYNC_ID = data["Screenshots"][i]
+                    let filtered = this.state.screenshots.filter(image => image.sync_id === SYNC_ID)
+                    if(filtered && filtered.length > 0 )
+                    {
+                        screenshots.push(filtered[0])
+                    }
+                }
+            }
 
-        let Removal_Type = data["REMOVAL_TYPE"]
-        let Removal_Number = data["REMOVAL_NUMBER"]
+            let platform_records = []
 
-        let Engagement_Context = data["ENGAGEMENT_CONTEXT"]
-        let Engagement_Number = data["ENGAGEMENT_NUMBER"]
+            if(data["Platform Reports"])
+            {
+                for(let i=0; i<data["Platform Reports"].length; i++)
+                {
+                    let SYNC_ID = data["Platform Reports"][i]
+                    let filtered = this.state.platform_records.filter(record => record.sync_id === SYNC_ID)
+                    if(filtered && filtered.length > 0 )
+                    {
+                        platform_records.push(filtered[0])
+                    }
+                }
+            }
 
-        let Origin_Country = data["ORIGIN_COUNTRY"]
-        let Targeted_Country = data["DESTINATION_COUNTRY"]
+            let payload = {
+                networks: [data.Name],
+                startDate: data["Earliest Date"],
+                endDate: data["Latest Date"],
+                platforms: data["Company"],
+                removal_types: data["Removal Type"],
+                description: data["Description"],
+                screenshots: screenshots,
+                platform_records: platform_records
+            }
 
-        let Named_Entities = data["NAMED_ENTITIES_FULL"]
-        let Policy_Violations = data["POLICY_VIOLATIONS"]
+            this.setState({showRowModal: false, showNetworkModal: true, networkModalData: payload})
+        }
+        else
+        {
+            this.setState({showNetworkModal: false, networkModalData: null})
+        }
+    }
 
-        let URL = data["MAIN_URL"]
-        let Secondary_URL = data["SECONDARY_URL"]
-
-        let Description_Long = data["DESCRIPTION_LONG"]
-        let Notes = data["NOTES"]
-        let Archive_URL = data["ARCHIVE_URL"]
-
-        return <tr key={ID}>
-            <td xs={2} className="dod-column">
-                <div>
-                    {Date_Of_Disclosure}
-                </div>
-            </td>
-            <td xs={2}>
-                <div style={{backgroundColor: COMPANY_COLORS[Company]}} className="table-company">
-                    {Company}
-                </div>
-            </td>
-            <td xs={2}>
-                <div className="table-network">
-                    {Network}
-                </div>
-            </td>
-            <td xs={2}>
-                <div>
-                    {Removal_Type}
-                </div>
-            </td>
-            <td xs={2}>
-                <div>
-                    {Removal_Number}
-                </div>
-            </td>
-            <td xs={2}>
-                <div>
-                    {Engagement_Context}
-                </div>
-            </td>
-            <td xs={2}>
-                <div>
-                    {Engagement_Number}
-                </div>
-            </td>
-            <td xs={2}>
-                <div>
-                    {Targeted_Country}
-                </div>
-            </td>
-            <td xs={2}>
-                <div>
-                    {Origin_Country}
-                </div>
-            </td>
-            <td xs={2}>
-                <div>
-                    {Named_Entities}
-                </div>
-            </td>
-            <td xs={2}>
-                <div>
-                    {Policy_Violations}
-                </div>
-            </td>
-            <td xs={2}>
-                <div>
-                    <a href={URL}>
-                    {URL}</a>
-                </div>
-            </td>
-            <td xs={2}>
-                <div>
-                <a href={Secondary_URL}>
-                    {Secondary_URL}
-                    </a>
-                </div>
-            </td>
-            <td xs={2}>
-                <div>
-                    {Description_Long}
-                </div>
-            </td>
-            <td xs={2}>
-                <div>
-                    {Notes}
-                </div>
-            </td>
-            <td xs={2}>
-                <div>
-                <a href={Archive_URL}>
-                    {Archive_URL}
-                    </a>
-                </div>
-            </td>
-        </tr>
+    handleModalClose = () => {
+        this.setState({showRowModal: false, showNetworkModal: false})
     }
 
     handleSelect = (ranges) => {
         this.setState({selection: {...ranges["selection"], default: false}})
-        // {
-        //   selection: {
-        //     startDate: [native Date Object],
-        //     endDate: [native Date Object],
-        //   }
-        // }
       }
 
     toggleFilter = (filter, name) => {
@@ -411,7 +361,6 @@ class Home extends React.Component
     }
 
     handlePageSwitch = (i) => {
-        console.log(i)
         this.setState({cards_page: i})
     }
 
@@ -419,8 +368,7 @@ class Home extends React.Component
 
     render()
     {
-        // if(this.state.active === "table")
-        // {
+
         //Company Filter
         let company_filter_options    = this.renderFilterOptions('COMPANY', 'company_filters')
 
@@ -625,124 +573,57 @@ class Home extends React.Component
         }
 
         let row_renders = []
-        if(this.state.platform_records && this.state.platform_records.length > 14)
+        if(this.state.platform_records && this.state.platform_records.length > 0)
         {
+            let COLUMNS = [
+                {name: "Date of Disclosure", slug: "dod", index: "DISCLOSURE_DATE"},
+                {name: "Company", slug: "company", index: "COMPANY"},
+                {name: "Network", slug: "network"},
+                {name: "Removal Type", slug: "removal_type", index: "REMOVAL_TYPE"},
+                {name: "Removal Number", slug: "removal_number", index: "REMOVAL_NUMBER"},
+                {name: "Engagement Context", slug: "engagement_context"},
+                {name: "Engagement Number", slug: "engagement_number", index: "ENGAGEMENT_NUMBER"},
+                {name: "Target Country", slug: "target_country", index: "DESTINATION_COUNTRY"},
+                {name: "Origin Country", slug: "origin_country", index: "ORIGIN_COUNTRY"},
+                {name: "Named Entities", slug: "named_entities"},
+                {name: "Policy Violations", slug: "policy_violations", index: "POLICY_VIOLATIONS"},
+                {name: "URL", slug: "url", index: "MAIN_URL"},
+                {name: "Secondary URL", slug: "secondary_url", index: "SECONDARY_URL"},
+                {name: "Description", slug: "description"},
+                {name: "Notes", slug: "notes"},
+                {name: "Archive URL", slug: "archive_url", index: "ARCHIVE_URL"}
+            ]
+
             row_renders.push(
                 <tr>
-                    {/* <th>
-                        <div className="id-column">
-                            ID
-                            <i class="fas fa-caret-down"></i>
-                        </div>
-                    </th> */}
-                    <th>
+                    {
+                    COLUMNS.map(column => <th>
                         <div className="dod-column">
-                            Date of Disclosure
-                            <i class="fas fa-caret-down"></i>
+                            {column["name"]}
+                            {column["index"] && this.state.currentSort !== column["index"] && <i class="fas fa-caret-down" onClick={() => this.setState({currentSort: column["index"], ascendingSort: !this.state.ascendingSort})}></i>}
+                            {column["index"] && this.state.currentSort === column["index"] && <i class={this.state.ascendingSort? "fas fa-arrow-up": "fas fa-arrow-down"} onClick={() => this.setState({currentSort: column["index"], ascendingSort: !this.state.ascendingSort})}></i>}
+
                         </div>
-                    </th>
-                    <th>
-                        <div>
-                            Company
-                            <i class="fas fa-caret-down"></i>
-                        </div>
-                    </th>
-                    <th>
-                        <div>
-                            Network
-                            <i class="fas fa-caret-down"></i>
-                        </div>
-                    </th>
-                    <th>
-                        <div>
-                            Removal Type
-                            <i class="fas fa-caret-down"></i>
-                        </div>
-                    </th>
-                    <th>
-                        <div>
-                            Removal Number
-                            <i class="fas fa-caret-down"></i>
-                        </div>
-                    </th>
-                    <th>
-                        <div>
-                            Engagement Context
-                            <i class="fas fa-caret-down"></i>
-                        </div>
-                    </th>
-                    <th>
-                        <div>
-                            Engagement Number
-                            <i class="fas fa-caret-down"></i>
-                        </div>
-                    </th>
-                    <th>
-                        <div>
-                            Target Country
-                            <i class="fas fa-caret-down"></i>
-                        </div>
-                    </th>
-                    <th>
-                        <div>
-                            Origin Country
-                            <i class="fas fa-caret-down"></i>
-                        </div>
-                    </th>
-                    <th>
-                        <div>
-                            Named Entities
-                            <i class="fas fa-caret-down"></i>
-                        </div>
-                    </th>
-                    <th>
-                        <div>
-                            Policy Violations
-                            <i class="fas fa-caret-down"></i>
-                        </div>
-                    </th>
-                    <th>
-                        <div>
-                            URL
-                            <i class="fas fa-caret-down"></i>
-                        </div>
-                    </th>
-                    <th>
-                        <div>
-                            Secondary URL
-                            <i class="fas fa-caret-down"></i>
-                        </div>
-                    </th>
-                    <th>
-                        <div>
-                            Description
-                            <i class="fas fa-caret-down"></i>
-                        </div>
-                    </th>
-                    <th>
-                        <div>
-                            Notes
-                            <i class="fas fa-caret-down"></i>
-                        </div>
-                    </th>
-                    <th>
-                        <div>
-                            Archive URL
-                            <i class="fas fa-caret-down"></i>
-                        </div>
-                    </th>
+                    </th>)
+                    }
                 </tr>
             )
-
+            
+            if(this.state.currentSort)
+            {
+                const SORT_KEY = this.state.currentSort
+                filtered_records = filtered_records.sort((a,b) => this.state.ascendingSort? a[SORT_KEY] > b[SORT_KEY]: a[SORT_KEY] < b[SORT_KEY])
+            }
             let data_to_show = filtered_records.slice(this.state.skip, this.state.skip + this.state.limit)
             for(let i=0; i<data_to_show.length; i++)
             {
                 let row_data = data_to_show[i]
-                row_renders.push(this.render_row(row_data))
+                row_renders.push(
+                    <TableRow data={row_data} networks={this.state.networks} handleNetworkModal={this.render_network_card}></TableRow>
+                    )
             }
         }
-    // }
-    // else{
+    
 
         let filtered_networks = filtered_records.flatMap(record=> record["NETWORK_ID"])
         filtered_networks = [...new Set(filtered_networks)]
@@ -775,25 +656,22 @@ class Home extends React.Component
                 cards_pagination.push(<span className={this.state.cards_page === i? "card-pages active": "card-pages"} onClick={() => this.handlePageSwitch(i)}>{i+1}</span>)
             }
         }
-
-        console.log(cards_pagination)
-        
-    // }
-
-
-        
         
         return <>
                 {/* NAVBAR COMPONENT */}
                 <Navbar id="navbar">
                     <Navbar.Brand href="#home">dis<span>•</span>info<span>•</span>dex</Navbar.Brand>
-                    {/* <hr style={{"width":"100%", "height":"2px", "backgroundColor":"red"}}></hr> */}
 
                 </Navbar>
                 {/* NAVBAR COMPONENT */}
                 
                 <Container fluid id="home">
                     <Row>
+                        {this.state.showNetworkModal && <NetworkModal 
+                                                            show={this.state.showNetworkModal} 
+                                                            handleClose={this.handleModalClose} 
+                                                            data={this.state.networkModalData} />}
+
                         <Col xs={12} id="info-section">
                             <Row>
                             <Col xs={12} lg={4}>
@@ -839,7 +717,7 @@ class Home extends React.Component
                                         </Col> */}
                                     </Row>
                                 </Col>
-                                <Col xs={12} md={6} lg={4} xl={3}>
+                                <Col xs={12} md={6} lg={4} xl={4}>
                                     <Row className="justify-content-end">
                                         <Col>
                                             <p>View As:</p>

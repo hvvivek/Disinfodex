@@ -18,7 +18,7 @@ class Card extends React.Component
     {
         super(props)
         this.state = {
-            show: false
+            show: true
         }
     }
 
@@ -40,13 +40,11 @@ class Card extends React.Component
             "Graphika": "#AAAAAA",
             "DFRLab": "rgb(0, 134, 125, 0.2)"
         }
-
+        console.log(this.props.data)
         let {networks, startDate, endDate, platforms, removal_types, screenshots, platform_records} = this.props.data
 
         let descriptions = platform_records.map(record => <><p><b>From {record["COMPANY"][0]}</b></p><p>{record["DESCRIPTION_LONG"]}</p></>)
-        return <Col xs={6} className="_card">
-
-            <Modal size="lg" centered show={this.state.show} onHide={this.handleClose}>
+        return <Modal size="lg" centered show={this.props.show} onHide={this.props.handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Network {networks[0]}</Modal.Title>
                 </Modal.Header>
@@ -88,38 +86,6 @@ class Card extends React.Component
                 </Modal.Body>
                 
             </Modal>
-
-            <Col xs={12} className="wrapper">
-                <Row style={{"height":"100%"}}>
-                    <Col xs={5} style={{"padding":"0"}}>
-                        <ScrenshotsCarousel screenshots={screenshots} company={platforms && platforms.length>0 && platforms[0]}></ScrenshotsCarousel>
-                    </Col>
-                    
-                    <Col xs={7} className="description-section" onClick={this.handleOpen}>
-                        <Col xs={12} className="section">
-                            <p className="subtitle">Network</p>
-                            <p>{networks && networks.map(network => <span id={network} className="network">{network}</span>)}</p>
-                        </Col>
-
-                        <Col xs={12} className="section">
-                            <p className="subtitle">Known Active Dates</p>
-                            <p className="active-date">{startDate} {endDate && " to " + endDate}</p>
-                        </Col>
-
-                        <Col xs={12} className="section">
-                            <p className="subtitle">Platform</p>
-                            <p>{platforms.map(platform => <span id={platform} className="platform" style={{"backgroundColor": COMPANY_COLORS[platform]}}>{platform}</span>)}</p>
-                        </Col>
-
-                        <Col xs={12} className="section">
-                            <p className="subtitle">Removal Type</p>
-                            <p>{removal_types && removal_types.map(type => <span id={type} className="type">{type}</span>)}</p>
-                        </Col>
-                    </Col>
-
-                </Row>
-            </Col>
-        </Col>
     }
 }
 
