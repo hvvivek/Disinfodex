@@ -705,7 +705,7 @@ class Home extends React.Component
                                 </FormControl> */}
                             </Col>
                             <Col xs={12} className="link">
-                                <a href="www.google.com">Learn more about the data collection process</a>
+                                <a href="/whitepaper">Learn more about the data collection process</a>
                             </Col>
                         </Col>
                         <Col xs={12} id="view-options">
