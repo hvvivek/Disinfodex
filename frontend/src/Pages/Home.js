@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import ColumnResizer from 'react-column-resizer'
-
+// import getNames from 'country-list'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -40,6 +40,8 @@ import cards_active from "../Assets/Icons/cards_active.png"
 
 import { DateRangePicker } from 'react-date-range';
 import {BACKEND_URI, SYNC_URI} from '../constants'
+
+const { getCode, getNames } = require('country-list');
 
 let COMPANY_COLORS = {
     "Facebook": "rgba(59, 89, 152, 0.2)",
@@ -325,7 +327,109 @@ class Home extends React.Component
 
             return final_renders
         }
-    }   
+    }
+    
+    renderCountryOptions = (key, filter) => {
+        //Empty array for render options
+        let final_renders = []
+
+        // Create a copy of the platform records
+        let records = []
+
+        if(this.state.platform_records)
+        {
+            records = [...this.state.platform_records]
+        }
+
+        // Make sure that there are atleast 1 record available
+        if(records && records.length > 0)
+        {
+            let all_options = records.flatMap(function(record){
+                // Extract
+                let cell_data = record[key]
+                if(cell_data)
+                {
+                    return cell_data
+                }
+            })
+
+            let unique_options = Array.from(new Set(all_options))
+            unique_options = unique_options.filter(Boolean)
+            let country_list = getNames()
+
+            // console.log(unique_options)
+            // console.log(country_list)
+
+            window.country_list = country_list
+            window.unique_options = unique_options
+            let filtered_list = []
+            let unfiltered = []
+            for(let i=0; i<unique_options.length; i++)
+            {
+                if(country_list.includes(unique_options[i]))
+                {
+                    filtered_list.push(unique_options[i])
+                }
+                else
+                {
+                    unfiltered.push(unique_options[i])
+                }
+            }
+
+            for(let i=0; i<unfiltered.length; i++)
+            {
+                let broken = unfiltered[i].split(",")
+                // console.log(unfiltered[i])
+                // console.log(broken)
+                for(let j=0; j<broken.length; j++)
+                {
+                    if(country_list.includes(broken[j].trim()))
+                    {
+                        filtered_list.push(broken[j].trim())
+                    }
+                }
+
+                broken = unfiltered[i].split("and")
+                for(let j=0; j<broken.length; j++)
+                {
+                    // console.log(broken[i])
+                    if(country_list.includes(broken[j].trim()))
+                    {
+                        filtered_list.push(broken[j].trim())
+                    }
+                }
+                
+                
+            }
+
+            unique_options = [...new Set(filtered_list)]
+            // console.log(unfiltered)
+            
+
+            // If there are atleast 1 option
+            if(unique_options.length > 0)
+            {
+                for(let i=0; i<unique_options.length; i++)
+                {
+                    let option = unique_options[i]
+
+                    // Create dropdown renders
+                    final_renders.push(
+                        <Col xs={12} className="option">
+                            <Toggle
+                                defaultChecked={this.state[filter][option]}
+                                icons={false}
+                                aria-label={option}
+                                onChange={() => this.toggleFilter(filter, option)} />
+                            <span>{option}</span>
+                        </Col>
+                    )
+                }
+            }
+
+            return final_renders
+        }
+    }
 
 
     renderCategoryFilterOptions = (key, filterState) => {
@@ -383,8 +487,8 @@ class Home extends React.Component
         let source_options     = this.renderFilterOptions('SOURCE_TYPE', 'source_filters')
 
         //Geography
-        let origin_country_options     = this.renderFilterOptions('ORIGIN_COUNTRY', 'origin_country_filters')
-        let destination_country_options     = this.renderFilterOptions('DESTINATION_COUNTRY', 'destination_country_filters')
+        let origin_country_options     = this.renderCountryOptions('ORIGIN_COUNTRY', 'origin_country_filters')
+        let destination_country_options     = this.renderCountryOptions('DESTINATION_COUNTRY', 'destination_country_filters')
         let geography_options = []
         if(origin_country_options && destination_country_options)
         {
@@ -504,10 +608,24 @@ class Home extends React.Component
                     if(origin_geo_to_filter)
                     {
                         origin_geo_to_filter = origin_geo_to_filter.filter(key => this.state.origin_country_filters[key])
+                        console.log(origin_geo_to_filter)
+
                         if(origin_geo_to_filter.length > 0)
                         {
                             filter_labels["ORIGIN_COUNTRY"] = origin_geo_to_filter
-                            filtered_records = filtered_records.filter((record) => origin_geo_to_filter.includes(record['ORIGIN_COUNTRY']) || (record['ORIGIN_COUNTRY'] && record['ORIGIN_COUNTRY'].includes(origin_geo_to_filter)))
+                            let country_filters = []
+                            for(let i=0; i<origin_geo_to_filter.length; i++)
+                            {
+                                country_filters = [...country_filters, ...filtered_records.filter((record) => {
+                                    console.log(record['ORIGIN_COUNTRY'])
+                                    console.log(origin_geo_to_filter[i])
+                                    return record['ORIGIN_COUNTRY'] && (record['ORIGIN_COUNTRY'].toLowerCase().trim().includes(origin_geo_to_filter[i].toLowerCase().trim()) || record['ORIGIN_COUNTRY'].toLowerCase().trim() === origin_geo_to_filter[i].toLowerCase().trim())
+                                }
+                                    )
+                                ]
+                            }
+                            filtered_records = country_filters
+
                         }
                         
                     }

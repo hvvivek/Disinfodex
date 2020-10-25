@@ -427,7 +427,7 @@ max-width: 100%;
     /* border-radius: 1rem; */
     
     width: 350px;
-    overflow: scroll;
+    overflow: auto;
 }
 
 #table-section td > div.table-network p

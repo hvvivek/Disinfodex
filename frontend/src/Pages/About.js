@@ -56,7 +56,7 @@ class About extends React.Component
                         <Col xs={12} id="info-section">
                             <Row>
                             <Col xs={12} lg={4}>
-                                <p>Disinfodex is an online database indexing public disclosures of disinformation campaigns issued by major online platforms, currently including Facebook, Instagram, Google, YouTube, Twitter, and Reddit. The database aims to help those working in the disinformation field to better analyze the information on actions taken against disinformation networks from these companies.</p>
+                                <p>Disinfodex is a database of publicly available information about disinformation campaigns. It currently includes disclosures issued by major online platforms and accompanying reports from independent open source investigators.</p>
                             </Col>
                             <Col xs={12} lg={{span:4, offset:4}}>
                                 <p className="links"><a href="/about" className="active">About this project</a></p>
