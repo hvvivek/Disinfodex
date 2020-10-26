@@ -4,6 +4,7 @@ import About from './Pages/About';
 
 import Home from './Pages/Home'
 import Sync from './Pages/Sync';
+import Network from './Pages/Network';
 import Whitepaper from './Pages/Whitepaper';
 import HowTo from './Pages/HowTo';
 
@@ -15,8 +16,7 @@ function App() {
             <Sync></Sync>
           </Route>
 
-          <Route path="/about">
-            <About></About>
+          <Route path="/network/:network_id" component={Network}>
           </Route>
 
           <Route path="/whitepaper">

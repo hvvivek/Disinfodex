@@ -121,64 +121,64 @@ class Card extends React.Component
 
         return <Col xs={6} className="_card">
 
-            <Modal size="lg" centered show={this.state.show} onHide={this.handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Network {networks[0]}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Container>
-                        <Row>
-                            <Col xs={12} style={{"minHeight": "300px", "padding":"0px"}}>
-                                <ScrenshotsCarousel screenshots={screenshots} company={platforms && platforms.length>0 && platforms[0]}></ScrenshotsCarousel>
-                            </Col>
-                            <Col xs={6} className="description-section modal-description-section">
-                                <Col xs={12} className="section">
-                                    <p className="subtitle">Network</p>
-                                    <p>{networks && networks.map(network => <span id={network} className="network">{network}</span>)}</p>
+                <Modal size="lg" centered show={this.state.show} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Network {networks[0]}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Container>
+                            <Row>
+                                <Col xs={12} style={{"minHeight": "300px", "padding":"0px"}}>
+                                    <ScrenshotsCarousel screenshots={screenshots} company={platforms && platforms.length>0 && platforms[0]}></ScrenshotsCarousel>
+                                </Col>
+                                <Col xs={6} className="description-section modal-description-section">
+                                    <Col xs={12} className="section">
+                                        <p className="subtitle">Network</p>
+                                        <p>{networks && networks.map(network => <span id={network} className="network">{network}</span>)}</p>
+                                    </Col>
+
+                                    <Col xs={12} className="section">
+                                        <p className="subtitle">Known Active Dates</p>
+                                        <p className="active-date">{startDate} {endDate && " to " + endDate}</p>
+                                    </Col>
+
+                                    <Col xs={12} className="section">
+                                        <p className="subtitle">Platform</p>
+                                        <p>{platforms.map(platform => <span id={platform} className="platform" style={{"backgroundColor": COMPANY_COLORS[platform]}}>{platform}</span>)}</p>
+                                    </Col>
+
+                                    <Col xs={12} className="section">
+                                        <p className="subtitle">Removal Type</p>
+                                        <p>{removal_types && removal_types.map(type => <span id={type} className="type">{type}</span>)}</p>
+                                    </Col>
+                                </Col>
+                                <Col xs={6} style={{padding: "0px"}}>
+                                    <Col xs={12} className="section description">
+                                        <p className="subtitle">DESCRIPTION</p>
+                                        {descriptions}
+                                    </Col>
                                 </Col>
 
-                                <Col xs={12} className="section">
-                                    <p className="subtitle">Known Active Dates</p>
-                                    <p className="active-date">{startDate} {endDate && " to " + endDate}</p>
+                                <Col xs={12}>
+                                    <p className="divider">Platform Records: </p>
+                                    {platform_records.map(payload => 
+                                        <Row>
+                                            <Col xs={12} className="row-modal description-section modal-description-section">
+                                                <p className="platform_record_title"><b>{payload["COMPANY"]} - {payload["DISCLOSURE_DATE"]}</b></p>
+                                                {Object.keys(this.filterData(payload)).map(key =>
+                                                    <>{payload[key] && <Col xs={12} className="section">
+                                                        <p className="subtitle">{this.renderModalKey(key)}</p>
+                                                        <p>{this.renderModalValue(key, payload[key], true)}</p>
+                                                    </Col>}</>
+                                                )}
+                                            </Col>
+                                        </Row>)}
                                 </Col>
-
-                                <Col xs={12} className="section">
-                                    <p className="subtitle">Platform</p>
-                                    <p>{platforms.map(platform => <span id={platform} className="platform" style={{"backgroundColor": COMPANY_COLORS[platform]}}>{platform}</span>)}</p>
-                                </Col>
-
-                                <Col xs={12} className="section">
-                                    <p className="subtitle">Removal Type</p>
-                                    <p>{removal_types && removal_types.map(type => <span id={type} className="type">{type}</span>)}</p>
-                                </Col>
-                            </Col>
-                            <Col xs={6} style={{padding: "0px"}}>
-                                <Col xs={12} className="section description">
-                                    <p className="subtitle">DESCRIPTION</p>
-                                    {descriptions}
-                                </Col>
-                            </Col>
-
-                            <Col xs={12}>
-                                <p className="divider">Platform Records: </p>
-                                {platform_records.map(payload => 
-                                    <Row>
-                                        <Col xs={12} className="row-modal description-section modal-description-section">
-                                            <p className="platform_record_title"><b>{payload["COMPANY"]} - {payload["DISCLOSURE_DATE"]}</b></p>
-                                            {Object.keys(this.filterData(payload)).map(key =>
-                                                <>{payload[key] && <Col xs={12} className="section">
-                                                    <p className="subtitle">{this.renderModalKey(key)}</p>
-                                                    <p>{this.renderModalValue(key, payload[key], true)}</p>
-                                                </Col>}</>
-                                            )}
-                                        </Col>
-                                    </Row>)}
-                            </Col>
-                        </Row>
-                    </Container>
-                </Modal.Body>
-                
-            </Modal>
+                            </Row>
+                        </Container>
+                    </Modal.Body>
+                    
+                </Modal>
 
             <Col xs={12} className="wrapper">
                 <Row style={{"height":"100%"}}>

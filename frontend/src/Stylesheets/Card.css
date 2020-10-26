@@ -180,3 +180,10 @@ p.divider
     padding-left: 0.8rem;
     padding-right: 0.8rem;
 }
+
+.alert-message
+{
+    margin-top: 2rem;
+    text-align: center;
+    font-weight: bolder;
+}
