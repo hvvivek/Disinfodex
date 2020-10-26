@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from 'moment'
-import ColumnResizer from 'react-column-resizer'
+// import ColumnResizer from 'react-column-resizer'
+
 // import getNames from 'country-list'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -40,8 +41,10 @@ import cards_active from "../Assets/Icons/cards_active.png"
 
 import { DateRangePicker } from 'react-date-range';
 import {BACKEND_URI, SYNC_URI} from '../constants'
+import { CSVLink, CSVDownload } from "react-csv";
 
 const { getCode, getNames } = require('country-list');
+const ObjectsToCsv = require('objects-to-csv');
 
 let COMPANY_COLORS = {
     "Facebook": "rgba(59, 89, 152, 0.2)",
@@ -87,7 +90,7 @@ class Home extends React.Component
               originCountryFilterPanelCollapased: false,
               destinationCountryFilterPanelCollapsed: false,
 
-              currentSort: null,
+              currentSort: "DISCLOSURE_DATE",
               ascendingSort: false,
               active: "cards",
 
@@ -303,7 +306,7 @@ class Home extends React.Component
             })
 
             let unique_options = Array.from(new Set(all_options))
-            unique_options = unique_options.filter(Boolean)
+            unique_options = unique_options.filter(Boolean).sort()
             // If there are atleast 1 option
             if(unique_options.length > 0)
             {
@@ -402,7 +405,7 @@ class Home extends React.Component
                 
             }
 
-            unique_options = [...new Set(filtered_list)]
+            unique_options = [...new Set(filtered_list)].sort()
             // console.log(unfiltered)
             
 
@@ -468,6 +471,14 @@ class Home extends React.Component
         this.setState({cards_page: i})
     }
 
+    downloadDataAsCSV = async (data) =>
+    {
+        const csv = new ObjectsToCsv(data);
+        console.log(await csv.toString())
+        let csvContent = "data:text/csv;charset=utf-8," + await csv.toString()
+        var encodedUri = encodeURI(csvContent);
+        window.open(encodedUri);
+    }
     
 
     render()
@@ -732,6 +743,7 @@ class Home extends React.Component
                 const SORT_KEY = this.state.currentSort
                 filtered_records = filtered_records.sort((a,b) => this.state.ascendingSort? a[SORT_KEY] > b[SORT_KEY]: a[SORT_KEY] < b[SORT_KEY])
             }
+
             let data_to_show = filtered_records.slice(this.state.skip, this.state.skip + this.state.limit)
             for(let i=0; i<data_to_show.length; i++)
             {
@@ -746,13 +758,22 @@ class Home extends React.Component
         let filtered_networks = filtered_records.flatMap(record=> record["NETWORK_ID"])
         filtered_networks = [...new Set(filtered_networks)]
 
+
         let card_renders = []
         let networks = this.state.networks || []
         let cards_pagination = []
 
         networks = networks.filter(network => filtered_networks.indexOf(network["sync_id"])>=0)
+        networks.sort(function(a,b)
+        {
+            if(a["Latest Date"] && b["Latest Date"])
+            {
+                return a["Latest Date"] <= b["Latest Date"]
+            }
+            return false
+        })
         
-        if(networks.length > 10)
+        if(networks.length > 0)
         {
             let start = this.state.cards_page * 10
             let end = (this.state.cards_page+1) * 10
@@ -996,8 +1017,13 @@ class Home extends React.Component
                                     <Col xs={12} id="pagination-wrapper">
                                     <Row className="justify-content-end">
                                         <Col className="record-index">
-                                            <p>Viewing {this.state.skip+1} - {(this.state.skip + this.state.limit) <= filtered_records.length? this.state.skip + this.state.limit: filtered_records.length} out of {filtered_records.length}</p>
+                                            <Row>
+                                            <Col xs={12}>
+                                                <p>Viewing {this.state.skip+1} - {(this.state.skip + this.state.limit) <= filtered_records.length? this.state.skip + this.state.limit: filtered_records.length} out of {filtered_records.length}</p>
+                                            </Col>
+                                            </Row>
                                         </Col>
+                                        
                                         <Col xs={1} style={{"textAlign": "right", "display": "grid", "alignItems": "center", "justifyItems": "end"}}>
                                             <span>Showing</span>
                                         </Col>
@@ -1015,6 +1041,17 @@ class Home extends React.Component
                                         </Col>
                                         {(this.state.skip >= this.state.limit) && <Button onClick={(e) => {this.setState({skip: this.state.skip - this.state.limit})}}>Previous</Button> }
                                         {(this.state.skip + this.state.limit) < filtered_records.length && <Button onClick={(e) => {this.setState({skip: this.state.skip + this.state.limit})}}>Next</Button> }
+                                    </Row>
+                                    <Row>
+                                    <Col  xs={12} className="download-csv">
+                                                <CSVLink
+                                                    data={filtered_records}
+                                                    filename={"my-file.csv"}
+                                                    className="btn btn-primary"
+                                                    target="_blank">
+                                                Download CSV
+                                                </CSVLink>
+                                            </Col>
                                     </Row>
                                 </Col>
                                 }

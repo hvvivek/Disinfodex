@@ -290,6 +290,8 @@ max-width: 100%;
 
 #filters-section .filter-dropdown-panel
 {
+    max-height: 20rem;
+    overflow: scroll;
     position: absolute;
     z-index: 1;
     background-color: white;
@@ -536,7 +538,7 @@ max-width: 100%;
 
 .filter-dropdown 
 {
-    overflow-x: scroll;
+    overflow-x: auto;
 }
 
 .filter-dropdown .time-filter
@@ -585,4 +587,38 @@ cursor: pointer;
     border-radius: 0rem;
     cursor: pointer;
     max-width: max-content;
+}
+
+.download-csv
+{
+    /* color: #B18C5A;
+    border-bottom: 2px solid #B18C5A;
+    margin-bottom: 0px; */
+    display: grid;
+    align-items: center;
+    padding-left: 0;
+
+}
+#pagination-wrapper .download-csv .btn
+{
+    width: max-content;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: 0;
+    margin-top: 0px;
+    outline: none;
+}
+
+.download-csv p
+{
+    color: #B18C5A;
+    text-decoration-line: underline;
+    margin-bottom: 0px;
+    cursor: pointer;
+}
+
+.download-csv p:hover
+{
+    color: #9e6b28;
+ 
 }
