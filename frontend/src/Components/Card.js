@@ -119,7 +119,7 @@ class Card extends React.Component
 
         descriptions = descriptions.map(record => <><p><b>From {record["COMPANY"][0]}</b></p><p>{record["DESCRIPTION_LONG"]}</p></>)
 
-        return <Col xs={6} className="_card">
+        return <Col sm={12} md={6} className="_card">
 
                 <Modal size="lg" centered show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header closeButton>

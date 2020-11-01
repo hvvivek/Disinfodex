@@ -865,6 +865,7 @@ class Home extends React.Component
                                 <a href="/how-to">Learn more about how the data is reported</a>
                             </Col>
                         </Col>
+
                         <Col xs={12} id="view-options">
                             <Row className="justify-content-end">
                                 <Col xs={6}>
@@ -874,7 +875,7 @@ class Home extends React.Component
                                         </Col> */}
                                     </Row>
                                 </Col>
-                                <Col xs={12} md={6} lg={3} xl={3}>
+                                <Col xs={12} md={6} lg={4} xl={4}>
                                     <Row className="justify-content-end">
                                         <Col>
                                             <p>View As:</p>
@@ -894,6 +895,7 @@ class Home extends React.Component
                                 </Col>
                             </Row>
                         </Col>
+
                         <Col xs={12}>
                             <Row>
                             <Col xs={12} id="filters-section">
@@ -1000,6 +1002,7 @@ class Home extends React.Component
                                     </Form>
                                 </Collapse>
                             </Col>
+                            
                             <Col xs={12} lg={12} id="table-section">
                                 {this.state.active === "table" && 
                                 <>
