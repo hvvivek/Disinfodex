@@ -15,7 +15,7 @@
     border: 2px solid white;
     text-overflow: ellipsis;
     overflow: hidden;
-    font-family: Helvetica, sans-serif;
+  font-family: 'Frutiger', 'Trebuchet', 'Helvetica', 'Arial', sans-serif;
     padding: 1rem;
 
 }
@@ -27,7 +27,7 @@
     /* background: rgb(245, 245, 245); */
     border: 2px solid white;
     /* font-weight: 700; */
-    font-family: adobe-garamond-pro, serif;
+    font-family: 'Garamond', 'Georgia', 'Times New Roman', 'Times', serif;
     font-style: italic;
     padding: 1rem;
 

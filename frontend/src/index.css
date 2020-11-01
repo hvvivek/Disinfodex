@@ -1,8 +1,76 @@
-body {
+@font-face {
+  font-family: 'Frutiger';
+  src: url('./Assets/Fonts/FrutigerLTStd-BlackItalic.eot');
+  src: url('./Assets/Fonts/FrutigerLTStd-BlackItalic.eot?#iefix') format('embedded-opentype'),
+      url('./Assets/Fonts/FrutigerLTStd-BlackItalic.woff2') format('woff2'),
+      url('./Assets/Fonts/FrutigerLTStd-BlackItalic.woff') format('woff');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Frutiger';
+  src: url('./Assets/Fonts/FrutigerLTStd-Italic.eot');
+  src: url('./Assets/Fonts/FrutigerLTStd-Italic.eot?#iefix') format('embedded-opentype'),
+      url('./Assets/Fonts/FrutigerLTStd-Italic.woff2') format('woff2'),
+      url('./Assets/Fonts/FrutigerLTStd-Italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Frutiger';
+  src: url('./Assets/Fonts/FrutigerLTStd-Black.eot');
+  src: url('./Assets/Fonts/FrutigerLTStd-Black.eot?#iefix') format('embedded-opentype'),
+      url('./Assets/Fonts/FrutigerLTStd-Black.woff2') format('woff2'),
+      url('./Assets/Fonts/FrutigerLTStd-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Frutiger';
+  src: url('./Assets/Fonts/FrutigerLTStd-Roman.eot');
+  src: url('./Assets/Fonts/FrutigerLTStd-Roman.eot?#iefix') format('embedded-opentype'),
+      url('./Assets/Fonts/FrutigerLTStd-Roman.woff2') format('woff2'),
+      url('./Assets/Fonts/FrutigerLTStd-Roman.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Garamond';
+  src: url('./Assets/Fonts/GaramondPremrPro-ItCapt.eot');
+  src: url('./Assets/Fonts/GaramondPremrPro-ItCapt.eot?#iefix') format('embedded-opentype'),
+      url('./Assets/Fonts/GaramondPremrPro-ItCapt.woff2') format('woff2'),
+      url('./Assets/Fonts/GaramondPremrPro-ItCapt.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Garamond';
+  src: url('./Assets/Fonts/GaramondPremrPro-Med.eot');
+  src: url('./Assets/Fonts/GaramondPremrPro-Med.eot?#iefix') format('embedded-opentype'),
+      url('./Assets/Fonts/GaramondPremrPro-Med.woff2') format('woff2'),
+      url('./Assets/Fonts/GaramondPremrPro-Med.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
+body, html {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Frutiger', 'Trebuchet', 'Helvetica', 'Arial', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

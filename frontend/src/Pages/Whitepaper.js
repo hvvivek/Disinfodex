@@ -54,6 +54,7 @@ class Whitepaper extends React.Component
                 
                 <Container fluid id="home">
                     <Row>
+
                     <Header active="how-to"></Header>
                     </Row>
                 </Container>
@@ -84,13 +85,13 @@ class Whitepaper extends React.Component
                             <Col xs={12} lg={{span: 7, offset:2}}>
                                 <Row className="justify-content-end">
                                     <Col className="logo-wrapper">
-                                        <img src={logo_1}></img>
+                                        <a href="https://carnegieendowment.org/specialprojects/counteringinfluenceoperations" target="_blank" title="Carnegie Endowment for International Peace: Partnership for Countering Influence Operations"><img src={logo_1}></img></a>
                                     </Col>
                                     <Col className="logo-wrapper">
-                                        <img src={logo_2}></img>
+                                        <a href="https://cyber.harvard.edu/" target="_blank" title="Berkman Klein Center for Internet and Society at Harvard University"><img src={logo_2}></img></a>
                                     </Col>
                                     <Col className="logo-wrapper">
-                                        <img src={logo_3}></img>
+                                        <a href="https://miamifoundation.org/" target="_blank" title="The Miami Foundation"><img src={logo_3}></img></a>
                                     </Col>
                                 </Row>
                             </Col>
