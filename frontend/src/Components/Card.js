@@ -194,8 +194,8 @@ class Card extends React.Component
                     
                     <Col xs={7} className="description-section" onClick={this.handleOpen}>
                         <Col xs={12} className="section">
-                            <p className="subtitle">Network</p>
-                            <p>{networks && networks.map(network => <span id={network} className="network">{network}</span>)}</p>
+                            <p className="subtitle">Platform</p>
+                            <p>{platforms.map(platform => <span id={platform} className="platform" style={{"backgroundColor": COMPANY_COLORS[platform]}}>{platform}</span>)}</p>
                         </Col>
 
                         <Col xs={12} className="section">
@@ -204,13 +204,13 @@ class Card extends React.Component
                         </Col>
 
                         <Col xs={12} className="section">
-                            <p className="subtitle">Platform</p>
-                            <p>{platforms.map(platform => <span id={platform} className="platform" style={{"backgroundColor": COMPANY_COLORS[platform]}}>{platform}</span>)}</p>
+                            <p className="subtitle">Removal Type</p>
+                            <p>{removal_types && removal_types.map(type => <span id={type} className="type">{type}</span>)}</p>
                         </Col>
 
                         <Col xs={12} className="section">
-                            <p className="subtitle">Removal Type</p>
-                            <p>{removal_types && removal_types.map(type => <span id={type} className="type">{type}</span>)}</p>
+                            <p className="subtitle">Network</p>
+                            <p>{networks && networks.map(network => <span id={network} className="network">{network}</span>)}</p>
                         </Col>
                     </Col>
 
