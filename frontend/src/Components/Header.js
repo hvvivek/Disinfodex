@@ -19,7 +19,7 @@ class Header extends React.Component
                     <Col xs={12} lg={{span:4, offset:4}}>
                         <p className="links"><a href="/" className={this.props.active === "database" && "active"}>Database</a></p>
                         <p className="links"><a href="/about" className={this.props.active === "about" && "active"}>About this project</a></p>
-                        <p className="links"><a href="how-to" className={this.props.active === "how-to" && "active"}>How it works?</a></p>
+                        <p className="links"><a href="how-to" className={this.props.active === "how-to" && "active"}>How it works</a></p>
                     </Col>
                     </Row>
                 </Col>

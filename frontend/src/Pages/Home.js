@@ -1053,7 +1053,7 @@ class Home extends React.Component
                                         <Row className="justify-content-end">
                                             <p className="sort-content-link" onClick={() => this.setState({ cards_latest_first: !this.state.cards_latest_first })}>
                                                 <i className={this.state.cards_latest_first ? "fas fa-sort-numeric-up" : "fas fa-sort-numeric-down"}></i>
-                                                {this.state.cards_latest_first ? "Sort Cards: Oldest to Latest" : "Sort Cards: Latest to Oldest"}
+                                                {this.state.cards_latest_first ? "Sort Cards: Oldest to Newest" : "Sort Cards: Newest to Oldest"}
                                             </p>
                                         </Row>
                                         <Row>
