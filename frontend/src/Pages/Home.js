@@ -690,19 +690,30 @@ class Home extends React.Component
                     break
                 case 'SCREENSHOTS':
                     if (this.state.contains_screenshots_filter) {
+                        
                         filtered_records = filtered_records.filter((record) => {
-                            try {
 
-                                
-                                return record['NETWORK_ID'] &&
-                                    this.state.networks.filter(network => network.sync_id === record['NETWORK_ID'][0]) &&
-                                    this.state.networks.filter(network => network.sync_id === record['NETWORK_ID'][0]).length > 0 &&
-                                    "Screenshots" in this.state.networks.filter(network => network.sync_id === record['NETWORK_ID'][0])[0]
-                            } catch (error) {
-                                return false
+                            let NETWORK_IDS = record['NETWORK_ID']
+                            if(NETWORK_IDS)
+                            {
+                                for(let a=0; a<NETWORK_IDS.length; a++)
+                                {
+                                    let NETWORK = this.state.networks.filter(network => network.sync_id === NETWORK_IDS[a])
+                                    console.log(NETWORK)
+                                    if(NETWORK && NETWORK.length > 0)
+                                    {
+                                        if("Screenshots" in NETWORK[0])
+                                        {
+                                            return true
+                                        }
+                                    }
+                                }
                             }
 
+                            return false
                         }
+
+                        
                         )
                     }
                     break
@@ -794,13 +805,19 @@ class Home extends React.Component
         let filtered_networks = filtered_records.flatMap(record=> record["NETWORK_ID"])
         filtered_networks = [...new Set(filtered_networks)]
 
+        
+
 
         let card_renders = []
         let networks = this.state.networks || []
         let cards_pagination = []
 
         networks = networks.filter(network => filtered_networks.indexOf(network["sync_id"])>=0)
-        
+        if(this.state.contains_screenshots_filter)
+        {
+            networks = networks.filter(network => "Screenshots" in network)
+        }
+
         if(this.state.cards_latest_first)
         {
             networks.sort(function(a,b)
