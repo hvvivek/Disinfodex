@@ -4,7 +4,6 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
 import RecordModal from './RecordModal'
 import ScrenshotsCarousel from './ScreenshotsCarousel'
 
@@ -66,11 +65,11 @@ class Card extends React.Component
         }
         else if(typeof(value) == "object" && value.length > 0)
         {
-            if(key == "COMPANY")
+            if(key === "COMPANY")
             {
                 return value.map(data => <p className={key} style={{"backgroundColor": COMPANY_COLORS[data]}}>{data}</p>)
             }
-            else if(key == "NETWORKS")
+            else if(key === "NETWORKS")
             {
                 if(isModal)
                 {

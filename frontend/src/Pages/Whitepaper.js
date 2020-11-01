@@ -3,33 +3,17 @@ import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
-import Form from 'react-bootstrap/Form'
-import FormControl from 'react-bootstrap/FormControl'
-import Button from 'react-bootstrap/Button'
-import InputGroup from 'react-bootstrap/InputGroup'
 import Header from "../Components/Header"
 
+import Footer from '../Components/Footer'
 
-
-import logo_1 from '../Assets/Images/sponsor_logo_1.png'
-import logo_2 from '../Assets/Images/berkman_klein.png'
-import logo_3 from '../Assets/Images/miami_foundation.png'
-
-
-import Table from '../Components/Table'
 import '../Stylesheets/Home.css'
-import Collapse from 'react-bootstrap/esm/Collapse'
-import axios from 'axios'
-import Toggle from 'react-toggle'
 
 import "react-toggle/style.css" // for ES6 modules
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 
-
-import { DateRangePicker } from 'react-date-range';
 
 
 class Whitepaper extends React.Component
@@ -76,30 +60,7 @@ class Whitepaper extends React.Component
                     </Row>
                 </Container>
 
-                <Container fluid id="footer">
-                    <footer>
-                        <Row className="align-items-end">
-                            <Col xs={12} lg={3}>
-                                <p>Disinfodex is a project of the Assembly: Disinformation 2020 Fellowship, with support from the Harvard Berkman Klein Center, Miami Foundation, and Carnegie Endowment’s Partnership for Countering Influence Operations.</p>
-                            </Col>
-                            <Col xs={12} lg={{span: 7, offset:2}}>
-                                <Row className="justify-content-end">
-                                    <Col className="logo-wrapper">
-                                        <a href="https://carnegieendowment.org/specialprojects/counteringinfluenceoperations" target="_blank" title="Carnegie Endowment for International Peace: Partnership for Countering Influence Operations"><img src={logo_1}></img></a>
-                                    </Col>
-                                    <Col className="logo-wrapper">
-                                        <a href="https://cyber.harvard.edu/" target="_blank" title="Berkman Klein Center for Internet and Society at Harvard University"><img src={logo_2}></img></a>
-                                    </Col>
-                                    <Col className="logo-wrapper">
-                                        <a href="https://miamifoundation.org/" target="_blank" title="The Miami Foundation"><img src={logo_3}></img></a>
-                                    </Col>
-                                </Row>
-                            </Col>
-                        
-                        </Row>  
-                    </footer>
-                    
-                </Container>
+                <Footer></Footer>
         </>
     }
 }

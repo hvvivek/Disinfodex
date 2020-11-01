@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
@@ -16,7 +16,6 @@ import logo_1 from '../Assets/Images/sponsor_logo_1.png'
 
 import {BACKEND_URI, SYNC_URI} from '../constants'
 
-import Table from '../Components/Table'
 import '../Stylesheets/Home.css'
 import '../Stylesheets/Sync.css'
 
@@ -132,13 +131,13 @@ class Sync extends React.Component
                             <Col xs={12} lg={7}>
                                 <Row>
                                     <Col>
-                                        <img src={logo_1}></img>
+                                        <img src={logo_1} alt="logo1"></img>
                                     </Col>
                                     <Col>
-                                        <img src={logo_1}></img>
+                                        <img src={logo_1} alt="logo2"></img>
                                     </Col>
                                     <Col>
-                                        <img src={logo_1}></img>
+                                        <img src={logo_1} alt="logo3"></img>
                                     </Col>
                                 </Row>
                             </Col>

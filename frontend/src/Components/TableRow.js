@@ -4,10 +4,6 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
-
-import ScrenshotsCarousel from './ScreenshotsCarousel'
-
 import "../Stylesheets/Card.css"
 
 let COMPANY_COLORS = {
@@ -42,11 +38,11 @@ class TableRow extends React.Component
         }
         else if(typeof(value) == "object" && value.length > 0)
         {
-            if(key == "Company")
+            if(key === "Company")
             {
                 return value.map(data => <p className={key} style={{"backgroundColor": COMPANY_COLORS[data]}}>{data}</p>)
             }
-            else if(key == "Networks")
+            else if(key === "Networks")
             {
                 if(isModal)
                 {

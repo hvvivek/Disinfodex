@@ -14,15 +14,11 @@ import NetworkModal from "../Components/NetworkModal"
 import Card from "../Components/Card"
 import TableRow from "../Components/TableRow"
 
-import logo_1 from '../Assets/Images/sponsor_logo_1.png'
-import logo_2 from '../Assets/Images/berkman_klein.png'
-import logo_3 from '../Assets/Images/miami_foundation.png'
-
-
 import '../Stylesheets/Home.css'
 import Collapse from 'react-bootstrap/esm/Collapse'
 import axios from 'axios'
 import Header from "../Components/Header"
+import Footer from '../Components/Footer'
 
 import "react-toggle/style.css" // for ES6 modules
 import 'react-date-range/dist/styles.css'; // main style file
@@ -44,17 +40,8 @@ import { CSVLink } from "react-csv";
 import Checkbox from 'rc-checkbox';
 import 'rc-checkbox/assets/index.css';
 
-const { getCode, getNames } = require('country-list');
+const {getNames } = require('country-list');
 const ObjectsToCsv = require('objects-to-csv');
-
-let COMPANY_COLORS = {
-    "Facebook": "rgba(59, 89, 152, 0.3)",
-    "Twitter": "rgba(0, 172, 238, 0.3)",
-    "Reddit": "rgb(255, 87, 0, 0.2)",
-    "Google/YouTube": "rgb(196, 48, 43, 0.3)",
-    "Graphika": "#AAAAAA",
-    "DFRLab": "rgb(0, 134, 125, 0.3)"
-}
 
 const override = css`
   display: block;
@@ -171,8 +158,8 @@ class Home extends React.Component
     }
 
     getDataFromBackend = async () => {
-        let sync_ids = await axios.get(`${BACKEND_URI}/platforms?count=true`)
-        sync_ids = sync_ids.data["sync_ids"]
+        // let sync_ids = await axios.get(`${BACKEND_URI}/platforms?count=true`)
+        // sync_ids = sync_ids.data["sync_ids"]
 
         let platform_records = []
         let networks = []
@@ -523,7 +510,7 @@ class Home extends React.Component
         let removal_type_options      = this.renderFilterOptions('REMOVAL_TYPE', 'removal_type_filters')
 
         //Policy Violation Filter
-        let infringement_options     = this.renderFilterOptions('POLICY_VIOLATIONS', 'infringement_filters')
+        // let infringement_options     = this.renderFilterOptions('POLICY_VIOLATIONS', 'infringement_filters')
 
 
         //Policy Violation Filter
@@ -532,11 +519,11 @@ class Home extends React.Component
         //Geography
         let origin_country_options     = this.renderCountryOptions('ORIGIN_COUNTRY', 'origin_country_filters')
         let destination_country_options     = this.renderCountryOptions('DESTINATION_COUNTRY', 'destination_country_filters')
-        let geography_options = []
-        if(origin_country_options && destination_country_options)
-        {
-            geography_options = [...origin_country_options, ...destination_country_options]
-        }
+        // let geography_options = []
+        // if(origin_country_options && destination_country_options)
+        // {
+        //     geography_options = [...origin_country_options, ...destination_country_options]
+        // }
         // let removealTypeOptions = this.renderCategoryFilterOptions('REMOVAL_TYPE', removal_type_filters)
 
 
@@ -743,6 +730,7 @@ class Home extends React.Component
                             return JSON.stringify(record).toLowerCase().includes(search_term.toLowerCase())
                         })
                     }
+                    break
                 default:
                     break
             }
@@ -925,14 +913,14 @@ class Home extends React.Component
                                             <p>View As:</p>
                                         </Col>
                                         <Col className="icon-wrapper" onClick={() => this.setState({active: "table"})}>
-                                            {this.state.active === "table"? <img src={table_active} ></img> : <img src={table} ></img>}
+                                            {this.state.active === "table"? <img src={table_active} alt="Table View"></img> : <img src={table} alt="Table View"></img>}
                                             <span className={this.state.active === "table"? "active-view view-link": "view-link"} >Table</span>
                                         </Col>
                                         {/* <Col>
                                             <p><i class="fas fa-stream"></i> Timeline</p>
                                         </Col> */}
                                         <Col className="icon-wrapper" onClick={() => this.setState({active: "cards"})}>
-                                            {this.state.active === "cards"? <img src={cards_active} ></img> : <img src={cards}></img>}
+                                            {this.state.active === "cards"? <img src={cards_active} alt="Card View"></img> : <img src={cards} alt="Card View"></img>}
                                             <span className={this.state.active === "cards"? "active-view view-link": "view-link"}>Cards</span>
                                         </Col>
                                     </Row>
@@ -1180,30 +1168,7 @@ class Home extends React.Component
                     </Row>
                 </Container>
 
-                <Container fluid id="footer">
-                    <footer>
-                        <Row className="align-items-end">
-                            <Col xs={12} lg={4}>
-                                <p>Disinfodex is a project of the Assembly: Disinformation 2020 Fellowship, with support from the Harvard Berkman Klein Center, Miami Foundation, and Carnegie Endowment’s Partnership for Countering Influence Operations.</p>
-                            </Col>
-                            <Col xs={12} lg={{span: 7, offset:1}}>
-                                <Row className="justify-content-end">
-                                    <Col className="logo-wrapper">
-                                        <a href="https://carnegieendowment.org/specialprojects/counteringinfluenceoperations" target="_blank" title="Carnegie Endowment for International Peace: Partnership for Countering Influence Operations"><img src={logo_1}></img></a>
-                                    </Col>
-                                    <Col className="logo-wrapper">
-                                        <a href="https://cyber.harvard.edu/" target="_blank" title="Berkman Klein Center for Internet and Society at Harvard University"><img src={logo_2}></img></a>
-                                    </Col>
-                                    <Col className="logo-wrapper">
-                                        <a href="https://miamifoundation.org/" target="_blank" title="The Miami Foundation"><img src={logo_3}></img></a>
-                                    </Col>
-                                </Row>
-                            </Col>
-                        
-                        </Row>  
-                    </footer>
-                    
-                </Container>
+                <Footer></Footer>
         </>
     }
 }

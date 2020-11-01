@@ -4,9 +4,6 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
-
-import ScrenshotsCarousel from './ScreenshotsCarousel'
 
 import "../Stylesheets/Card.css"
 
@@ -42,13 +39,13 @@ class RecordModal extends React.Component
         {
             return value.toString()
         }
-        else if(typeof(value) == "object" && value.length > 0)
+        else if(typeof(value) === "object" && value.length > 0)
         {
-            if(key == "Company")
+            if(key === "Company")
             {
                 return value.map(data => <p className={key} style={{"backgroundColor": COMPANY_COLORS[data]}}>{data}</p>)
             }
-            else if(key == "Networks")
+            else if(key === "Networks")
             {
                 // if(isModal)
                 // {
@@ -74,7 +71,7 @@ class RecordModal extends React.Component
         let payload = {}
         if(data)
         {
-        let ID                  = data["ID"]
+        // let ID                  = data["ID"]
         let Date_Of_Disclosure  = data["DISCLOSURE_DATE"]
         let Company             = data["COMPANY"]
         let Networks            = data["NETWORK_ID"]
@@ -122,7 +119,7 @@ class RecordModal extends React.Component
         return <>{data && <Modal size="lg" centered show={this.props.show} onHide={() => this.props.onToggle(false)}>
                 
                 <Modal.Header closeButton>
-                    
+
                     {payload["Company"]&& payload["Company"] + " - "}{payload["Date_Of_Disclosure"]}
                 </Modal.Header>
 

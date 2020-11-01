@@ -1,8 +1,5 @@
 
 import React from 'react'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
@@ -47,14 +44,14 @@ class ScreenshotsCarousel extends React.Component
         if(this.props.screenshots && this.props.screenshots.length > 0)
         {
             render = <Carousel showThumbs={false} autoPlay={true} centerMode style={{background: "white"}}>
-                {this.props.screenshots.map(screenshot => <img style={{"width":"auto", "height":"400px"}} src={screenshot["SCREENSHOT"]}></img>)}
+                {this.props.screenshots.map(screenshot => <img style={{"width":"auto", "height":"400px"}} src={screenshot["SCREENSHOT"]} alt="Disclosure Record Screenshot"></img>)}
             </Carousel>
         }
         else
         {
             render = 
             <div className="company-logo-wrapper">
-                <img className="company-logo" src={company_logo}>
+                <img className="company-logo" src={company_logo} alt="Company Logo">
 
                 </img>
                 <p>No Screenshots available</p>

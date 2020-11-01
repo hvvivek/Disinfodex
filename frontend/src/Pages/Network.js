@@ -1,54 +1,24 @@
 import React from 'react'
-import moment from 'moment'
-// import ColumnResizer from 'react-column-resizer'
+import axios from 'axios'
 
-import ScrenshotsCarousel from '../Components/ScreenshotsCarousel'
-
-// import getNames from 'country-list'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
-import Form from 'react-bootstrap/Form'
-import FormControl from 'react-bootstrap/FormControl'
-import Button from 'react-bootstrap/Button'
-import InputGroup from 'react-bootstrap/InputGroup'
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
-import Modal from 'react-bootstrap/Modal'
-import NetworkModal from "../Components/NetworkModal"
-import Card from "../Components/Card"
-import TableRow from "../Components/TableRow"
+import Footer from '../Components/Footer'
 
-import logo_1 from '../Assets/Images/sponsor_logo_1.png'
-import logo_2 from '../Assets/Images/berkman_klein.png'
-import logo_3 from '../Assets/Images/miami_foundation.png'
+import ScrenshotsCarousel from '../Components/ScreenshotsCarousel'
+
 import Header from "../Components/Header"
+import {BACKEND_URI} from '../constants'
 
 
-import Table from '../Components/Table'
-import '../Stylesheets/Home.css'
-import Collapse from 'react-bootstrap/esm/Collapse'
-import axios from 'axios'
-import Toggle from 'react-toggle'
 
 import "react-toggle/style.css" // for ES6 modules
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import "../Stylesheets/Card.css"
-
-import table from "../Assets/Icons/table.png"
-import table_active from "../Assets/Icons/table_active.png"
-import cards from "../Assets/Icons/cards.png"
-import cards_active from "../Assets/Icons/cards_active.png"
-
-
-import { DateRangePicker } from 'react-date-range';
-import {BACKEND_URI, SYNC_URI} from '../constants'
-import { CSVLink, CSVDownload } from "react-csv";
-
-const { getCode, getNames } = require('country-list');
-const ObjectsToCsv = require('objects-to-csv');
+import '../Stylesheets/Home.css'
 
 let COMPANY_COLORS = {
     "Facebook": "rgba(59, 89, 152, 0.2)",
@@ -59,7 +29,7 @@ let COMPANY_COLORS = {
     "DFRLab": "rgb(0, 134, 125, 0.2)"
 }
 
-class Home extends React.Component
+class Network extends React.Component
 {
     constructor(props)
     {
@@ -81,8 +51,8 @@ class Home extends React.Component
 
         const { match: { params } } = this.props;
 
-        let sync_ids = await axios.get(`${BACKEND_URI}/platforms?count=true`)
-        sync_ids = sync_ids.data["sync_ids"]
+        // let sync_ids = await axios.get(`${BACKEND_URI}/platforms?count=true`)
+        // sync_ids = sync_ids.data["sync_ids"]
 
         let platform_records = []
         let networks = []
@@ -97,7 +67,7 @@ class Home extends React.Component
         screenshots = screenshots.data
 
         let data = null
-        let network = null
+        // let network = null
         if("network_id" in params)
         {
             data = networks.filter(network => network.Name === params["network_id"])[0]
@@ -180,11 +150,11 @@ class Home extends React.Component
         }
         else if(typeof(value) == "object" && value.length > 0)
         {
-            if(key == "COMPANY")
+            if(key === "COMPANY")
             {
                 return value.map(data => <p className={key} style={{"backgroundColor": COMPANY_COLORS[data]}}>{data}</p>)
             }
-            else if(key == "NETWORKS")
+            else if(key === "NETWORKS")
             {
                 if(isModal)
                 {
@@ -316,32 +286,9 @@ class Home extends React.Component
                 {!this.state.data && this.state.loading && <p className="alert-message">Loading Data</p>}
                 {!this.state.data && !this.state.loading && <p className="alert-message">No Network found with this ID</p>}
 
-                <Container fluid id="footer">
-                    <footer>
-                        <Row className="align-items-end">
-                            <Col xs={12} lg={3}>
-                                <p>Disinfodex is a project of the Assembly: Disinformation 2020 Fellowship, with support from the Harvard Berkman Klein Center, Miami Foundation, and Carnegie Endowment’s Partnership for Countering Influence Operations.</p>
-                            </Col>
-                            <Col xs={12} lg={{span: 7, offset:2}}>
-                                <Row className="justify-content-end">
-                                    <Col className="logo-wrapper">
-                                        <a href="https://carnegieendowment.org/specialprojects/counteringinfluenceoperations" target="_blank" title="Carnegie Endowment for International Peace: Partnership for Countering Influence Operations"><img src={logo_1}></img></a>
-                                    </Col>
-                                    <Col className="logo-wrapper">
-                                        <a href="https://cyber.harvard.edu/" target="_blank" title="Berkman Klein Center for Internet and Society at Harvard University"><img src={logo_2}></img></a>
-                                    </Col>
-                                    <Col className="logo-wrapper">
-                                        <a href="https://miamifoundation.org/" target="_blank" title="The Miami Foundation"><img src={logo_3}></img></a>
-                                    </Col>
-                                </Row>
-                            </Col>
-                        
-                        </Row>  
-                    </footer>
-                    
-                </Container>
+                <Footer></Footer>
         </>
     }
 }
 
-export default Home
+export default Network
