@@ -12,7 +12,7 @@ import "../Stylesheets/Card.css"
 
 
 
-class Card extends React.Component
+class NetworkModal extends React.Component
 {
     constructor(props)
     {
@@ -89,4 +89,4 @@ class Card extends React.Component
     }
 }
 
-export default Card
+export default NetworkModal

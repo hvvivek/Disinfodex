@@ -874,7 +874,7 @@ class Home extends React.Component
                             <InputGroup>
                                 <InputGroup.Prepend>
                                     <InputGroup.Text>
-                                        <i class="fas fa-search"></i>
+                                        <i className="fas fa-search"></i>
                                     </InputGroup.Text>
                                 </InputGroup.Prepend>
                                 <Form.Control

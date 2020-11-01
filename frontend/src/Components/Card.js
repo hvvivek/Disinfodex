@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
-
+import RecordModal from './RecordModal'
 import ScrenshotsCarousel from './ScreenshotsCarousel'
 
 import "../Stylesheets/Card.css"
@@ -25,7 +25,9 @@ class Card extends React.Component
     {
         super(props)
         this.state = {
-            show: false
+            show: false,
+            show_disclosure_modal: false,
+            current_record: {}
         }
     }
 
@@ -99,6 +101,10 @@ class Card extends React.Component
         return filtered
     }
 
+    toggleRecordModal = (state) => {
+        this.setState({show_disclosure_modal: state})
+    }
+
     render()
     {
 
@@ -120,7 +126,7 @@ class Card extends React.Component
         descriptions = descriptions.map(record => <><p className="divider"><b>From {record["COMPANY"][0]}</b></p><p className="divider-body">{record["DESCRIPTION_LONG"]}</p></>)
 
         return <Col sm={12} md={6} className="_card">
-
+                <RecordModal data={this.state.current_record} networks={[this.props.data]} show={this.state.show_disclosure_modal} onToggle={this.toggleRecordModal}></RecordModal>
                 <Modal size="lg" centered show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Network {networks[0]}</Modal.Title>
@@ -159,7 +165,7 @@ class Card extends React.Component
                                         {descriptions} */}
 
                                         <p className="subtitle">DISCLOSURES</p>
-                                        {platform_records.map(record => <p className={record["COMPANY"] + " disclosure"} style={{"backgroundColor": COMPANY_COLORS[record["COMPANY"]]}}>{record["RECORD_ID"]}</p>)}
+                                        {platform_records.map(record => <p className={record["COMPANY"] + " disclosure"} style={{"backgroundColor": COMPANY_COLORS[record["COMPANY"]]}} onClick={() => this.setState({show_disclosure_modal: true, current_record: record})}>{record["RECORD_ID"]}</p>)}
                                     </Col>
                                 </Col>
                                 
