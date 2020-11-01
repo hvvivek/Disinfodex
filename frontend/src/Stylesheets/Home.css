@@ -290,6 +290,8 @@ max-width: 100%;
 
 #filters-section .filter-dropdown-panel
 {
+    max-height: 20rem;
+    overflow: scroll;
     position: absolute;
     z-index: 1;
     background-color: white;
@@ -321,6 +323,10 @@ max-width: 100%;
 {
     padding-top: 1rem;
     padding-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
 }
 
 #filters-section .option:hover
@@ -328,7 +334,7 @@ max-width: 100%;
     /* background-color: #F6F6F6; */
 }
 
-#filters-section .option .react-toggle
+#filters-section .option span
 {
     margin-right: 0.5rem;
 }
@@ -494,10 +500,30 @@ max-width: 100%;
     border: 2px solid #e7e7e7;
 }
 
-.pill
+.filter-dropdown .pill
 {
     margin-right: 0.2rem;
     min-width: max-content;
+    padding-right: 0.5rem;
+}
+
+.filter-dropdown .pill span
+{
+    position: relative;
+    width: 1rem;
+    right: 0rem;
+    margin-left: 1rem;
+    /* background-color: rgba(255,255,255,0.5); */
+    padding: 0.35rem;
+    border-radius: 1rem;
+    font-size: 0.65rem;
+    cursor: pointer;
+    color: rgb(61, 61, 61)
+}
+
+.filter-dropdown .pill span:hover
+{
+    color: black;
 }
 
 .filter-dropdown p.Facebook, p.Facebook
@@ -536,7 +562,7 @@ max-width: 100%;
 
 .filter-dropdown 
 {
-    overflow-x: scroll;
+    overflow-x: auto;
 }
 
 .filter-dropdown .time-filter
@@ -585,4 +611,38 @@ cursor: pointer;
     border-radius: 0rem;
     cursor: pointer;
     max-width: max-content;
+}
+
+.download-csv
+{
+    /* color: #B18C5A;
+    border-bottom: 2px solid #B18C5A;
+    margin-bottom: 0px; */
+    display: grid;
+    align-items: center;
+    padding-left: 0;
+
+}
+#pagination-wrapper .download-csv .btn
+{
+    width: max-content;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: 0;
+    margin-top: 0px;
+    outline: none;
+}
+
+.download-csv p
+{
+    color: #B18C5A;
+    text-decoration-line: underline;
+    margin-bottom: 0px;
+    cursor: pointer;
+}
+
+.download-csv p:hover
+{
+    color: #9e6b28;
+ 
 }

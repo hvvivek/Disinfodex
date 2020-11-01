@@ -130,8 +130,8 @@
 
 .modal-body
 {
-    max-height: 50vh;
-    overflow: scroll;
+    max-height: 80vh;
+    overflow: auto;
 }
 
 .modal-body
@@ -141,8 +141,8 @@
 
 .description.section
 {
-    max-height: 100%;
-    overflow: scroll;
+    max-height: 20rem;
+    overflow: auto;
 }
 
 .description.section p
@@ -158,4 +158,32 @@
 
 .description
 {background-color: #ECECEC;
+}
+
+p.divider
+{
+    margin: 1rem;
+    font-weight: bolder;
+}
+
+.row-modal.description-section.modal-description-section p.platform_record_title
+{
+    font-size: 0.95rem;
+    padding-left: 1rem;
+}
+
+.COMPANY
+{
+    padding: 0.2rem;
+    width: max-content;
+    border-radius: 1rem;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+}
+
+.alert-message
+{
+    margin-top: 2rem;
+    text-align: center;
+    font-weight: bolder;
 }

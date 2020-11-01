@@ -9,6 +9,7 @@ import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
+import Header from "../Components/Header"
 
 
 
@@ -53,20 +54,7 @@ class Whitepaper extends React.Component
                 
                 <Container fluid id="home">
                     <Row>
-                        <Col xs={12} id="info-section">
-                            <Row>
-                            <Col xs={12} lg={4}>
-                                <p>Disinfodex is a database of publicly available information about disinformation campaigns. It currently includes disclosures issued by major online platforms and accompanying reports from independent open source investigators.</p>
-                            </Col>
-                            <Col xs={12} lg={{span:4, offset:4}}>
-                                <p className="links"><a href="/about">About this project</a></p>
-                                <p className="links"><a href="/">Database</a></p>
-                                <p className="links"><a href="whitepaper" className="active">Whitepaper</a></p>
-                                <p className="links"><a href="how-to">How to read the database?</a></p>
-
-                            </Col>
-                            </Row>
-                        </Col>
+                    <Header active="how-to"></Header>
                     </Row>
                 </Container>
 
