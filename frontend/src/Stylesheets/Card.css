@@ -25,10 +25,12 @@
     line-height: 1rem;
     transition: 300ms;
 }
-.network:hover, .platform:hover {
+.network:hover, .platform:hover, .disclosure:hover {
     filter: brightness(1);
     transition: 300ms;
 }
+
+
 
 .platform
 {
@@ -150,16 +152,16 @@
     overflow: auto;
 }
 
-.description.section p
+/* .description.section p
 {
     font-size: 0.75rem;
-}
+} */
 
-.description.section .subtitle
+/* .description.section .subtitle
 {
     margin-top: 1rem;
     font-size: 0.6rem;
-}
+} */
 
 .description
 {background-color: #ECECEC;
@@ -169,6 +171,12 @@ p.divider
 {
     margin: 1rem;
     font-weight: bolder;
+}
+
+p.divider-body
+{
+    margin: 1rem;
+    font-weight: 400; 
 }
 
 .row-modal.description-section.modal-description-section p.platform_record_title
@@ -191,4 +199,20 @@ p.divider
     margin-top: 2rem;
     text-align: center;
     font-weight: bolder;
+}
+
+.modal-body
+{
+    background-color: #ECECEC;
+}
+
+.description.section .disclosure
+{
+    background-color: rgb(231, 231, 231);
+    border-radius: 1rem;
+    padding: 0.3rem 0.5rem 0.2rem;
+    font-size: 0.9rem;
+    width: max-content;
+    cursor: pointer;
+    font-size: 0.9rem;
 }

@@ -648,3 +648,20 @@ cursor: pointer;
     color: #9e6b28;
  
 }
+
+.sort-content-link
+{
+    color: #B18C5A;
+    text-decoration-line: underline;
+    cursor: pointer;
+}
+
+.sort-content-link i
+{
+    margin-right: 0.5rem;
+}
+
+.sort-content-link:hover
+{
+    color: #9e6b28;
+}

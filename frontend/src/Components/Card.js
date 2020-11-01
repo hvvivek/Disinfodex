@@ -117,7 +117,7 @@ class Card extends React.Component
             }
         }
 
-        descriptions = descriptions.map(record => <><p><b>From {record["COMPANY"][0]}</b></p><p>{record["DESCRIPTION_LONG"]}</p></>)
+        descriptions = descriptions.map(record => <><p className="divider"><b>From {record["COMPANY"][0]}</b></p><p className="divider-body">{record["DESCRIPTION_LONG"]}</p></>)
 
         return <Col xs={6} className="_card">
 
@@ -152,16 +152,21 @@ class Card extends React.Component
                                         <p>{removal_types && removal_types.map(type => <span id={type} className="type">{type}</span>)}</p>
                                     </Col>
                                 </Col>
+
                                 <Col xs={6} style={{padding: "0px"}}>
                                     <Col xs={12} className="section description">
-                                        <p className="subtitle">DESCRIPTION</p>
-                                        {descriptions}
+                                        {/* <p className="subtitle">DESCRIPTION</p>
+                                        {descriptions} */}
+
+                                        <p className="subtitle">DISCLOSURES</p>
+                                        {platform_records.map(record => <p className={record["COMPANY"] + " disclosure"} style={{"backgroundColor": COMPANY_COLORS[record["COMPANY"]]}}>{record["RECORD_ID"]}</p>)}
                                     </Col>
                                 </Col>
+                                
 
                                 <Col xs={12}>
                                     <p className="divider">Platform Records: </p>
-                                    {platform_records.map(payload => 
+                                    {/* {platform_records.map(payload => 
                                         <Row>
                                             <Col xs={12} className="row-modal description-section modal-description-section">
                                                 <p className="platform_record_title"><b>{payload["COMPANY"]} - {payload["DISCLOSURE_DATE"]}</b></p>
@@ -172,7 +177,8 @@ class Card extends React.Component
                                                     </Col>}</>
                                                 )}
                                             </Col>
-                                        </Row>)}
+                                        </Row>)} */}
+                                    {descriptions}
                                 </Col>
                             </Row>
                         </Container>

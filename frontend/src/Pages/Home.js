@@ -33,6 +33,9 @@ import table_active from "../Assets/Icons/table_active.png"
 import cards from "../Assets/Icons/cards.png"
 import cards_active from "../Assets/Icons/cards_active.png"
 
+import { css } from "@emotion/core";
+import ScaleLoader from "react-spinners/ScaleLoader";
+
 
 import { DateRangePicker } from 'react-date-range';
 import {BACKEND_URI} from '../constants'
@@ -52,6 +55,12 @@ let COMPANY_COLORS = {
     "Graphika": "#AAAAAA",
     "DFRLab": "rgb(0, 134, 125, 0.3)"
 }
+
+const override = css`
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+`;
 
 class Home extends React.Component
 {
@@ -91,6 +100,7 @@ class Home extends React.Component
               currentSort: "DISCLOSURE_DATE",
               ascendingSort: false,
               active: "cards",
+              cards_latest_first: true,
 
               skip: 0,
               limit: 25,
@@ -790,14 +800,30 @@ class Home extends React.Component
         let cards_pagination = []
 
         networks = networks.filter(network => filtered_networks.indexOf(network["sync_id"])>=0)
-        networks.sort(function(a,b)
+        
+        if(this.state.cards_latest_first)
         {
-            if(a["Latest Date"] && b["Latest Date"])
+            networks.sort(function(a,b)
             {
-                return a["Latest Date"] <= b["Latest Date"]
-            }
-            return false
-        })
+                if(a["Latest Date"] && b["Latest Date"])
+                {
+                    return a["Latest Date"] <= b["Latest Date"]
+                }
+                return false
+            })
+        }
+        else
+        {
+            networks.sort(function(a,b)
+            {
+                if(a["Latest Date"] && b["Latest Date"])
+                {
+                    return a["Latest Date"] >= b["Latest Date"]
+                }
+                return false
+            })
+        }
+        
         
         if(networks.length > 0)
         {
@@ -832,7 +858,9 @@ class Home extends React.Component
 
                 </Navbar>
                 {/* NAVBAR COMPONENT */}
-                
+
+                <Header active="database"></Header>
+
                 <Container fluid id="home">
                     <Row>
                         {this.state.showNetworkModal && <NetworkModal 
@@ -841,7 +869,6 @@ class Home extends React.Component
                                                             data={this.state.networkModalData} />}
 
 
-                        <Header active="database"></Header>
                         <Col xs={12} id="search-section">
                             <Col xs={12} lg={{span:6, offset:3}}>
                             <InputGroup>
@@ -1001,6 +1028,15 @@ class Home extends React.Component
                                 </Collapse>
                             </Col>
                             <Col xs={12} lg={12} id="table-section">
+                                {(!this.state.platform_records || (this.state.platform_records.length === 0)) && 
+                                
+                                <ScaleLoader
+                                    css={override}
+                                    size={150}
+                                    color={"#003358"}
+                                    loading={true}
+                                />
+                                }
                                 {this.state.active === "table" && 
                                 <>
                                 <div className="table-wrapper">
@@ -1012,9 +1048,22 @@ class Home extends React.Component
                                 </div>
                                 
                                 </>}
+                                {this.state.active === "cards" && 
+                                    <Col xs={12}>
+                                        <Row className="justify-content-end">
+                                            <p className="sort-content-link" onClick={() => this.setState({ cards_latest_first: !this.state.cards_latest_first })}>
+                                                <i className={this.state.cards_latest_first ? "fas fa-sort-numeric-up" : "fas fa-sort-numeric-down"}></i>
+                                                {this.state.cards_latest_first ? "Sort Cards: Oldest to Latest" : "Sort Cards: Latest to Oldest"}
+                                            </p>
+                                        </Row>
+                                        <Row>
+                                            {card_renders}
+                                        </Row>
+                                    </Col>
+                                }
                             </Col>
                             <Col xs={12} id="pagination-section">
-
+                                
                                 {   this.state.active === "table" && 
                                     <Col xs={12} id="pagination-wrapper">
                                     <Row className="justify-content-end">
@@ -1036,7 +1085,7 @@ class Home extends React.Component
                                             <Collapse in={this.state.limit_dropdown}>
                                                 <Col xs={12} className="filter-dropdown-panel limit-dropdown-options">
                                                     <Row>
-                                                        {[10, 25, 50, 100].map(num => <Col xs={12}><p onClick={() => this.setState({limit_dropdown: false, limit: num})}>{num}</p></Col>)}
+                                                        {[10, 25, 50, 100, filtered_records.length].map(num => <Col xs={12}><p onClick={() => this.setState({limit_dropdown: false, limit: num})}>{num === filtered_records.length? "All": num}</p></Col>)}
                                                     </Row>
                                                 </Col>
                                                 </Collapse>
@@ -1059,17 +1108,7 @@ class Home extends React.Component
                                 }
                                 {
                                     this.state.active === "cards" && <>
-                                    <Col xs={12}>
-                                        <Row>
-                                            {/* <Col xs={12} className="cards-pagination-wrapper">
-                                                <p>Viewing page: {cards_pagination} </p>
-                                            </Col> */}
-                                            {card_renders}
-                                            {/* <Col xs={12} className="cards-pagination-wrapper">
-                                                <p>Viewing page: {cards_pagination} </p>
-                                            </Col> */}
-                                        </Row>
-                                    </Col>
+                                    
                                     <Col xs={12} id="pagination-wrapper">
                                     <Row className="justify-content-end">
                                         <Col className="record-index">
@@ -1090,11 +1129,12 @@ class Home extends React.Component
                                             <Collapse in={this.state.limit_dropdown}>
                                                 <Col xs={12} className="filter-dropdown-panel limit-dropdown-options">
                                                     <Row>
-                                                        {[10, 25, 50, 100].map(num => <Col xs={12}><p onClick={() => this.setState({limit_dropdown: false, limit: num})}>{num}</p></Col>)}
+                                                        {[10, 25, 50, 100, filtered_networks.length].map(num => <Col xs={12}><p onClick={() => this.setState({limit_dropdown: false, limit: num})}>{num===filtered_networks.length? "All": num}</p></Col>)}
                                                     </Row>
                                                 </Col>
                                                 </Collapse>
                                         </Col>
+
                                         {(this.state.skip >= this.state.limit) && <Button onClick={(e) => {this.setState({skip: this.state.skip - this.state.limit})}}>Previous</Button> }
                                         {(this.state.skip + this.state.limit) < filtered_networks.length && <Button onClick={(e) => {this.setState({skip: this.state.skip + this.state.limit})}}>Next</Button> }
                                     </Row>
@@ -1120,6 +1160,7 @@ class Home extends React.Component
                         </Col>
                     </Row>
                 </Container>
+
                 <Container fluid id="footer">
                     <footer>
                         <Row className="align-items-end">
