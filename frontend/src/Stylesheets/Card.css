@@ -216,3 +216,8 @@ p.divider-body
     cursor: pointer;
     font-size: 0.9rem;
 }
+
+.carousel .slide
+{
+    background: #ECECEC;
+}

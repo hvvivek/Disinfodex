@@ -1045,12 +1045,16 @@ class Home extends React.Component
                                 </>}
                                 {this.state.active === "cards" && 
                                     <Col xs={12}>
-                                        <Row className="justify-content-end">
-                                            <p className="sort-content-link" onClick={() => this.setState({ cards_latest_first: !this.state.cards_latest_first })}>
-                                                <i className={this.state.cards_latest_first ? "fas fa-sort-numeric-up" : "fas fa-sort-numeric-down"}></i>
-                                                {this.state.cards_latest_first ? "Sort Cards: Oldest to Newest" : "Sort Cards: Newest to Oldest"}
-                                            </p>
-                                        </Row>
+                                            <Col xs={12}>
+                                            <Row className="justify-content-end">
+
+                                                <p className="sort-content-link" onClick={() => this.setState({ cards_latest_first: !this.state.cards_latest_first })}>
+                                                    <i className={this.state.cards_latest_first ? "fas fa-sort-numeric-up" : "fas fa-sort-numeric-down"}></i>
+                                                    {this.state.cards_latest_first ? "Sort Cards: Oldest to Newest" : "Sort Cards: Newest to Oldest"}
+                                                </p>
+                                                </Row>
+
+                                            </Col>
                                         <Row>
                                             {card_renders}
                                         </Row>
@@ -1070,6 +1074,7 @@ class Home extends React.Component
                                 
                                 {   this.state.active === "table" && 
                                     <Col xs={12} id="pagination-wrapper">
+                                        <Col xs={12}>
                                     <Row className="justify-content-end">
                                         <Col className="record-index">
                                             <Row>
@@ -1089,7 +1094,7 @@ class Home extends React.Component
                                             <Collapse in={this.state.limit_dropdown}>
                                                 <Col xs={12} className="filter-dropdown-panel limit-dropdown-options">
                                                     <Row>
-                                                        {[10, 25, 50, 100, filtered_records.length].map(num => <Col xs={12}><p onClick={() => this.setState({limit_dropdown: false, limit: num})}>{num === filtered_records.length? "All": num}</p></Col>)}
+                                                        {[10, 25, 50, filtered_records.length].map(num => <Col xs={12}><p onClick={() => this.setState({limit_dropdown: false, limit: num})}>{num === filtered_records.length? "All": num}</p></Col>)}
                                                     </Row>
                                                 </Col>
                                                 </Collapse>
@@ -1108,12 +1113,14 @@ class Home extends React.Component
                                                 </CSVLink>
                                             </Col>
                                     </Row>
+                                    </Col>
                                 </Col>
                                 }
                                 {
                                     this.state.active === "cards" && <>
                                     
-                                    <Col xs={12} id="pagination-wrapper">
+                                <Col xs={12} id="pagination-wrapper">
+                                    <Col xs={12}>     
                                     <Row className="justify-content-end">
                                         <Col className="record-index">
                                             <Row>
@@ -1133,7 +1140,7 @@ class Home extends React.Component
                                             <Collapse in={this.state.limit_dropdown}>
                                                 <Col xs={12} className="filter-dropdown-panel limit-dropdown-options">
                                                     <Row>
-                                                        {[10, 25, 50, 100, filtered_networks.length].map(num => <Col xs={12}><p onClick={() => this.setState({limit_dropdown: false, limit: num})}>{num===filtered_networks.length? "All": num}</p></Col>)}
+                                                        {[10, 25, 50, filtered_networks.length].map(num => <Col xs={12}><p onClick={() => this.setState({limit_dropdown: false, limit: num})}>{num===filtered_networks.length? "All": num}</p></Col>)}
                                                     </Row>
                                                 </Col>
                                                 </Collapse>
@@ -1142,17 +1149,8 @@ class Home extends React.Component
                                         {(this.state.skip >= this.state.limit) && <Button onClick={(e) => {this.setState({skip: this.state.skip - this.state.limit})}}>Previous</Button> }
                                         {(this.state.skip + this.state.limit) < filtered_networks.length && <Button onClick={(e) => {this.setState({skip: this.state.skip + this.state.limit})}}>Next</Button> }
                                     </Row>
-                                    {/* <Row>
-                                    <Col  xs={12} className="download-csv">
-                                                <CSVLink
-                                                    data={filtered_records}
-                                                    filename={"my-file.csv"}
-                                                    className="btn btn-primary"
-                                                    target="_blank">
-                                                Download CSV
-                                                </CSVLink>
-                                            </Col>
-                                    </Row> */}
+                                    
+                                    </Col>   
                                 </Col>
 
                             
@@ -1168,10 +1166,10 @@ class Home extends React.Component
                 <Container fluid id="footer">
                     <footer>
                         <Row className="align-items-end">
-                            <Col xs={12} lg={3}>
+                            <Col xs={12} lg={4}>
                                 <p>Disinfodex is a project of the Assembly: Disinformation 2020 Fellowship, with support from the Harvard Berkman Klein Center, Miami Foundation, and Carnegie Endowment’s Partnership for Countering Influence Operations.</p>
                             </Col>
-                            <Col xs={12} lg={{span: 7, offset:2}}>
+                            <Col xs={12} lg={{span: 7, offset:1}}>
                                 <Row className="justify-content-end">
                                     <Col className="logo-wrapper">
                                         <a href="https://carnegieendowment.org/specialprojects/counteringinfluenceoperations" target="_blank" title="Carnegie Endowment for International Peace: Partnership for Countering Influence Operations"><img src={logo_1}></img></a>

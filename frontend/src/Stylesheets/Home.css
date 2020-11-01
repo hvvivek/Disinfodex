@@ -666,3 +666,9 @@ cursor: pointer;
 {
     color: #9e6b28;
 }
+
+
+.modal-body .carousel .slide
+{
+    background: #e9f4ff;
+}
