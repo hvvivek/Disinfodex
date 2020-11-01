@@ -1031,15 +1031,7 @@ class Home extends React.Component
                             </Col>
                             
                             <Col xs={12} lg={12} id="table-section">
-                                {(!this.state.platform_records || (this.state.platform_records.length === 0)) && 
                                 
-                                <ScaleLoader
-                                    css={override}
-                                    size={150}
-                                    color={"#003358"}
-                                    loading={true}
-                                />
-                                }
                                 {this.state.active === "table" && 
                                 <>
                                 <div className="table-wrapper">
@@ -1063,6 +1055,15 @@ class Home extends React.Component
                                             {card_renders}
                                         </Row>
                                     </Col>
+                                }
+                                {(!this.state.platform_records || (this.state.platform_records.length === 0)) && 
+                                
+                                <ScaleLoader
+                                    css={override}
+                                    size={150}
+                                    color={"#003358"}
+                                    loading={true}
+                                />
                                 }
                             </Col>
                             <Col xs={12} id="pagination-section">
