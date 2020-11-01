@@ -1,5 +1,3 @@
-
-
 #navbar .navbar-brand
 {
     font-family: 'Garamond', 'Georgia', 'Times New Roman', 'Times', serif;
@@ -25,8 +23,8 @@
 #navbar
 {
     background: #003358;
-    padding-left: 60px;
-    padding-right: 60px;
+    /* padding-left: 60px;
+    padding-right: 60px; */
 }
 
 #home hr
@@ -39,8 +37,8 @@
 {
     background: #003358;
     color: white;
-    padding-left: 60px;
-    padding-right: 60px;
+    /* padding-left: 60px;
+    padding-right: 60px; */
     padding-bottom: 30px;
 }
 
@@ -76,8 +74,8 @@
 {
     padding-top: 2rem;
     padding-bottom: 2rem;
-    padding-left: 60px;
-    padding-right: 60px;
+    /* padding-left: 60px;
+    padding-right: 60px; */
 
 }
 
@@ -114,10 +112,7 @@
 
 #view-options
 {
-    
-    padding-left: 60px;
-    padding-right: 60px;
-    margin-bottom: 1rem;
+    margin-bottom: 4rem;
 }
 
 #view-options .btn
@@ -151,13 +146,16 @@
 {
     /* padding-left: 3rem;
     padding-right: 2rem; */
-    padding-left: 60px;
-    padding-right: 60px;
+    /* padding-left: 60px;
+    padding-right: 60px; */
 }
 
 #filters-section label
 {
     font-weight: 400;
+    font-size: 0.9rem;
+    color: #8b8b8b;
+    text-transform: uppercase;
 }
 
 #filters-section input, #filters-section select
@@ -178,8 +176,9 @@
 
 #table-section
 {
-    padding-left: 60px;
-    padding-right: 60px
+    /* padding-left: 60px;
+    padding-right: 60px; */
+    margin-top: 4rem;
 }
 
 #footer
@@ -187,8 +186,8 @@
     margin-top: 3rem;
     padding-top: 2rem;
     padding-bottom: 2rem;
-    padding-left: 60px;
-    padding-right: 60px;
+    /* padding-left: 60px;
+    padding-right: 60px; */
 }
 
 #footer p
@@ -225,7 +224,7 @@ max-width: 100%;
 #table-section td>div, #table-section th>div 
 {
     font-size: 0.85rem;
-    height: 1.5rem;
+    /* height: 1.6rem; */
     width: 10rem;
     overflow: hidden;
     white-space: nowrap;
@@ -286,9 +285,12 @@ max-width: 100%;
 
 #filters-section .filter-dropdown
 {
-    border: 1px solid #B18C5A;
+    border: 1px solid rgb(206, 212, 218);
     height: 2.5rem;
     border-radius: 5px;
+}
+#filters-section .filter-dropdown:hover {
+    border: 1px solid #B18C5A;
 }
 
 #filters-section .filter-dropdown-panel
@@ -396,10 +398,9 @@ max-width: 100%;
     color: black;
     margin-bottom: 0px;
     padding: 0.2rem;
-    padding-left: 1rem;
+    padding-left: 0.5rem;
     padding-right: 1rem;
-
-    border-radius: 2rem;
+    border-radius: 1rem;
 }
 
 .record-index
@@ -445,6 +446,7 @@ max-width: 100%;
     padding: 0.2rem 0.8rem;
     display: inline-block;
     margin-left: 0.2rem;
+    margin-bottom: 0;
 }
 
 .limit-dropdown
@@ -478,7 +480,7 @@ max-width: 100%;
 {
     background-color: transparent;
     width: 100%;
-    color: #B18C5A;
+    color: #999999;
     cursor: pointer;
 
 }
@@ -491,8 +493,8 @@ max-width: 100%;
 
 #pagination-section
 {
-    padding-left: 60px;
-    padding-right: 60px;
+    /* padding-left: 60px;
+    padding-right: 60px; */
 }
 
 .limit-dropdown-options
