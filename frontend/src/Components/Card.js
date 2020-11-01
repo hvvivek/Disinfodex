@@ -154,7 +154,7 @@ class Card extends React.Component
                                 </Col>
 
                                 <Col xs={6} style={{padding: "0px"}}>
-                                    <Col xs={12} className="section description">
+                                    <Col xs={12} className="section description-section">
                                         {/* <p className="subtitle">DESCRIPTION</p>
                                         {descriptions} */}
 
@@ -165,7 +165,7 @@ class Card extends React.Component
                                 
 
                                 <Col xs={12}>
-                                    <p className="divider">Platform Records: </p>
+                                    <p className="divider">Description: </p>
                                     {/* {platform_records.map(payload => 
                                         <Row>
                                             <Col xs={12} className="row-modal description-section modal-description-section">

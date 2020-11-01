@@ -206,7 +206,7 @@ p.divider-body
     background-color: #ECECEC;
 }
 
-.description.section .disclosure
+.description-section .disclosure
 {
     background-color: rgb(231, 231, 231);
     border-radius: 1rem;
