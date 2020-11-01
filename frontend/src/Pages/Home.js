@@ -6,14 +6,10 @@ import moment from 'moment'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import Form from 'react-bootstrap/Form'
-import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
-import Modal from 'react-bootstrap/Modal'
 import NetworkModal from "../Components/NetworkModal"
 import Card from "../Components/Card"
 import TableRow from "../Components/TableRow"
@@ -23,11 +19,10 @@ import logo_2 from '../Assets/Images/berkman_klein.png'
 import logo_3 from '../Assets/Images/miami_foundation.png'
 
 
-import Table from '../Components/Table'
 import '../Stylesheets/Home.css'
 import Collapse from 'react-bootstrap/esm/Collapse'
 import axios from 'axios'
-import Toggle from 'react-toggle'
+import Header from "../Components/Header"
 
 import "react-toggle/style.css" // for ES6 modules
 import 'react-date-range/dist/styles.css'; // main style file
@@ -40,8 +35,11 @@ import cards_active from "../Assets/Icons/cards_active.png"
 
 
 import { DateRangePicker } from 'react-date-range';
-import {BACKEND_URI, SYNC_URI} from '../constants'
-import { CSVLink, CSVDownload } from "react-csv";
+import {BACKEND_URI} from '../constants'
+import { CSVLink } from "react-csv";
+
+import Checkbox from 'rc-checkbox';
+import 'rc-checkbox/assets/index.css';
 
 const { getCode, getNames } = require('country-list');
 const ObjectsToCsv = require('objects-to-csv');
@@ -106,7 +104,28 @@ class Home extends React.Component
     }
 
     toggleFilterDropdown = (panelName) => {
-        this.setState({[panelName]: !this.state[panelName]})
+
+        let panels = [
+            "dodFilterPanelCollapsed",
+            "platformFilterPanelCollapsed",
+            "sourceFilterPanelCollapsed",
+            "productFilterPanelCollapsed",
+            "policyFilterPanelCollapsed",
+            "geogrphicAreaFilterPanelCollapsed",
+            "originCountryFilterPanelCollapased",
+            "destinationCountryFilterPanelCollapsed",
+        ]
+
+        let new_state = {}
+        for(let i=0;i<panels.length; i++)
+        {
+            if(panels[i] !== panelName)
+            {
+                new_state[panels[i]] = false
+            }
+        }
+        new_state[panelName] = !this.state[panelName]
+        this.setState(new_state)
     }
 
     componentDidMount()
@@ -278,6 +297,7 @@ class Home extends React.Component
         let temp = this.state[filter]
         temp[name] = !temp[name]
         this.setState({[filter]: temp, skip:0})
+
     }
 
     renderFilterOptions = (key, filter) => {
@@ -317,12 +337,12 @@ class Home extends React.Component
                     // Create dropdown renders
                     final_renders.push(
                         <Col xs={12} className="option">
-                            <Toggle
-                                defaultChecked={this.state[filter][option]}
-                                icons={false}
-                                aria-label={option}
-                                onChange={() => this.toggleFilter(filter, option)} />
                             <span>{option}</span>
+                            <Checkbox
+                                defaultChecked={this.state[filter][option]}
+                                checked={this.state[filter][option]}
+                                onChange={() => this.toggleFilter(filter, option)}
+                            />
                         </Col>
                     )
                 }
@@ -419,12 +439,11 @@ class Home extends React.Component
                     // Create dropdown renders
                     final_renders.push(
                         <Col xs={12} className="option">
-                            <Toggle
-                                defaultChecked={this.state[filter][option]}
-                                icons={false}
-                                aria-label={option}
-                                onChange={() => this.toggleFilter(filter, option)} />
                             <span>{option}</span>
+                            <Checkbox
+                                defaultChecked={this.state[filter][option]}
+                                onChange={() => this.toggleFilter(filter, option)}
+                            />
                         </Col>
                     )
                 }
@@ -451,12 +470,11 @@ class Home extends React.Component
                     let option = options[i]
                     renders.push(
                         <Col xs={12} className="option">
-                            <Toggle
-                                defaultChecked={this.state[filterState][option]}
-                                icons={false}
-                                aria-label={option}
-                                onChange={() => this.toggleFilter(filterState, option)} />
                             <span>{option}</span>
+                            <Checkbox
+                                defaultChecked={this.state[filterState][option]}
+                                onChange={() => this.toggleFilter(filterState, option)}
+                            />
                         </Col>
                     )
                 }
@@ -468,6 +486,10 @@ class Home extends React.Component
     }
 
     handlePageSwitch = (i) => {
+        this.setState({cards_page: i})
+    }
+
+    handleCardsPagination = (i) => {
         this.setState({cards_page: i})
     }
 
@@ -657,17 +679,21 @@ class Home extends React.Component
                     }
                     break
                 case 'SCREENSHOTS':
-                    if(this.state.contains_screenshots_filter)
-                    {
+                    if (this.state.contains_screenshots_filter) {
                         filtered_records = filtered_records.filter((record) => {
-                                            console.log(this.state.networks.filter(network => network.sync_id === record['NETWORK_ID'][0]))
+                            try {
 
-                                            return record['NETWORK_ID'] && 
-                                                    this.state.networks.filter(network => network.sync_id === record['NETWORK_ID'][0]) && 
-                                                    this.state.networks.filter(network => network.sync_id === record['NETWORK_ID'][0]).length > 0 &&
-                                                    "Screenshots" in this.state.networks.filter(network => network.sync_id === record['NETWORK_ID'][0])[0]
-                                        }
-                                            )
+                                
+                                return record['NETWORK_ID'] &&
+                                    this.state.networks.filter(network => network.sync_id === record['NETWORK_ID'][0]) &&
+                                    this.state.networks.filter(network => network.sync_id === record['NETWORK_ID'][0]).length > 0 &&
+                                    "Screenshots" in this.state.networks.filter(network => network.sync_id === record['NETWORK_ID'][0])[0]
+                            } catch (error) {
+                                return false
+                            }
+
+                        }
+                        )
                     }
                     break
 
@@ -775,8 +801,11 @@ class Home extends React.Component
         
         if(networks.length > 0)
         {
-            let start = this.state.cards_page * 10
-            let end = (this.state.cards_page+1) * 10
+            // let start = this.state.cards_page * 10
+            let start = this.state.skip
+
+            // let end = (this.state.cards_page+1) * 10
+            let end = this.state.skip + this.state.limit
 
             if(end>networks.length)
             {
@@ -811,18 +840,8 @@ class Home extends React.Component
                                                             handleClose={this.handleModalClose} 
                                                             data={this.state.networkModalData} />}
 
-                        <Col xs={12} id="info-section">
-                            <Row>
-                            <Col xs={12} lg={4}>
-                                <p>Disinfodex is a database of publicly available information about disinformation campaigns. It currently includes disclosures issued by major online platforms and accompanying reports from independent open source investigators.</p>
-                            </Col>
-                            <Col xs={12} lg={{span:4, offset:4}}>
-                                <p className="links"><a href="/" className="active">Database</a></p>
-                                <p className="links"><a href="/about">About this project</a></p>
-                                <p className="links"><a href="how-to">How it works</a></p>
-                            </Col>
-                            </Row>
-                        </Col>
+
+                        <Header active="database"></Header>
                         <Col xs={12} id="search-section">
                             <Col xs={12} lg={{span:6, offset:3}}>
                             <InputGroup>
@@ -903,7 +922,7 @@ class Home extends React.Component
                                                 <Form.Group>
                                                     <Form.Label>Companies</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("sourceFilterPanelCollapsed")}>
-                                                        {filter_labels["COMPANY"]? filter_labels["COMPANY"].map(company => <p className={"pill " + company.replace("/", "")}>{company}</p>): <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
+                                                        {filter_labels["COMPANY"]? filter_labels["COMPANY"].map(company => <p className={"pill " + company.replace("/", "")}>{company}<span onClick={(e) => {e.stopPropagation(); this.toggleFilter('company_filters', company)}}><i class="fas fa-times"></i></span></p>): <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
                                                     </Col>
                                                     <Collapse in={this.state.sourceFilterPanelCollapsed}>
                                                         <Col xs={12} className="filter-dropdown-panel">
@@ -917,7 +936,7 @@ class Home extends React.Component
                                                 <Form.Group>
                                                     <Form.Label>Source Type</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("platformFilterPanelCollapsed")}>
-                                                        {filter_labels["SOURCE_TYPE"] ? filter_labels["SOURCE_TYPE"].map(company => <p className={"pill " + company.replace("/", "")}>{company}</p>) : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
+                                                        {filter_labels["SOURCE_TYPE"] ? filter_labels["SOURCE_TYPE"].map(company => <p className={"pill " + company.replace("/", "")}>{company}<span onClick={(e) => {e.stopPropagation(); this.toggleFilter('source_filters', company)}}><i class="fas fa-times"></i></span></p>) : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
                                                     </Col>
                                                     <Collapse in={this.state.platformFilterPanelCollapsed}>
                                                         <Col xs={12} className="filter-dropdown-panel">
@@ -930,7 +949,7 @@ class Home extends React.Component
                                                 <Form.Group>
                                                     <Form.Label>Removal Type</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("productFilterPanelCollapsed")}>
-                                                        {filter_labels["REMOVAL_TYPE"] ? filter_labels["REMOVAL_TYPE"].map(company => <p className={"pill " + company.replace("/", "")}>{company}</p>) : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
+                                                        {filter_labels["REMOVAL_TYPE"] ? filter_labels["REMOVAL_TYPE"].map(company => <p className={"pill " + company.replace("/", "")}>{company}<span onClick={(e) => {e.stopPropagation(); this.toggleFilter('removal_type_filters', company)}}><i class="fas fa-times"></i></span></p>) : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
                                                     </Col>
                                                     <Collapse in={this.state.productFilterPanelCollapsed}>
                                                         <Col xs={12} className="filter-dropdown-panel">
@@ -943,7 +962,7 @@ class Home extends React.Component
                                                 <Form.Group>
                                                     <Form.Label>Origin Country</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("originCountryFilterPanelCollapased")}>
-                                                        {filter_labels["ORIGIN_COUNTRY"] ? filter_labels["ORIGIN_COUNTRY"].map(company => <p className={"pill " + company.replace("/", "")}>{company}</p>) : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
+                                                        {filter_labels["ORIGIN_COUNTRY"] ? filter_labels["ORIGIN_COUNTRY"].map(company => <p className={"pill " + company.replace("/", "")}>{company}<span onClick={(e) => {e.stopPropagation(); this.toggleFilter('origin_country_filters', company)}}><i class="fas fa-times"></i></span></p>) : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
                                                     </Col>
                                                     <Collapse in={this.state.originCountryFilterPanelCollapased}>
 
@@ -958,7 +977,7 @@ class Home extends React.Component
                                                 <Form.Group>
                                                     <Form.Label>Target Country</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("destinationCountryFilterPanelCollapsed")}>
-                                                        {filter_labels["DESTINATION_COUNTRY"] ? filter_labels["DESTINATION_COUNTRY"].map(company => <p className={"pill " + company.replace("/", "")}>{company}</p>) : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
+                                                        {filter_labels["DESTINATION_COUNTRY"] ? filter_labels["DESTINATION_COUNTRY"].map(company => <p className={"pill " + company.replace("/", "")}>{company}<span onClick={(e) => {e.stopPropagation(); this.toggleFilter('destination_country_filters', company)}}><i class="fas fa-times"></i></span></p>) : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
                                                     </Col>
                                                     <Collapse in={this.state.destinationCountryFilterPanelCollapsed}>
 
@@ -968,22 +987,6 @@ class Home extends React.Component
                                                         </Collapse>
                                                 </Form.Group>
                                             </Col>
-
-                                            {/* REMOVED ON OCT 18 */}
-                                            {/* <Col>
-                                                <Form.Group>
-                                                    <Form.Label>Policy Infringement</Form.Label>
-                                                    <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("policyFilterPanelCollapsed")}>
-                                                        {filter_labels["POLICY_VIOLATIONS"] && <p>Filter Active</p>}
-                                                    </Col>
-                                                    <Collapse in={this.state.policyFilterPanelCollapsed}>
-                                                    <Col xs={12} className="filter-dropdown-panel">
-                                                        {infringement_options}
-                                                        </Col>
-                                                    </Collapse>
-                                                </Form.Group>
-                                            </Col> */}
-
 
                                             <Col>
                                                 <Form.Group>
@@ -1055,19 +1058,61 @@ class Home extends React.Component
                                 </Col>
                                 }
                                 {
-                                    this.state.active === "cards" && 
+                                    this.state.active === "cards" && <>
                                     <Col xs={12}>
                                         <Row>
-                                            <Col xs={12} className="cards-pagination-wrapper">
+                                            {/* <Col xs={12} className="cards-pagination-wrapper">
                                                 <p>Viewing page: {cards_pagination} </p>
-                                            </Col>
+                                            </Col> */}
                                             {card_renders}
-                                            <Col xs={12} className="cards-pagination-wrapper">
+                                            {/* <Col xs={12} className="cards-pagination-wrapper">
                                                 <p>Viewing page: {cards_pagination} </p>
-                                            </Col>
+                                            </Col> */}
                                         </Row>
                                     </Col>
-                                    
+                                    <Col xs={12} id="pagination-wrapper">
+                                    <Row className="justify-content-end">
+                                        <Col className="record-index">
+                                            <Row>
+                                            <Col xs={12}>
+                                                <p>Viewing {this.state.skip+1} - {(this.state.skip + this.state.limit) <= filtered_networks.length? this.state.skip + this.state.limit: filtered_networks.length} out of {filtered_networks.length}</p>
+                                            </Col>
+                                            </Row>
+                                        </Col>
+                                        
+                                        <Col xs={1} style={{"textAlign": "right", "display": "grid", "alignItems": "center", "justifyItems": "end"}}>
+                                            <span>Showing</span>
+                                        </Col>
+                                        <Col xs={1}>
+                                            <Col xs={12} className="filter-dropdown limit-dropdown" onClick={() => this.setState({"limit_dropdown": !this.state.limit_dropdown})}>
+                                                {this.state.limit}
+                                            </Col>
+                                            <Collapse in={this.state.limit_dropdown}>
+                                                <Col xs={12} className="filter-dropdown-panel limit-dropdown-options">
+                                                    <Row>
+                                                        {[10, 25, 50, 100].map(num => <Col xs={12}><p onClick={() => this.setState({limit_dropdown: false, limit: num})}>{num}</p></Col>)}
+                                                    </Row>
+                                                </Col>
+                                                </Collapse>
+                                        </Col>
+                                        {(this.state.skip >= this.state.limit) && <Button onClick={(e) => {this.setState({skip: this.state.skip - this.state.limit})}}>Previous</Button> }
+                                        {(this.state.skip + this.state.limit) < filtered_networks.length && <Button onClick={(e) => {this.setState({skip: this.state.skip + this.state.limit})}}>Next</Button> }
+                                    </Row>
+                                    {/* <Row>
+                                    <Col  xs={12} className="download-csv">
+                                                <CSVLink
+                                                    data={filtered_records}
+                                                    filename={"my-file.csv"}
+                                                    className="btn btn-primary"
+                                                    target="_blank">
+                                                Download CSV
+                                                </CSVLink>
+                                            </Col>
+                                    </Row> */}
+                                </Col>
+
+                            
+                                    </>
                                 }
                             </Col>
 

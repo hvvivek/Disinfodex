@@ -326,6 +326,10 @@ max-width: 100%;
 {
     padding-top: 1rem;
     padding-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
 }
 
 #filters-section .option:hover
@@ -333,7 +337,7 @@ max-width: 100%;
     /* background-color: #F6F6F6; */
 }
 
-#filters-section .option .react-toggle
+#filters-section .option span
 {
     margin-right: 0.5rem;
 }
@@ -498,10 +502,30 @@ max-width: 100%;
     border: 2px solid #e7e7e7;
 }
 
-.pill
+.filter-dropdown .pill
 {
     margin-right: 0.2rem;
     min-width: max-content;
+    padding-right: 0.5rem;
+}
+
+.filter-dropdown .pill span
+{
+    position: relative;
+    width: 1rem;
+    right: 0rem;
+    margin-left: 1rem;
+    /* background-color: rgba(255,255,255,0.5); */
+    padding: 0.35rem;
+    border-radius: 1rem;
+    font-size: 0.65rem;
+    cursor: pointer;
+    color: rgb(61, 61, 61)
+}
+
+.filter-dropdown .pill span:hover
+{
+    color: black;
 }
 
 .filter-dropdown p.Facebook, p.Facebook
