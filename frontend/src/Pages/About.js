@@ -51,11 +51,11 @@ class About extends React.Component
 
                 </Navbar>
                 {/* NAVBAR COMPONENT */}
-                
+                <Header active="about"></Header>
+
                 <Container fluid id="home">
                     <Row>
 
-                    <Header active="about"></Header>
 
                     </Row>
                 </Container>

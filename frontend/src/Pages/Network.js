@@ -23,6 +23,7 @@ import TableRow from "../Components/TableRow"
 import logo_1 from '../Assets/Images/sponsor_logo_1.png'
 import logo_2 from '../Assets/Images/berkman_klein.png'
 import logo_3 from '../Assets/Images/miami_foundation.png'
+import Header from "../Components/Header"
 
 
 import Table from '../Components/Table'
@@ -253,21 +254,10 @@ class Home extends React.Component
 
                 </Navbar>
                 {/* NAVBAR COMPONENT */}
+                <Header active="how-to"></Header>
 
                 <Container fluid id="home">
                     <Row>
-                        <Col xs={12} id="info-section">
-                            <Row>
-                            <Col xs={12} lg={4}>
-                                <p>Disinfodex is a database of publicly available information about disinformation campaigns. It currently includes disclosures issued by major online platforms and accompanying reports from independent open source investigators.</p>
-                            </Col>
-                            <Col xs={12} lg={{span:4, offset:4}}>
-                                <p className="links"><a href="/">Database</a></p>
-                                <p className="links"><a href="/about">About this project</a></p>
-                                <p className="links"><a href="how-to">How it works</a></p>
-                            </Col>
-                            </Row>
-                        </Col>
                     </Row>
                 </Container>
                 

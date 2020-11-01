@@ -51,11 +51,11 @@ class HowTo extends React.Component
 
                 </Navbar>
                 {/* NAVBAR COMPONENT */}
-                
+                <Header active="how-to"></Header>
+
                 <Container fluid id="home">
                     <Row>
 
-                    <Header active="how-to"></Header>
 
                     </Row>
                 </Container>
