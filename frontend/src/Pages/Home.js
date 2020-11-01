@@ -47,12 +47,12 @@ const { getCode, getNames } = require('country-list');
 const ObjectsToCsv = require('objects-to-csv');
 
 let COMPANY_COLORS = {
-    "Facebook": "rgba(59, 89, 152, 0.2)",
-    "Twitter": "rgba(0, 172, 238, 0.2)",
+    "Facebook": "rgba(59, 89, 152, 0.3)",
+    "Twitter": "rgba(0, 172, 238, 0.3)",
     "Reddit": "rgb(255, 87, 0, 0.2)",
-    "Google/YouTube": "rgb(196, 48, 43, 0.2)",
+    "Google/YouTube": "rgb(196, 48, 43, 0.3)",
     "Graphika": "#AAAAAA",
-    "DFRLab": "rgb(0, 134, 125, 0.2)"
+    "DFRLab": "rgb(0, 134, 125, 0.3)"
 }
 
 class Home extends React.Component
@@ -95,7 +95,7 @@ class Home extends React.Component
               active: "cards",
 
               skip: 0,
-              limit: 10,
+              limit: 25,
 
               cards_page: 0
         }
@@ -817,10 +817,9 @@ class Home extends React.Component
                                 <p>Disinfodex is a database of publicly available information about disinformation campaigns. It currently includes disclosures issued by major online platforms and accompanying reports from independent open source investigators.</p>
                             </Col>
                             <Col xs={12} lg={{span:4, offset:4}}>
-                                <p className="links"><a href="/about">About this project</a></p>
                                 <p className="links"><a href="/" className="active">Database</a></p>
-                                <p className="links"><a href="whitepaper">Whitepaper</a></p>
-                                <p className="links"><a href="how-to">How to read the database?</a></p>
+                                <p className="links"><a href="/about">About this project</a></p>
+                                <p className="links"><a href="how-to">How it works</a></p>
                             </Col>
                             </Row>
                         </Col>
@@ -844,7 +843,7 @@ class Home extends React.Component
                                 </FormControl> */}
                             </Col>
                             <Col xs={12} className="link">
-                                <a href="/whitepaper">Learn more about the data collection process</a>
+                                <a href="/how-to">Learn more about how the data is reported</a>
                             </Col>
                         </Col>
                         <Col xs={12} id="view-options">
@@ -856,7 +855,7 @@ class Home extends React.Component
                                         </Col> */}
                                     </Row>
                                 </Col>
-                                <Col xs={12} md={6} lg={4} xl={4}>
+                                <Col xs={12} md={6} lg={3} xl={3}>
                                     <Row className="justify-content-end">
                                         <Col>
                                             <p>View As:</p>
@@ -1085,13 +1084,13 @@ class Home extends React.Component
                             <Col xs={12} lg={{span: 7, offset:2}}>
                                 <Row className="justify-content-end">
                                     <Col className="logo-wrapper">
-                                        <img src={logo_1}></img>
+                                        <a href="https://carnegieendowment.org/specialprojects/counteringinfluenceoperations" target="_blank" title="Carnegie Endowment for International Peace: Partnership for Countering Influence Operations"><img src={logo_1}></img></a>
                                     </Col>
                                     <Col className="logo-wrapper">
-                                        <img src={logo_2}></img>
+                                        <a href="https://cyber.harvard.edu/" target="_blank" title="Berkman Klein Center for Internet and Society at Harvard University"><img src={logo_2}></img></a>
                                     </Col>
                                     <Col className="logo-wrapper">
-                                        <img src={logo_3}></img>
+                                        <a href="https://miamifoundation.org/" target="_blank" title="The Miami Foundation"><img src={logo_3}></img></a>
                                     </Col>
                                 </Row>
                             </Col>

@@ -262,10 +262,9 @@ class Home extends React.Component
                                 <p>Disinfodex is a database of publicly available information about disinformation campaigns. It currently includes disclosures issued by major online platforms and accompanying reports from independent open source investigators.</p>
                             </Col>
                             <Col xs={12} lg={{span:4, offset:4}}>
-                                <p className="links"><a href="/about" className="active">About this project</a></p>
                                 <p className="links"><a href="/">Database</a></p>
-                                <p className="links"><a href="/whitepaper">Whitepaper</a></p>
-                                <p className="links"><a href="/how-to">How to read the database?</a></p>
+                                <p className="links"><a href="/about">About this project</a></p>
+                                <p className="links"><a href="how-to">How it works</a></p>
                             </Col>
                             </Row>
                         </Col>
@@ -336,13 +335,13 @@ class Home extends React.Component
                             <Col xs={12} lg={{span: 7, offset:2}}>
                                 <Row className="justify-content-end">
                                     <Col className="logo-wrapper">
-                                        <img src={logo_1}></img>
+                                        <a href="https://carnegieendowment.org/specialprojects/counteringinfluenceoperations" target="_blank" title="Carnegie Endowment for International Peace: Partnership for Countering Influence Operations"><img src={logo_1}></img></a>
                                     </Col>
                                     <Col className="logo-wrapper">
-                                        <img src={logo_2}></img>
+                                        <a href="https://cyber.harvard.edu/" target="_blank" title="Berkman Klein Center for Internet and Society at Harvard University"><img src={logo_2}></img></a>
                                     </Col>
                                     <Col className="logo-wrapper">
-                                        <img src={logo_3}></img>
+                                        <a href="https://miamifoundation.org/" target="_blank" title="The Miami Foundation"><img src={logo_3}></img></a>
                                     </Col>
                                 </Row>
                             </Col>

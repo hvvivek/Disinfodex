@@ -3,34 +3,39 @@
     /* height: 300px;
     overflow: hidden; */
 }
+._card .wrapper:hover {
+    box-shadow: 0 0 15px rgba(0,0,0, 0.25);
+    transition: 300ms;
+}
 
 .subtitle
 {
     text-transform: uppercase;
     color: #8b8b8b;
-    margin-bottom: 0px;
-    font-size: 0.6rem;
+    font-size: 0.9rem;
+    margin-bottom: 2px;
 }
 
 .network
 {
     background-color: #D5EFFB;
     border-radius: 1rem;
-    padding: 0.2rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    font-size: 0.85rem;
-
+    padding: 0.3rem 0.5rem 0.2rem;
+    font-size: 0.9rem;
+    line-height: 1rem;
+    transition: 300ms;
+}
+.network:hover, .platform:hover {
+    filter: brightness(1);
+    transition: 300ms;
 }
 
 .platform
 {
     background-color: rgb(231, 231, 231);
     border-radius: 1rem;
-    padding: 0.2rem;
-    padding-left: 0.8rem;
-    padding-right: 0.8rem;
-    font-size: 0.85rem;
+    padding: 0.3rem 0.5rem 0.2rem;
+    font-size: 0.9rem;
     /* color: white; */
 }
 
@@ -40,7 +45,7 @@
 
 .type, .active-date
 {
-    font-size: 0.85rem;
+    font-size: 1rem;
 
 }
 
@@ -64,9 +69,9 @@
 .company-logo-wrapper
 {
     height: 100%;
-    display: grid;
+    display: flex;
     flex-direction: column;
-    justify-items: center;
+    justify-content: space-around;
     align-items: center;
     background-color: #EEEEEE;
 }
