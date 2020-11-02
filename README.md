@@ -51,13 +51,13 @@ To make changes: `cd frontend` and `npm start`.
 
 ## Final polish (11/1)
 
-- [ ] [BUG] Network is missing in the disclosure pop-up
-- [ ] [BUG] Add “close” button on individual disclosure pop-ups
-- [ ] [BUG] Sorting in Table and Cards doesn’t seem to work
-- [ ] [BUG] Only one pop-up should be open at a time (clicking through to a disclosure pop-up from network pop-up)
-- [ ] [FR] Dismiss dropdown by clicking outside of the drop-down
-- [ ] [FR] In mobile (xs-12) sizes on the cards, hide screenshots so it’s text only and clickable
-- [ ] [FR] Add Target Country and Origin Country to the Card view (per network) — now added to Airtable’s Networks table
+- [x] [BUG] Network is missing in the disclosure pop-up
+- [x] [BUG] Add “close” button on individual disclosure pop-ups
+- [x] [BUG] Sorting in Table and Cards doesn’t seem to work
+- [x] [BUG] Only one pop-up should be open at a time (clicking through to a disclosure pop-up from network pop-up)
+- [x] [FR] Dismiss dropdown by clicking outside of the drop-down
+- [x] [FR] In mobile (xs-12) sizes on the cards, hide screenshots so it’s text only and clickable
+- [x] [FR] Add Target Country and Origin Country to the Card view (per network) — now added to Airtable’s Networks table
 
 
 ## V2

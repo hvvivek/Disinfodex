@@ -47,13 +47,14 @@ class RecordModal extends React.Component
             }
             else if(key === "Networks")
             {
+                console.log(value)
                 // if(isModal)
                 // {
-                //     return value.map(data => <p className={key} onClick={() => {this.setState({showModal: false}); this.props.handleNetworkModal("Network", data.Name)}}>{data.Name}</p>)
+                    // return value.map(data => <p className={key} onClick={() => {this.setState({showModal: false}); this.props.handleNetworkModal("Network", data.Name)}}>{data.Name}</p>)
                 // }
                 // else
                 // {
-                    return value.map(data => <p className={key}>{data.Name}</p>)
+                    return value.map(data => <p className={key} onClick={this.props.onNetwork}>{data["networks"][0]}</p>)
                 // }
             }
         }

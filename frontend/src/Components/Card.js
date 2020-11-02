@@ -35,7 +35,7 @@ class Card extends React.Component
     }
 
     handleOpen = () => {
-        this.setState({show: true})
+        this.setState({show: true, show_disclosure_modal: false})
     }
 
     renderModalKey = (key) => {
@@ -112,6 +112,12 @@ class Card extends React.Component
 
         let unique_descriptions = []
         let descriptions = []
+
+        let unique_target_countries = []
+        let target_countries = []
+
+        let unique_origin_countries = []
+        let origin_countries = []
         for(let i=0; i<platform_records.length; i++)
         {
             let record = platform_records[i]
@@ -120,12 +126,34 @@ class Card extends React.Component
                 descriptions.push(record) 
                 unique_descriptions.push(record["DESCRIPTION_LONG"])
             }
+            if(record["DESTINATION_COUNTRY"] && !unique_target_countries.includes(record["DESTINATION_COUNTRY"].trim()))
+            {
+                target_countries.push(record) 
+                unique_target_countries.push(record["DESTINATION_COUNTRY"].trim())
+            }
+            if(record["ORIGIN_COUNTRY"] && !unique_origin_countries.includes(record["ORIGIN_COUNTRY"].trim()))
+            {
+                origin_countries.push(record) 
+                unique_origin_countries.push(record["ORIGIN_COUNTRY"].trim())
+            }
         }
+
+    
 
         descriptions = descriptions.map(record => <><p><em>From {record["COMPANY"][0]}</em></p><p className="divider-body">{record["DESCRIPTION_LONG"]}</p></>)
 
+        target_countries = target_countries.map(record => <span className="single-line comma">{record["DESTINATION_COUNTRY"]}</span>)
+        origin_countries = origin_countries.map(record => <span className="single-line comma">{record["ORIGIN_COUNTRY"]}</span>)
+
         return <Col sm={12} md={6} className="_card">
-                <RecordModal data={this.state.current_record} networks={[this.props.data]} show={this.state.show_disclosure_modal} onToggle={this.toggleRecordModal}></RecordModal>
+                <RecordModal data={this.state.current_record} 
+                            networks={[this.props.data]} 
+                            show={this.state.show_disclosure_modal} 
+                            onToggle={this.toggleRecordModal}
+                            onNetwork={this.handleOpen}
+                            >
+
+                </RecordModal>
                 <Modal size="lg" centered show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Network {networks[0]}</Modal.Title>
@@ -139,10 +167,7 @@ class Card extends React.Component
                             </Row>
                             <Row> 
                                 <Col xs={6} className="description-section modal-description-section">
-                                    <Col xs={12} className="section">
-                                        <p className="subtitle">Network</p>
-                                        <p>{networks && networks.map(network => <span id={network} className="network">{network}</span>)}</p>
-                                    </Col>
+                                    
 
                                     <Col xs={12} className="section">
                                         <p className="subtitle">Known Active Dates</p>
@@ -158,12 +183,22 @@ class Card extends React.Component
                                         <p className="subtitle">Removal Type</p>
                                         <p>{removal_types && removal_types.map(type => <span id={type} className="type">{type}</span>)}</p>
                                     </Col>
+
+                                    <Col xs={12} className="section">
+                                        <p className="subtitle">Origin Country</p>
+                                        <p  className="single-line">{origin_countries}</p>
+                                    </Col>
+                                    <Col xs={12} className="section">
+                                        <p className="subtitle">Target Country</p>
+                                        <p  className="single-line">{target_countries}</p>
+                                    </Col>
+
                                 </Col>
 
                                 <Col xs={6} style={{padding: "0px"}}>
                                     <Col xs={12} className="section description-section">
                                         <p className="subtitle">DISCLOSURES</p>
-                                        {platform_records.map(record => <p className={record["COMPANY"] + " disclosure"} style={{"backgroundColor": COMPANY_COLORS[record["COMPANY"]]}} onClick={() => this.setState({show_disclosure_modal: true, current_record: record})}>{record["RECORD_ID"]}</p>)}
+                                        {platform_records.map(record => <p className={record["COMPANY"] + " disclosure"} style={{"backgroundColor": COMPANY_COLORS[record["COMPANY"]]}} onClick={() => this.setState({show:false, show_disclosure_modal: true, current_record: record})}>{record["RECORD_ID"]}</p>)}
                                     </Col>
                                 </Col>
                             </Row>
@@ -193,7 +228,7 @@ class Card extends React.Component
 
             <Col xs={12} className="wrapper">
                 <Row style={{"height":"100%"}}>
-                    <Col xs={12} lg={5} style={{"padding":"0"}}>
+                    <Col className="hidden-xs" xs={12} lg={5} style={{"padding":"0"}}>
                         <ScrenshotsCarousel screenshots={screenshots} company={platforms && platforms.length>0 && platforms[0]}></ScrenshotsCarousel>
                     </Col>
                     
@@ -210,12 +245,21 @@ class Card extends React.Component
 
                         <Col xs={12} className="section">
                             <p className="subtitle">Removal Type</p>
-                            <p>{removal_types && removal_types.map(type => <span id={type} className="type">{type}</span>)}</p>
+                            <p className="single-line">{removal_types && removal_types.map(type => <span id={type} className="type">{type}</span>)}</p>
                         </Col>
 
-                        <Col xs={12} className="section">
+                        {/* <Col xs={12} className="section">
                             <p className="subtitle">Network</p>
                             <p>{networks && networks.map(network => <span id={network} className="network">{network}</span>)}</p>
+                        </Col> */}
+
+                        <Col xs={12} className="section">
+                            <p className="subtitle">Origin Country</p>
+                            <p className="single-line">{origin_countries}</p>
+                        </Col>
+                        <Col xs={12} className="section">
+                            <p className="subtitle">Target Country</p>
+                            <p className="single-line">{target_countries}</p>
                         </Col>
                     </Col>
 

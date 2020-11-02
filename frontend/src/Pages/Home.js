@@ -123,6 +123,43 @@ class Home extends React.Component
         }
         new_state[panelName] = !this.state[panelName]
         this.setState(new_state)
+        if(new_state[panelName])
+        {
+            document.addEventListener('click', this.handleDocumentClick, true)
+        }
+        else
+        {
+            document.removeEventListener('click', this.handleDocumentClick)
+            // document.removeEventListener('click', (e) => this.handleDocumentClick(e, panelName), true);
+        }
+    }
+
+    handleDocumentClick = (e) => {
+        let panels = [
+            "dodFilterPanelCollapsed",
+            "platformFilterPanelCollapsed",
+            "sourceFilterPanelCollapsed",
+            "productFilterPanelCollapsed",
+            "policyFilterPanelCollapsed",
+            "geogrphicAreaFilterPanelCollapsed",
+            "originCountryFilterPanelCollapased",
+            "destinationCountryFilterPanelCollapsed",
+        ]
+        const container = this._element;
+        
+        if (e.target !== container && !container.contains(e.target)) {
+            let new_state = {}
+
+            for(let i=0;i<panels.length; i++)
+            {
+                new_state[panels[i]] = false
+            }
+            this.setState(new_state)
+
+            // this.toggle();
+            // this.toggleFilterDropdown(panelName)
+            document.removeEventListener('click', this.handleDocumentClick);
+        }
     }
 
     componentDidMount()
@@ -990,7 +1027,7 @@ class Home extends React.Component
 
                         <Col xs={12}>
                             <Row>
-                            <Col xs={12} id="filters-section">
+                            <Col xs={12} id="filters-section" ref={(c)=> (this._element = c)}>
                                 {/* <p className="filters-section-collapser">Filters <i className={this.state.filterPanelCollapsed?"fas fa-caret-up":"fas fa-caret-down"} onClick={() => {this.setState({filterPanelCollapsed: !this.state.filterPanelCollapsed})}}></i></p> */}
                                 <Collapse in={this.state.filterPanelCollapsed}>
 
