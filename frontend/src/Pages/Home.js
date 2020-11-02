@@ -939,10 +939,10 @@ class Home extends React.Component
                                                 <Form.Group>
                                                     <Form.Label>Date of Disclosure</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("dodFilterPanelCollapsed")}>
-                                                    {filter_labels["DOD"]? <p className="time-filter">{moment(this.state.selection["startDate"]).format("MMM DD YYYY")  + " - " + moment(this.state.selection["endDate"]).format("MMM DD YYYY")}</p> : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
+                                                    {filter_labels["DOD"]? <p className="time-filter">{moment(this.state.selection["startDate"]).format("MMM DD YYYY")  + " - " + moment(this.state.selection["endDate"]).format("MMM DD YYYY")} <i class="fas fa-times" onClick={(e) => {e.stopPropagation(); let temp = {...this.state.selection}; temp["default"] = true; this.setState({selection: temp})}}></i></p> : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
                                                     </Col>
                                                     <Collapse in={this.state.dodFilterPanelCollapsed}>
-                                                        <Col xs={12} className="filter-dropdown-panel">
+                                                        <Col xs={12} className="filter-dropdown-panel filter-dropdown-panel-date">
                                                             <DateRangePicker
                                                                 ranges={[this.state.selection]}
                                                                 onChange={this.handleSelect}

@@ -307,6 +307,12 @@ max-width: 100%;
     /* box-shadow: 3px 3px 5px #f0f0f0; */
 }
 
+#filters-section .filter-dropdown-panel.filter-dropdown-panel-date
+{
+    width: max-content;
+    max-width: max-content;
+}
+
 #filters-section .react-toggle-track
 {
     width: 20px;
@@ -571,8 +577,9 @@ max-width: 100%;
 
 .filter-dropdown .time-filter
 {
-    background-color: transparent;
+    background-color: #ECECEC;
     min-width: max-content;
+    border-radius: 1rem;
 }
 
 .row-modal.modal-description-section
@@ -671,4 +678,10 @@ cursor: pointer;
 .modal-body .carousel .slide
 {
     background: #e9f4ff;
+}
+
+.fa-times
+{
+    cursor: pointer;
+    font-size: 0.65rem;
 }
