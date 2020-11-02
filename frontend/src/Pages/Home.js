@@ -931,6 +931,7 @@ class Home extends React.Component
                         <Col xs={12}>
                             <Row>
                             <Col xs={12} id="filters-section">
+                                <p className="filters-section-collapser">Filters <i className={this.state.filterPanelCollapsed?"fas fa-caret-up":"fas fa-caret-down"} onClick={() => {this.setState({filterPanelCollapsed: !this.state.filterPanelCollapsed})}}></i></p>
                                 <Collapse in={this.state.filterPanelCollapsed}>
 
                                     <Form>

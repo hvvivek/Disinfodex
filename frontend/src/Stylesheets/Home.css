@@ -674,6 +674,17 @@ cursor: pointer;
     color: #9e6b28;
 }
 
+.filters-section-collapser
+{
+    color: #B18C5A;
+    cursor: pointer;
+}
+
+.filters-section-collapser:hover
+{
+    color: #9e6b28;
+}
+
 
 .modal-body .carousel .slide
 {
@@ -692,3 +703,4 @@ cursor: pointer;
         height: auto;
     }
  }
+
