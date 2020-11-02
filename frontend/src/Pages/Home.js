@@ -935,7 +935,7 @@ class Home extends React.Component
 
                                     <Form>
                                         <Row>
-                                            <Col>
+                                            <Col xs={12} lg>
                                                 <Form.Group>
                                                     <Form.Label>Date of Disclosure</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("dodFilterPanelCollapsed")}>
@@ -952,7 +952,7 @@ class Home extends React.Component
                                                 </Form.Group>
                                             </Col>
 
-                                            <Col>
+                                            <Col xs={12} lg>
                                                 <Form.Group>
                                                     <Form.Label>Companies</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("sourceFilterPanelCollapsed")}>
@@ -966,7 +966,7 @@ class Home extends React.Component
                                                 </Form.Group>
                                             </Col>
 
-                                            <Col>
+                                            <Col xs={12} lg>
                                                 <Form.Group>
                                                     <Form.Label>Source Type</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("platformFilterPanelCollapsed")}>
@@ -979,7 +979,7 @@ class Home extends React.Component
                                                     </Collapse>
                                                 </Form.Group>
                                             </Col>
-                                            <Col>
+                                            <Col xs={12} lg>
                                                 <Form.Group>
                                                     <Form.Label>Removal Type</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("productFilterPanelCollapsed")}>
@@ -992,7 +992,7 @@ class Home extends React.Component
                                                     </Collapse>
                                                 </Form.Group>
                                             </Col>
-                                            <Col>
+                                            <Col xs={12} lg>
                                                 <Form.Group>
                                                     <Form.Label>Origin Country</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("originCountryFilterPanelCollapased")}>
@@ -1007,7 +1007,7 @@ class Home extends React.Component
                                                 </Form.Group>
                                             </Col>
 
-                                            <Col>
+                                            <Col xs={12} lg>
                                                 <Form.Group>
                                                     <Form.Label>Target Country</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("destinationCountryFilterPanelCollapsed")}>
@@ -1022,7 +1022,7 @@ class Home extends React.Component
                                                 </Form.Group>
                                             </Col>
 
-                                            <Col>
+                                            <Col xs={12} lg>
                                                 <Form.Group>
                                                     <Form.Label></Form.Label>
                                                     <Form.Check type="checkbox" name="date" value={this.state.contains_screenshots_filter} onChange={(e) => this.setState({contains_screenshots_filter: e.target.checked})} label="Contains Screenshots" />

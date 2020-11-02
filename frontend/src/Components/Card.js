@@ -193,11 +193,11 @@ class Card extends React.Component
 
             <Col xs={12} className="wrapper">
                 <Row style={{"height":"100%"}}>
-                    <Col xs={5} style={{"padding":"0"}}>
+                    <Col xs={12} lg={5} style={{"padding":"0"}}>
                         <ScrenshotsCarousel screenshots={screenshots} company={platforms && platforms.length>0 && platforms[0]}></ScrenshotsCarousel>
                     </Col>
                     
-                    <Col xs={7} className="description-section" onClick={this.handleOpen}>
+                    <Col xs={12} lg={7} className="description-section" onClick={this.handleOpen}>
                         <Col xs={12} className="section">
                             <p className="subtitle">Platform</p>
                             <p>{platforms.map(platform => <span id={platform} className="platform" style={{"backgroundColor": COMPANY_COLORS[platform]}}>{platform}</span>)}</p>
