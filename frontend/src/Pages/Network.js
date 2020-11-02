@@ -213,11 +213,12 @@ class Network extends React.Component
         }
 
         console.log(descriptions)
-        descriptions = descriptions.map(record => <><p><b>From {record["COMPANY"][0]}</b></p><p>{record["DESCRIPTION_LONG"]}</p></>)
+        descriptions = descriptions.map(record => <><p><em>From {record["COMPANY"][0]}</em></p><p>{record["DESCRIPTION_LONG"]}</p></>)
             console.log(descriptions)
             
         }
         return <>
+            <div id="top">
                 {/* NAVBAR COMPONENT */}
                 <Navbar id="navbar">
                     <Navbar.Brand href="/">dis<span>•</span>info<span>•</span>dex</Navbar.Brand>
@@ -225,6 +226,7 @@ class Network extends React.Component
                 </Navbar>
                 {/* NAVBAR COMPONENT */}
                 <Header active="how-to"></Header>
+            </div>
 
                 <Container fluid id="home">
                     <Row>
@@ -266,7 +268,7 @@ class Network extends React.Component
                         </Col>
 
                         <Col xs={12}>
-                            <p className="divider">Platform Records: </p>
+                            <p className="subtitle">Platform Records: </p>
                             {platform_records.map(payload => 
                                 <Row>
                                     <Col xs={12} className="row-modal description-section modal-description-section">
