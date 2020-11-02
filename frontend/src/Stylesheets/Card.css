@@ -223,7 +223,7 @@ p.divider-body
     background: #ECECEC;
 }
 
-@media (max-width: 576px) { 
+@media (max-width: 1024px) { 
 
 .hidden-xs
 {

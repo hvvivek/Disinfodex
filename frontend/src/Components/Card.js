@@ -226,13 +226,13 @@ class Card extends React.Component
                     
                 </Modal>
 
-            <Col xs={12} className="wrapper">
+            <Col xs={12} className="wrapper" onClick={this.handleOpen}>
                 <Row style={{"height":"100%"}}>
-                    <Col className="hidden-xs" xs={12} lg={5} style={{"padding":"0"}}>
+                    <Col className="hidden-xs" xs={12} xl={5} style={{"padding":"0"}}>
                         <ScrenshotsCarousel screenshots={screenshots} company={platforms && platforms.length>0 && platforms[0]}></ScrenshotsCarousel>
                     </Col>
                     
-                    <Col xs={12} lg={7} className="description-section" onClick={this.handleOpen}>
+                    <Col xs={12} xl={7} className="description-section" >
                         <Col xs={12} className="section">
                             <p className="subtitle">Platform</p>
                             <p>{platforms.map(platform => <span id={platform} className="platform" style={{"backgroundColor": COMPANY_COLORS[platform]}}>{platform}</span>)}</p>
