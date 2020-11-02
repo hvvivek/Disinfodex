@@ -32,6 +32,8 @@ class TableRow extends React.Component
 
 
     renderModalValue = (key, value, isModal) => {
+        if(key && value)
+        {
         if(typeof(value) != "object")
         {
             return value.toString()
@@ -54,6 +56,7 @@ class TableRow extends React.Component
                 }
             }
         }
+    }
         else
         {
             return null
@@ -86,11 +89,11 @@ class TableRow extends React.Component
             Networks = networks.filter(network => Networks.includes(network.sync_id))
         }
 
-        if(Networks.length > 1)
-        {
-            console.log(Date_Of_Disclosure)
-            console.log(Networks)
-        }
+        // if(Networks.length > 1)
+        // {
+        //     console.log(Date_Of_Disclosure)
+        //     console.log(Networks)
+        // }
 
         let payload = {
             Date_Of_Disclosure, 
@@ -117,7 +120,7 @@ class TableRow extends React.Component
             {
              <Modal size="lg" centered show={this.state.showModal} onHide={this.handleClose}>
                 
-                <Modal.Header>
+                <Modal.Header closeButton>
                     {payload["Company"]&& payload["Company"] + " - "}{payload["Date_Of_Disclosure"]}
                 </Modal.Header>
 

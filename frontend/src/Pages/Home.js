@@ -638,8 +638,6 @@ class Home extends React.Component
                     if(origin_geo_to_filter)
                     {
                         origin_geo_to_filter = origin_geo_to_filter.filter(key => this.state.origin_country_filters[key])
-                        console.log(origin_geo_to_filter)
-
                         if(origin_geo_to_filter.length > 0)
                         {
                             filter_labels["ORIGIN_COUNTRY"] = origin_geo_to_filter
@@ -776,9 +774,44 @@ class Home extends React.Component
             if(this.state.currentSort)
             {
                 const SORT_KEY = this.state.currentSort
-                filtered_records = filtered_records.sort((a,b) => this.state.ascendingSort? a[SORT_KEY] > b[SORT_KEY]: a[SORT_KEY] < b[SORT_KEY])
+                filtered_records = filtered_records.sort((a,b) => {
+                    if(this.state.ascendingSort)
+                    {
+                        if(a[SORT_KEY] > b[SORT_KEY])
+                        {
+                            return 1
+                        }
+                        else if(a[SORT_KEY] === b[SORT_KEY])
+                        {
+                            return 0
+                        }
+                        else
+                        {
+                            return -1
+                        }
+                    }
+                    else
+                    {
+                        if(a[SORT_KEY] < b[SORT_KEY])
+                        {
+                            return 1
+                        }
+                        else if(a[SORT_KEY] === b[SORT_KEY])
+                        {
+                            return 0
+                        }
+                        else
+                        {
+                            return -1
+                        }
+                    }
+                    // this.state.ascendingSort? a[SORT_KEY] > b[SORT_KEY]: a[SORT_KEY] < b[SORT_KEY]
+                }
+                )
             }
 
+            // console.log(filtered_records)
+            filtered_records = filtered_records.filter(record => record["RECORD_ID"])
             let data_to_show = filtered_records.slice(this.state.skip, this.state.skip + this.state.limit)
             for(let i=0; i<data_to_show.length; i++)
             {
@@ -808,26 +841,51 @@ class Home extends React.Component
 
         if(this.state.cards_latest_first)
         {
-            networks.sort(function(a,b)
+            networks = networks.sort(function(a,b)
             {
                 if(a["Latest Date"] && b["Latest Date"])
                 {
-                    return a["Latest Date"] <= b["Latest Date"]
+                    if(a["Latest Date"] < b["Latest Date"])
+                    {
+                        return 1
+                    }
+                    else if(a["Latest Date"] === b["Latest Date"])
+                    {
+                        return 0
+                    }
+                    else
+                    {
+                        return -1
+                    }
+                    // return a["Latest Date"] <= b["Latest Date"]
                 }
-                return false
+                return -1
             })
         }
         else
         {
-            networks.sort(function(a,b)
+            networks = networks.sort(function(a,b)
             {
-                if(a["Latest Date"] && b["Latest Date"])
+                if(a["Latest Date"] > b["Latest Date"])
                 {
-                    return a["Latest Date"] >= b["Latest Date"]
+                    return 1
                 }
-                return false
+                else if(a["Latest Date"] === b["Latest Date"])
+                {
+                    return 0
+                }
+                else
+                {
+                    return -1
+                }
+                // if(a["Latest Date"] && b["Latest Date"])
+                // {
+                //     return a["Latest Date"] >= b["Latest Date"]
+                // }
+                // return false
             })
         }
+
         
         
         if(networks.length > 0)
