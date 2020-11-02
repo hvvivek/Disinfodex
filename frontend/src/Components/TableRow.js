@@ -216,7 +216,7 @@ class TableRow extends React.Component
             </td>
             <td xs={2}>
                 <div>
-                    <p>{Description_Long}</p>
+                    {Description_Long}
                 </div>
                 
             </td>

@@ -772,6 +772,7 @@ class Home extends React.Component
         }
 
         let row_renders = []
+
         if(this.state.platform_records && this.state.platform_records.length > 0)
         {
             let COLUMNS = [
@@ -797,7 +798,7 @@ class Home extends React.Component
                 <tr>
                     {
                     COLUMNS.map(column => <th>
-                        <div className="dod-column">
+                        <div className={column["slug"] === "dod"? "dod-column": ""}>
                             {column["name"]}
                             {column["index"] && this.state.currentSort !== column["index"] && <i class="fas fa-caret-down" onClick={() => this.setState({currentSort: column["index"], ascendingSort: !this.state.ascendingSort})}></i>}
                             {column["index"] && this.state.currentSort === column["index"] && <i class={this.state.ascendingSort? "fas fa-arrow-up": "fas fa-arrow-down"} onClick={() => this.setState({currentSort: column["index"], ascendingSort: !this.state.ascendingSort})}></i>}
