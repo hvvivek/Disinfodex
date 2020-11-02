@@ -90,7 +90,7 @@ class Home extends React.Component
               cards_latest_first: true,
 
               skip: 0,
-              limit: 25,
+              limit: 24,
 
               cards_page: 0
         }
@@ -915,6 +915,7 @@ class Home extends React.Component
         }
         
         return <>
+            <div id="top">
                 {/* NAVBAR COMPONENT */}
                 <Navbar id="navbar">
                     <Navbar.Brand href="/">dis<span>•</span>info<span>•</span>dex</Navbar.Brand>
@@ -923,6 +924,7 @@ class Home extends React.Component
                 {/* NAVBAR COMPONENT */}
 
                 <Header active="database"></Header>
+            </div>
 
                 <Container fluid id="home">
                     <Row>
@@ -989,7 +991,7 @@ class Home extends React.Component
                         <Col xs={12}>
                             <Row>
                             <Col xs={12} id="filters-section">
-                                <p className="filters-section-collapser">Filters <i className={this.state.filterPanelCollapsed?"fas fa-caret-up":"fas fa-caret-down"} onClick={() => {this.setState({filterPanelCollapsed: !this.state.filterPanelCollapsed})}}></i></p>
+                                {/* <p className="filters-section-collapser">Filters <i className={this.state.filterPanelCollapsed?"fas fa-caret-up":"fas fa-caret-down"} onClick={() => {this.setState({filterPanelCollapsed: !this.state.filterPanelCollapsed})}}></i></p> */}
                                 <Collapse in={this.state.filterPanelCollapsed}>
 
                                     <Form>
@@ -1158,7 +1160,7 @@ class Home extends React.Component
                                             <Collapse in={this.state.limit_dropdown}>
                                                 <Col xs={12} className="filter-dropdown-panel limit-dropdown-options">
                                                     <Row>
-                                                        {[10, 25, 50, filtered_records.length].map(num => <Col xs={12}><p onClick={() => this.setState({limit_dropdown: false, limit: num})}>{num === filtered_records.length? "All": num}</p></Col>)}
+                                                        {[12, 24, 48, filtered_records.length].map(num => <Col xs={12}><p onClick={() => this.setState({limit_dropdown: false, limit: num})}>{num === filtered_records.length? "All": num}</p></Col>)}
                                                     </Row>
                                                 </Col>
                                                 </Collapse>
@@ -1204,7 +1206,7 @@ class Home extends React.Component
                                             <Collapse in={this.state.limit_dropdown}>
                                                 <Col xs={12} className="filter-dropdown-panel limit-dropdown-options">
                                                     <Row>
-                                                        {[10, 25, 50, filtered_networks.length].map(num => <Col xs={12}><p onClick={() => this.setState({limit_dropdown: false, limit: num})}>{num===filtered_networks.length? "All": num}</p></Col>)}
+                                                        {[12, 24, 48, filtered_networks.length].map(num => <Col xs={12}><p onClick={() => this.setState({limit_dropdown: false, limit: num})}>{num===filtered_networks.length? "All": num}</p></Col>)}
                                                     </Row>
                                                 </Col>
                                                 </Collapse>

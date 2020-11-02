@@ -38,6 +38,7 @@
     border-radius: 1rem;
     padding: 0.3rem 0.5rem 0.2rem;
     font-size: 0.9rem;
+    margin-right: 0.3rem;
     /* color: white; */
 }
 
@@ -170,7 +171,6 @@
 p.divider
 {
     margin: 1rem;
-    font-weight: bolder;
 }
 
 p.divider-body
@@ -215,6 +215,7 @@ p.divider-body
     width: max-content;
     cursor: pointer;
     font-size: 0.9rem;
+    margin-bottom: 0.5rem;
 }
 
 .carousel .slide

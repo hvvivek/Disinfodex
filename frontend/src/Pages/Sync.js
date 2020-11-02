@@ -81,6 +81,7 @@ class Sync extends React.Component
     render()
     {
         return <>
+            <div id="top">
                 {/* NAVBAR COMPONENT */}
                 <Navbar id="navbar">
                     <Navbar.Brand href="/">disinfodex</Navbar.Brand>
@@ -93,6 +94,7 @@ class Sync extends React.Component
                     </Form>
                 </Navbar>
                 {/* NAVBAR COMPONENT */}
+            </div>
                 
                 <Container fluid id="sync">
                     

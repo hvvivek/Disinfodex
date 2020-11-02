@@ -42,7 +42,7 @@ class NetworkModal extends React.Component
         console.log(this.props.data)
         let {networks, startDate, endDate, platforms, removal_types, screenshots, platform_records} = this.props.data
 
-        let descriptions = platform_records.map(record => <><p><b>From {record["COMPANY"][0]}</b></p><p>{record["DESCRIPTION_LONG"]}</p></>)
+        let descriptions = platform_records.map(record => <><p><em>From {record["COMPANY"][0]}</em></p><p>{record["DESCRIPTION_LONG"]}</p></>)
         return <Modal size="lg" centered show={this.props.show} onHide={this.props.handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Network {networks[0]}</Modal.Title>

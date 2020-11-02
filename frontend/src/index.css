@@ -81,3 +81,10 @@ code {
 .container-fluid {
   max-width: 1400px;
 }
+
+h2 {
+  margin: 4rem auto 2rem;
+}
+h4 {
+  margin: 2rem auto 1rem;
+}

@@ -17,7 +17,7 @@ class Footer extends React.Component {
             <footer>
                 <Row className="align-items-end">
                     <Col xs={12} lg={3}>
-                        <p>Disinfodex is a project of the Assembly: Disinformation 2020 Fellowship, with support from the Harvard Berkman Klein Center, Miami Foundation, and Carnegie Endowment’s Partnership for Countering Influence Operations.</p>
+                        <p><a href="http://disinfodex.org" target="_blank">Disinfodex</a> is a project of the <a href="https://www.berkmankleinassembly.org/" target="_blank">Assembly: Disinformation 2020 Fellowship</a>, with support from the <a href="https://cyber.harvard.edu/" target="_blank">Harvard Berkman Klein Center</a>, <a href="https://miamifoundation.org/" target="_blank">Miami Foundation</a>, and <a href="https://carnegieendowment.org/specialprojects/counteringinfluenceoperations" target="_blank">Carnegie Endowment’s Partnership for Countering Influence Operations</a>.</p>
                     </Col>
                     <Col xs={12} lg={{ span: 7, offset: 2 }}>
                         <Row className="justify-content-end">

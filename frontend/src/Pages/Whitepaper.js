@@ -28,6 +28,7 @@ class Whitepaper extends React.Component
     render()
     {
         return <>
+            <div id="top">
                 {/* NAVBAR COMPONENT */}
                 <Navbar id="navbar">
                     <Navbar.Brand href="/">dis<span>•</span>info<span>•</span>dex</Navbar.Brand>
@@ -36,6 +37,7 @@ class Whitepaper extends React.Component
                 </Navbar>
                 {/* NAVBAR COMPONENT */}
                 <Header active="how-to"></Header>
+            </div>
 
                 <Container fluid id="home">
                     <Row>

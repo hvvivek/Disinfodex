@@ -122,7 +122,7 @@ class Card extends React.Component
             }
         }
 
-        descriptions = descriptions.map(record => <><p className="divider"><b>From {record["COMPANY"][0]}</b></p><p className="divider-body">{record["DESCRIPTION_LONG"]}</p></>)
+        descriptions = descriptions.map(record => <><p><em>From {record["COMPANY"][0]}</em></p><p className="divider-body">{record["DESCRIPTION_LONG"]}</p></>)
 
         return <Col sm={12} md={6} className="_card">
                 <RecordModal data={this.state.current_record} networks={[this.props.data]} show={this.state.show_disclosure_modal} onToggle={this.toggleRecordModal}></RecordModal>
@@ -136,6 +136,8 @@ class Card extends React.Component
                                 <Col xs={12} style={{"minHeight": "300px", "padding":"0px"}}>
                                     <ScrenshotsCarousel screenshots={screenshots} company={platforms && platforms.length>0 && platforms[0]}></ScrenshotsCarousel>
                                 </Col>
+                            </Row>
+                            <Row> 
                                 <Col xs={6} className="description-section modal-description-section">
                                     <Col xs={12} className="section">
                                         <p className="subtitle">Network</p>
@@ -160,17 +162,16 @@ class Card extends React.Component
 
                                 <Col xs={6} style={{padding: "0px"}}>
                                     <Col xs={12} className="section description-section">
-                                        {/* <p className="subtitle">DESCRIPTION</p>
-                                        {descriptions} */}
-
                                         <p className="subtitle">DISCLOSURES</p>
                                         {platform_records.map(record => <p className={record["COMPANY"] + " disclosure"} style={{"backgroundColor": COMPANY_COLORS[record["COMPANY"]]}} onClick={() => this.setState({show_disclosure_modal: true, current_record: record})}>{record["RECORD_ID"]}</p>)}
                                     </Col>
                                 </Col>
-                                
-
+                            </Row>
+                            <Row className="description-section">
                                 <Col xs={12}>
-                                    <p className="divider">Description: </p>
+                                    <p className="subtitle">Description:</p>
+                                    {descriptions}
+
                                     {/* {platform_records.map(payload => 
                                         <Row>
                                             <Col xs={12} className="row-modal description-section modal-description-section">
@@ -183,7 +184,6 @@ class Card extends React.Component
                                                 )}
                                             </Col>
                                         </Row>)} */}
-                                    {descriptions}
                                 </Col>
                             </Row>
                         </Container>
