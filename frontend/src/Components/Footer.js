@@ -24,9 +24,9 @@ class Footer extends React.Component {
                             <Col className="logo-wrapper">
                                 <a href="https://carnegieendowment.org/specialprojects/counteringinfluenceoperations" target="_blank" rel="noopener noreferrer" title="Carnegie Endowment for International Peace: Partnership for Countering Influence Operations" ><img alt="Carnegie Endowment for International Peace: Partnership for Countering Influence Operations" src={logo_1}></img></a>
                             </Col>
-                            <Col className="logo-wrapper">
+                            {/* <Col className="logo-wrapper">
                                 <a href="https://cyber.harvard.edu/" target="_blank" rel="noopener noreferrer" title="Berkman Klein Center for Internet and Society at Harvard University" ><img alt="Berkman Klein Center for Internet and Society at Harvard University" src={logo_2}></img></a>
-                            </Col>
+                            </Col> */}
                             <Col className="logo-wrapper">
                                 <a href="https://miamifoundation.org/" target="_blank" rel="noopener noreferrer" title="The Miami Foundation" ><img alt="The Miami Foundation" src={logo_3}></img></a>
                             </Col>
