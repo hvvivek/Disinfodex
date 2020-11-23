@@ -142,8 +142,8 @@ class Card extends React.Component
 
         descriptions = descriptions.map(record => <><p><em>From {record["COMPANY"][0]}</em></p><p className="divider-body">{record["DESCRIPTION_LONG"]}</p></>)
 
-        target_countries = target_countries.map(record => <span className="single-line comma">{record["DESTINATION_COUNTRY"]}</span>)
-        origin_countries = origin_countries.map(record => <span className="single-line comma">{record["ORIGIN_COUNTRY"]}</span>)
+        target_countries = target_countries.map(record => <span className="comma">{record["DESTINATION_COUNTRY"]}</span>)
+        origin_countries = origin_countries.map(record => <span className="comma">{record["ORIGIN_COUNTRY"]}</span>)
 
         return <Col sm={12} md={6} className="_card">
                 <RecordModal data={this.state.current_record} 
@@ -186,11 +186,11 @@ class Card extends React.Component
 
                                     <Col xs={12} className="section">
                                         <p className="subtitle">Origin Country</p>
-                                        <p  className="single-line">{origin_countries}</p>
+                                        <p>{origin_countries}</p>
                                     </Col>
                                     <Col xs={12} className="section">
                                         <p className="subtitle">Target Country</p>
-                                        <p  className="single-line">{target_countries}</p>
+                                        <p>{target_countries}</p>
                                     </Col>
 
                                 </Col>
