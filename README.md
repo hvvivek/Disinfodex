@@ -61,11 +61,11 @@ To make changes: `cd frontend` and `npm start`.
 ## Post-ship polish (11/22)
 - [ ] Make adjustments to menu display on mobile (XS):
 ```
-container { 
+// currently unnamed container for nav links { 
 	display: flex;
 	flex: 1 1 100%;
 }
-links {
+#info-section p.links {
 	display: flex;
 	flex: 1;
 	justify-content: space-around;
