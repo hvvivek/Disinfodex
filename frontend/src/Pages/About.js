@@ -40,11 +40,14 @@ class About extends React.Component
                     <Row>
                         <Col xs={12}>
                         <h2>About this Project</h2>
-                        <p>Disinfodex is a database of publicly available information about disinformation campaigns. It currently includes disclosures issued by major online platforms and accompanying reports from independent open source investigators – more information about the sources and how to read the database is available in the <a href="https://disinfodex.org/how-to" target="_blank">“How It Works” section</a> of this website.</p>
 
-                        <p>The Disinfodex project is an independent not-for-profit effort to help those working in the disinformation space to better aggregate, analyze and interpret publicly available information about disinformation campaigns. Neither Disinfodex nor its team take position on the practices or findings of the entities whose reports they index.</p>
+                        <p>Disinfodex is a database of publicly available information about disinformation campaigns. It currently includes disclosures issued by major online platforms and accompanying reports from independent open source investigators.</p>
 
-                        <p>The team behind Disinfodex is made up of journalists and technology professionals who took part in the <a href="https://cyber.harvard.edu/story/2020-02/announcing-2020-assembly-fellowship-cohort" target="_blank">2020 Assembly Fellowship</a> at Harvard’s Berkman Klein Center. It includes Clement Wolf, Rhona Tarrant, Jenny Fan, Neal Ungerleider, Ashley Tolbert, and Gulsin Harman. </p>
+                        <p>Disinfodex is an independent index created to help those working in the disinformation space to better aggregate, analyze and interpret publicly available information about disinformation campaigns. Neither Disinfodex nor its team take position on the practices or findings of the entities whose reports they index. </p>
+
+                        <p>Disinfodex was developed during the <a href="https://cyber.harvard.edu/story/2020-02/announcing-2020-assembly-fellowship-cohort" target="_blank">Assembly: Disinformation 2020 Fellowship</a>, and is supported by the <a href="https://cyber.harvard.edu/" target="_blank">Berkman Klein Center at Harvard University</a> and the Ethics and Governance of Artificial Intelligence Fund at <a href="https://miamifoundation.org/" target="_blank">The Miami Foundation</a>. Disinfodex is a partner of <a href="https://carnegieendowment.org/specialprojects/counteringinfluenceoperations" target="_blank">Carnegie Endowment’s Partnership for Countering Influence Operations</a>.</p>
+                        
+                        <p>The Disinfodex team includes Clement Wolf, Rhona Tarrant, Jenny Fan, Neal Ungerleider, Ashley Tolbert, and Gulsin Harman. You can read more about the background of the project in our <a href="%PUBLIC_URL%/Disinfodex_paper.pdf" target="_blank">white paper</a>.</p>
                         </Col>
                         
                         <Col xs={12}>

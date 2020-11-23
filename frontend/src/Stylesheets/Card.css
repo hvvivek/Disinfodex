@@ -234,7 +234,7 @@ p.divider-body
 .single-line
 {
     white-space: nowrap;
-    overflow: scroll;
+    overflow: hidden;
     text-overflow: ellipsis;
 }
 
