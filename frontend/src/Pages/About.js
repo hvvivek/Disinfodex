@@ -47,7 +47,7 @@ class About extends React.Component
 
                         <p>Disinfodex was developed during the <a href="https://cyber.harvard.edu/story/2020-02/announcing-2020-assembly-fellowship-cohort" target="_blank">Assembly: Disinformation 2020 Fellowship</a>, and is supported by the <a href="https://cyber.harvard.edu/" target="_blank">Berkman Klein Center at Harvard University</a> and the Ethics and Governance of Artificial Intelligence Fund at <a href="https://miamifoundation.org/" target="_blank">The Miami Foundation</a>. Disinfodex is a partner of <a href="https://carnegieendowment.org/specialprojects/counteringinfluenceoperations" target="_blank">Carnegie Endowment’s Partnership for Countering Influence Operations</a>.</p>
                         
-                        <p>The Disinfodex team includes Clement Wolf, Rhona Tarrant, Jenny Fan, Neal Ungerleider, Ashley Tolbert, and Gulsin Harman. You can read more about the background of the project in our <a href="%PUBLIC_URL%/Disinfodex_paper.pdf" target="_blank">white paper</a>.</p>
+                        <p>The Disinfodex team includes Clement Wolf, Rhona Tarrant, Jenny Fan, Neal Ungerleider, Ashley Tolbert, and Gulsin Harman. You can read more about the background of the project in our <a href="./Disinfodex_paper.pdf" target="_blank">white paper</a>.</p>
                         </Col>
                         
                         <Col xs={12}>
