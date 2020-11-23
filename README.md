@@ -2,7 +2,6 @@
 
 To make changes: `cd frontend` and `npm start`.
 
-
 # Vivek to do (10/31)
 ### Page structure
 - [x] About page bug: doesn’t seem to load
@@ -59,8 +58,27 @@ To make changes: `cd frontend` and `npm start`.
 - [x] [FR] In mobile (xs-12) sizes on the cards, hide screenshots so it’s text only and clickable
 - [x] [FR] Add Target Country and Origin Country to the Card view (per network) — now added to Airtable’s Networks table
 
+## Post-ship polish (11/22)
+- [ ] Make adjustments to menu display on mobile (XS):
+```
+container { 
+	display: flex;
+	flex: 1 1 100%;
+}
+links {
+	display: flex;
+	flex: 1;
+	justify-content: space-around;
+}
+```
 
-## V2
+- [ ] Updating “How It Works” content with 1) limitations, 2) how to cite us
+- [ ] [BUG] United States is missing as a country filter (destination and origin)
+- [ ] [BUG] Duplication of summaries on some cards
+- [ ] [FR] Make URLs clickable
+- [x] [BUG] Platforms, Target Country, and Origin Countries have scrolling bars when not desired
+
+
+## V2 (TBD)
 - [ ] Back-end content updating: use Mavo.io
 - [ ] Make columns resizable
-
