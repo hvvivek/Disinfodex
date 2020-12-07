@@ -419,6 +419,15 @@ class Home extends React.Component
 
             window.country_list = country_list
             window.unique_options = unique_options
+
+            country_list.push("US")
+            country_list.push("USA")
+            country_list.push("U.S.")
+            country_list.push("U.S.A")
+            country_list.push("United States")
+
+            country_list.push("Russia")
+            
             let filtered_list = []
             let unfiltered = []
             for(let i=0; i<unique_options.length; i++)
@@ -1038,7 +1047,7 @@ class Home extends React.Component
                                                 <Form.Group>
                                                     <Form.Label>Date of Disclosure</Form.Label>
                                                     <Col xs={12} className="filter-dropdown" onClick={() => this.toggleFilterDropdown("dodFilterPanelCollapsed")}>
-                                                    {filter_labels["DOD"]? <p className="time-filter">{moment(this.state.selection["startDate"]).format("MMM DD YYYY")  + " - " + moment(this.state.selection["endDate"]).format("MMM DD YYYY")} <i class="fas fa-times" onClick={(e) => {e.stopPropagation(); let temp = {...this.state.selection}; temp["default"] = true; this.setState({selection: temp})}}></i></p> : <p className="no-filter">Select <span><i class="fas fa-caret-down"></i></span></p>}
+                                                    {filter_labels["DOD"]? <p className="time-filter">{moment(this.state.selection["startDate"]).format("MMM DD YYYY")  + " - " + moment(this.state.selection["endDate"]).format("MMM DD YYYY")} <i className="fas fa-times" onClick={(e) => {e.stopPropagation(); let temp = {...this.state.selection}; temp["default"] = true; this.setState({selection: temp})}}></i></p> : <p className="no-filter">Select <span><i className="fas fa-caret-down"></i></span></p>}
                                                     </Col>
                                                     <Collapse in={this.state.dodFilterPanelCollapsed}>
                                                         <Col xs={12} className="filter-dropdown-panel filter-dropdown-panel-date">

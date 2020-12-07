@@ -37,7 +37,15 @@ class RecordModal extends React.Component
     renderModalValue = (key, value, isModal) => {
         if(typeof(value) != "object")
         {
-            return value.toString()
+            if(key=="URL" || key === "Secondary_URL" || key === "Archive_URL")
+            {
+                return <a target="_blank" rel="noopener noreferrer" href={value.toString()}>Link</a>
+
+            }
+            else
+            {
+                return value.toString()
+            }
         }
         else if(typeof(value) === "object" && value.length > 0)
         {
