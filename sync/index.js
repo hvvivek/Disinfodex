@@ -3,21 +3,29 @@ let express = require('express')
 let Airtable = require('airtable')
 let axios = require('axios').default
 let cors = require('cors')
-
+const cron = require('node-cron');
 
 let app = express()
 
 app.use(cors())
 
 let API_URI = process.env.API_URI || "http://localhost:3010"
+// API_URI = "https://disinfodex-backend-production-e2kyhghera-ue.a.run.app"
+
 console.log(API_URI)
 
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 
+// Airtable.configure({
+//     endpointUrl: 'https://api.airtable.com',
+//     apiKey: 'keyLO3BE5Awy7vWSg'
+// });
+// var base = Airtable.base('app63O7FQvnBiwp90');
+
 Airtable.configure({
     endpointUrl: 'https://api.airtable.com',
-    apiKey: 'keyLO3BE5Awy7vWSg'
+    apiKey: 'keyc6Jyr25VYIeEYz'
 });
 var base = Airtable.base('app63O7FQvnBiwp90');
 
@@ -162,6 +170,15 @@ async function addOrUpdateRecord(record, table, current_log)
 
 let PORT = process.env.PORT || 3020
 
+
+cron.schedule('59 23 * * *', async function() {
+    let syncRecord = await axios.post(`${API_URI}/sync`, {log: {add: 0, update:0, delete:0, error:0}, processed: false})
+
+    for(let i=0; i<TABLES_TO_SYNC.length; i++)
+    {
+        let result = startSync(syncRecord.data, TABLES_TO_SYNC[i])
+    }
+});
 
 app.get("/sync", async (req, res) => {
     
