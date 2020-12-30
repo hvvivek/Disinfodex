@@ -1,7 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom' 
 import About from './Pages/About';
-
 import Home from './Pages/Home'
 import Sync from './Pages/Sync';
 import Network from './Pages/Network';
