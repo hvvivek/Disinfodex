@@ -3,16 +3,11 @@ import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
-import Form from 'react-bootstrap/Form'
-import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
+import Footer from '../Components/Footer'
 
 import axios from 'axios'
-
-import logo_1 from '../Assets/Images/sponsor_logo_1.png'
-
 
 import {BACKEND_URI, SYNC_URI} from '../constants'
 
@@ -130,9 +125,9 @@ class Sync extends React.Component
                     <Col xs={12} lg={{span: 10, offset:1}}>
                         <Row>
                             <Col xs={12}>
-                                <p>
+                                <h2 style={{"textAlign":"center"}}>
                                     Current Sync Health
-                                </p>
+                                </h2>
                             </Col>
                             <Col xs={12}>
                                 <Row>
@@ -173,30 +168,8 @@ class Sync extends React.Component
                        
                     </Row>
                 </Container>
-                <Container fluid id="footer">
-                    <footer>
-                        <Row>
-                            <Col xs={12} lg={5}>
-                                <p>Disinfodex is a project of the Assembly: Disinformation 2020 Fellowship, with support from the Harvard Berkman Klein Center, Miami Foundation, and Carnegie Endowment’s Partnership for Countering Influence Operations.</p>
-                            </Col>
-                            <Col xs={12} lg={7}>
-                                <Row>
-                                    <Col>
-                                        <img src={logo_1} alt="logo1"></img>
-                                    </Col>
-                                    <Col>
-                                        <img src={logo_1} alt="logo2"></img>
-                                    </Col>
-                                    <Col>
-                                        <img src={logo_1} alt="logo3"></img>
-                                    </Col>
-                                </Row>
-                            </Col>
-                        
-                        </Row>  
-                    </footer>
-                    
-                </Container>
+                <Footer></Footer>
+
         </>
     }
 }
