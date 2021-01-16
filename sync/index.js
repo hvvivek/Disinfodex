@@ -9,7 +9,7 @@ let app = express()
 
 app.use(cors())
 
-let API_URI = process.env.API_URI || "http://localhost:3010"
+let API_URI = process.env.API_URI || "http://localhost:5000"
 // API_URI = "https://disinfodex-backend-production-e2kyhghera-ue.a.run.app"
 
 console.log(API_URI)
@@ -125,6 +125,34 @@ async function startSync(syncRecord, table)
     })
 }
 
+async function getStats(table)
+{
+    console.log(table)
+    number = 0
+
+    let pages = await base(table['base']).select({
+        // maxRecords: 3,
+        view: table["view"]}
+        ).all()
+    console.log(pages.length)
+        
+    return pages.length
+    // pages.eachPage(async (records, fetchNextPage) => {
+    //     number += records.length
+    //     fetchNextPage()
+    // }, async function done(error) {
+    //     // console.log("Done")
+    //     if(error)
+    //     { 
+    //         console.log(error)
+    //     }
+    //     else
+    //     {
+    //         return number
+    //     }
+    // })
+}
+
 async function addOrUpdateRecord(record, table, current_log)
 {
     let return_value = current_log
@@ -171,12 +199,15 @@ async function addOrUpdateRecord(record, table, current_log)
 let PORT = process.env.PORT || 3020
 
 
-cron.schedule('59 23 * * *', async function() {
+// cron.schedule('59 23 * * *', async function() {
+cron.schedule('30 * * * *', async function() {
+
     let syncRecord = await axios.post(`${API_URI}/sync`, {log: {add: 0, update:0, delete:0, error:0}, processed: false})
 
     for(let i=0; i<TABLES_TO_SYNC.length; i++)
     {
         let result = startSync(syncRecord.data, TABLES_TO_SYNC[i])
+        console.log(result)
     }
 });
 
@@ -197,6 +228,21 @@ app.get("/sync", async (req, res) => {
         "message": "Syncing process has started. Come back in a few minutes to see the results",
         "sync_id": syncRecord.data.data._id
     })
+})
+
+app.get("/stats", async (req, res) => {
+
+    let stats = {}
+    for(let i=0; i<TABLES_TO_SYNC.length; i++)
+    {
+        stats[TABLES_TO_SYNC[i]["base"]] = await getStats(TABLES_TO_SYNC[i])
+    }
+
+    res.json({
+        "status": true,
+        "stats": stats
+    })
+
 })
 
 app.listen(PORT, (err) => {

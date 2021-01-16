@@ -100,6 +100,12 @@ def delete_record(request, Model, db, headers):
         return_result = jsonify(result), 200, headers
     return return_result
 
+# Delete
+def count_records(Model, db):
+    record = Model(db=db)
+    result = record.get_total_rows()
+    return result
+
 
 # Routes for Platform Content
 @app.route('/platforms', methods=['GET', 'POST', 'PUT', 'DELETE'])
@@ -233,6 +239,16 @@ def route_sync():
         return_result = jsonify(sync), 200, headers
     return return_result
 
+@app.route('/stats', methods=['GET'])
+def route_stats():
+    headers = {'Content-Type': 'application/json'}
+    if request.method == 'GET':
+        models = {"Platform Reports": Platforms, "Screenshots": Screenshots, "Networks": Networks}
+        results = {}
+        for model_name, model in models.items():
+            results[model_name] = count_records(model, db)
+    return_result = jsonify(results), 200, headers
+    return return_result
 
 
 # app.run()

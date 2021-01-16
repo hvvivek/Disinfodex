@@ -46,6 +46,11 @@ class MongoORM:
         # results = [result for result in results]
         # results = [result['sync_id'] for result in results]
         return results
+
+    def get_total_rows(self):
+        results = self.collection.count_documents({})
+        return results
+
     
     def save(self, return_data = False):
         now = datetime.now().isoformat()
