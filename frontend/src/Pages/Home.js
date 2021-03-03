@@ -33,7 +33,7 @@ import { css } from "@emotion/core";
 import ScaleLoader from "react-spinners/ScaleLoader";
 
 
-import { DateRangePicker } from 'react-date-range';
+import { DateRange } from 'react-date-range';
 import {BACKEND_URI} from '../constants'
 import { CSVLink } from "react-csv";
 
@@ -57,7 +57,7 @@ class Home extends React.Component
         this.state = {
             filterPanelCollapsed: true,
             selection: {
-                startDate: new Date("Jan 01 2000"),
+                startDate: new Date("Jan 01 2017"),
                 endDate: new Date(),
                 key: 'selection',
                 default: true
@@ -1051,7 +1051,12 @@ class Home extends React.Component
                                                     </Col>
                                                     <Collapse in={this.state.dodFilterPanelCollapsed}>
                                                         <Col xs={12} className="filter-dropdown-panel filter-dropdown-panel-date">
-                                                            <DateRangePicker
+                                                            <DateRange
+                                                                showSelectionPreview={false}
+                                                                editableDateInputs={true}
+                                                                minDate={new Date("01/01/2017")}
+                                                                moveRangeOnFirstSelection={true}
+                                                                maxDate={new Date()}
                                                                 ranges={[this.state.selection]}
                                                                 onChange={this.handleSelect}
                                                             />
