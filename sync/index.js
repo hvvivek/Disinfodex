@@ -200,7 +200,7 @@ let PORT = process.env.PORT || 3020
 
 
 // cron.schedule('59 23 * * *', async function() {
-cron.schedule('0 * * * *', async function() {
+cron.schedule('15 * * * *', async function() {
 
     let syncRecord = await axios.post(`${API_URI}/sync`, {log: {add: 0, update:0, delete:0, error:0}, processed: false})
 
