@@ -27,7 +27,7 @@ app.config["DEBUG"] = True
 logging.basicConfig(level=logging.DEBUG)
 
 mongo_endpoint = os.environ.get(
-    'MONGO_ENDPOINT', 'mongodb://localhost:27017')
+    'MONGO_ENDPOINT', 'mongodb+srv://admin:i2CsuGyQLUAYphh@cluster0.aymqt.gcp.mongodb.net/disinfodex-db-v1?retryWrites=true&w=majority')
 mongo_db = os.environ.get('MONGO_DB', 'disinfodex-db-v1')
 print(mongo_db)
 db = MongoClient(mongo_endpoint)[mongo_db]
