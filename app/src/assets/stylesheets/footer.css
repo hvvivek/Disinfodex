@@ -1,0 +1,33 @@
+#footer
+{
+    width: 100%;
+    margin-bottom: 3rem;
+    margin-top: 3rem;
+}
+
+#footer p
+{
+    color: grey;
+    font-size: 1rem;
+    font-family: "Garamond","Georgia","Times New Roman","Times",serif;
+    margin-bottom: 0;
+    padding-right: 3rem;
+}
+
+#footer label {
+    font-family: 'Frutiger';
+    font-weight: 400;
+    font-size: .9rem;
+    color: #8b8b8b;
+    margin-right: 1em;
+    display: block;
+}
+
+#footer button, #footer input {
+    font-family: 'Frutiger';
+    font-size: .9rem;
+    padding: .5rem;
+    border-radius: 5px;
+    border: 1px solid silver;
+    margin-right: 10px;
+}
