@@ -17,6 +17,7 @@
     "react-dates": "^21.8.0",
     "react-dom": "^16.14.0",
     "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-select": "^4.3.0",
     "react-spinners": "^0.10.6",
