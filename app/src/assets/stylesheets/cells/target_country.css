@@ -1,0 +1,28 @@
+.target-country p
+{
+    margin-top: 5px;
+    margin-bottom: 0px;
+    
+}
+
+.target-country p
+{
+    padding: 0.5rem 1rem;
+    background-color: rgba(0, 55, 255, 0.2);
+    color: #0038FF;
+    border-radius: 2rem;
+    margin-left: 0.25rem;
+    width: fit-content;
+}
+
+.target-country p.link
+{
+    color: black;
+    background-color: rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+.target-country p.link:hover
+{
+    /* text-decoration: underline; */
+}

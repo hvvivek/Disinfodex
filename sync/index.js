@@ -160,10 +160,15 @@ async function addOrUpdateRecord(record, table, current_log)
     // console.log(response.data)
 
     response = response.data
+    // console.log(table['route'])
 
     if(response.status)
     {
         let payload = {_id: response.data._id, sync_id:record.id, ...record.fields}
+        // if(table['route'] === 'platforms')
+        // {
+        //     console.log({...record.fields})
+        // }
         try {
             let response = await axios.put(`${API_URI}/${table['route']}`, payload)
             response = response.data

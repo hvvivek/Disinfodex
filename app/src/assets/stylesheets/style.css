@@ -1,0 +1,39 @@
+:root
+{
+    --FACEBOOK-COLOR: #3B5998;
+    --REDDIT-COLOR: #FF5700;
+    --GOOGLE-COLOR: #34A853;
+    --GRAPHIKA-COLOR: #FBA738;
+    --TWITTER-COLOR: #1DA1F2;
+
+    --FACEBOOK-BG-COLOR: rgba(59, 88, 152, 0.2);
+    --REDDIT-BG-COLOR: rgba(255, 85, 0, 0.2);
+    --GOOGLE-BG-COLOR: rgba(52, 168, 83, 0.2);
+    --GRAPHIKA-BG-COLOR: rgba(251, 166, 56, 0.2);
+    --TWITTER-BG-COLOR: rgba(29, 160, 242, 0.2);
+
+    --NAMED-ENTITIES-BG: rgba(118, 30, 84, 0.20);
+    --NAMED-ENTITIES-TEXT: #761E55;
+
+    --POLICY-VIOLATIONS-BG: rgba(2, 157, 147, 0.20);
+    --POLICY-VIOLATIONS-TEXT: #029D93;
+
+}
+.flex-container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.flex-10
+{
+    width: 100%;
+}
+
+.flex-9
+{
+    width: calc(90%);
+}
+

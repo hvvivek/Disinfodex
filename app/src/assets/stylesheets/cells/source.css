@@ -1,0 +1,58 @@
+.source p
+{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    
+}
+
+.source span
+{
+    padding: 0.3rem 0.8rem;
+    background-color: rgb(226, 226, 226);
+    border-radius: 2rem;
+    margin-left: 0.25rem;
+    margin-top: 0.5rem;
+
+}
+
+.source p.link
+{
+    color: blue;
+    cursor: pointer;
+}
+
+.source p.link:hover
+{
+    text-decoration: underline;
+}
+
+
+span.facebook
+{
+    color: var(--FACEBOOK-COLOR);
+    background-color: var(--FACEBOOK-BG-COLOR);
+}
+
+span.reddit
+{
+    color: var(--REDDIT-COLOR);
+    background-color: var(--REDDIT-BG-COLOR);
+}
+
+span.graphika
+{
+    color: var(--GRAPHIKA-COLOR);
+    background-color: var(--GRAPHIKA-BG-COLOR);
+}
+
+span.google
+{
+    color: var(--GOOGLE-COLOR);
+    background-color: var(--GOOGLE-BG-COLOR);
+}
+
+span.twitter
+{
+    color: var(--TWITTER-COLOR);
+    background-color: var(--TWITTER-BG-COLOR);
+}

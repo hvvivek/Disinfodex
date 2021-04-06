@@ -1,0 +1,44 @@
+.go-to-page
+{
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding: 0.25rem;
+    min-width: 1rem;
+    text-align: center;
+    border-radius: 3px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.go-to-page:hover
+{
+    font-weight: bold;
+    background-color: rgba(217, 203, 189, 0.8);
+}
+
+.go-to-page.active
+{
+    font-weight: bold;
+    background-color: rgba(217, 203, 189, 1);
+}
+
+.go-to-page-wrapper
+{
+    display: inline-block;
+}
+
+.pagination-button
+{
+    color: #BBA38C;
+    border: 1px solid #BBA38C;
+    border-radius: 3px;
+    font-size: 0.85rem;
+    background-color: white;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+}
+
+.pagination-button:hover
+{
+    background-color: #f7f7f7;
+}

@@ -1,0 +1,20 @@
+.disclosure-card
+{
+    padding: 1rem;
+}
+
+.disclosure-card h1
+{
+    margin-bottom: 0px;
+}
+
+.disclosure-card h5
+{
+    margin-bottom: 0px;
+    margin-right: 1rem;
+}
+
+.card-wrapper .policy-violation-tag:first-of-type
+{
+    margin-left: 0px;
+}

@@ -1,0 +1,27 @@
+.disclosure-date p
+{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    
+}
+
+.disclosure-date p::after
+{
+    content: ",";
+}
+
+.disclosure-date p:last-of-type:after
+{
+    content: "";
+}
+
+.disclosure-date p.link
+{
+    color: blue;
+    cursor: pointer;
+}
+
+.disclosure-date p.link:hover
+{
+    text-decoration: underline;
+}

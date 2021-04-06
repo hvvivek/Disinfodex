@@ -1,5 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom' 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './pages/Home'
 
 
@@ -7,6 +8,7 @@ import {getAllNetworks} from "./helpers/networks.js"
 import {getAllDisclosures} from "./helpers/disclosures.js"
 import {getAllScreenshots} from "./helpers/assets.js"
 
+import DataContext from './contexts/DataContext.js'
 class App extends React.Component{
   
   constructor()
@@ -21,7 +23,7 @@ class App extends React.Component{
 
   async componentDidMount()
   {
-    console.log("Downloading Data")
+    // console.log("Downloading Data")
     // getAllNetworks()
     let networks = await getAllNetworks()
     let screenshots = await getAllScreenshots()
@@ -42,13 +44,15 @@ class App extends React.Component{
       "disclosures": this.state.disclosures, 
     }
 
-    console.log(data)
+    // console.log(data)
 
     return (
         <Router>
           <Switch>
             <Route path="/">
-              <Home data={data}></Home>
+              <DataContext.Provider value={data}>
+                <Home data={data}></Home>
+              </DataContext.Provider>
             </Route>
           </Switch>
         </Router>

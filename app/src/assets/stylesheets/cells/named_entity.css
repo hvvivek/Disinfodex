@@ -1,0 +1,28 @@
+.named-entity p
+{
+    margin-top: 0.5rem;
+    margin-bottom: 0px;
+    /* line-height: 150%; */
+    
+}
+
+.named-entity span
+{
+    padding: 0.5rem 1rem;
+    background-color: var(--NAMED-ENTITIES-BG);
+    color: var(--NAMED-ENTITIES-TEXT);
+    border-radius: 2rem;
+    margin-left: 0.25rem;
+    margin-top: 0.5rem;
+}
+
+.named-entity p.link
+{
+    color: blue;
+    cursor: pointer;
+}
+
+.named-entity p.link:hover
+{
+    text-decoration: underline;
+}
