@@ -5,4 +5,4 @@ COPY build/ /app/build
 ENV PORT 800
 EXPOSE ${PORT}
 # CMD ["printenv"]
-CMD serve -p  $PORT -s build/
+CMD serve -p  $PORT -s build/s

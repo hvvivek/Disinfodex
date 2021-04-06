@@ -1,0 +1,64 @@
+#header
+{
+    background-color: #003358;
+    padding-bottom: 2rem;
+}
+
+
+#header .navbar
+{
+    width: 100%;
+}
+
+#header .brand
+{
+    font-family: 'Garamond', serif;
+    font-size: 4rem;
+    font-style: italic;
+    background: #003358;
+    color: #fff;
+    width: 100%;
+    border-bottom: 2px solid rgba(35,160,221,.25);
+    line-height: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    /* width: 100%; */
+}
+
+#header .brand:hover
+{
+    text-decoration: none;
+}
+
+#header .brand span
+{
+    color: #bba38c;
+    font-size: 2rem;
+    vertical-align: middle;
+}
+
+#header .sub-header p
+{
+    font-family: 'Garamond', serif;
+    font-size: 1.2rem;
+    color: white;
+}
+
+#header p.links a
+{
+    font-family: 'frutiger', sans-serif;
+    font-size: 1rem;
+    color: white;
+    font-weight: 600;
+}
+
+#header .links a:hover {
+    color: #9b7d62;
+    text-decoration: none;
+}
+
+#header .links a.active
+{
+    color: #bba38c;
+}
