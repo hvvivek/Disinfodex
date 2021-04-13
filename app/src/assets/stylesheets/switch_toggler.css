@@ -1,0 +1,15 @@
+#switch-toggler
+{
+    margin-top: 1rem;
+}
+
+#switch-toggler img
+{
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+#switch-toggler .toggle
+{
+    cursor: pointer;
+}

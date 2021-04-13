@@ -1,0 +1,15 @@
+.download-csv-btn
+{
+    padding: 0.5rem;
+    border: 2px solid #b18c5a;    
+    border-radius: 5px;
+    font-size: 0.9rem;
+    color: #b18c5a;
+}
+
+.download-csv-btn:hover
+{
+    color: #9e6b28;
+    border: 2px solid #9e6b28; 
+    text-decoration: unset;
+}

@@ -1,0 +1,18 @@
+.table-sorter p
+{
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #b18c5a;
+    text-decoration: underline;
+}
+
+
+.table-sorter p i
+{
+    text-decoration: unset;
+}
+
+.table-sorter p:hover
+{
+    color: #9e6b28;
+}

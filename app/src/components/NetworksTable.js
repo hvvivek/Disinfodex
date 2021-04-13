@@ -1,252 +1,83 @@
 import React, { useState } from 'react'
-import { useTable, usePagination, useFilters, useFlexLayout } from 'react-table'
-
-import "../assets/stylesheets/networks_table.css"
-
-
-import CellDisclosureDate from './CellRenderers/CellDisclosureDate'
-import CellSource from './CellRenderers/CellSource'
-import CellNamedEntities from './CellRenderers/CellNamedEntities'
-import CellTargetCountry from './CellRenderers/CellTargetCountry'
-import CellOriginCountry from './CellRenderers/CellOriginCountry'
-
-import {NetworkTableFilters, DateColumnFilter} from './NetworkTableFilters'
+import { useTable, usePagination, useFilters, useFlexLayout, useSortBy, useGlobalFilter } from 'react-table'
+import {NetworkTableFilters, GlobalFilter, exists, betweenDates, inArray} from './NetworkTableFilters'
 import NetworkTablePagination from './NetworkTablePagination'
 import { Modal } from 'react-bootstrap'
 import NetworkCard from './NetworkCard'
-import {SelectColumnFilter, BooleanColumnFilter} from "./NetworkTableFilters"
-import moment from 'moment'
+import NetworkSorter from "./NetworkSorter"
+import DownloadCSVButton from "./DownloadCSVButton"
+import COLUMNS from "../config/TABLE_VIEW"
+import "../assets/stylesheets/networks_table.css"
 
-// Define a default UI for filtering
-function DefaultColumnFilter({
-    column: { filterValue, preFilteredRows, setFilter },
-  }) {
-    const count = preFilteredRows.length
-  
-    return (
-        // <></>
-      <input
-        value={filterValue || ''}
-        onChange={e => {
-          setFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
-        }}
-        placeholder={`Search ${count} records...`}
-      />
-    )
-  }
-
-function Table(props)
+function NetworksTable(props)
 {
 
     const [isModalOpen, setModelOpen] = useState(false)
     const [currentNetwork, setCurrentNetwork] = useState(null)
 
+    // Initialize table
+    const data = React.useMemo(() => props.networks, [props.networks])
+    const filterTypes = React.useMemo(() => ({exists, betweenDates,inArray}),[])
+    const columns = React.useMemo(() => COLUMNS, [])
+
 
     const openNetworkCard = (row_data) => {
-      console.log(row_data)
       setCurrentNetwork(row_data)
       setModelOpen(true)
     }
-
-    const data = React.useMemo(
-        () => props.networks, [props.networks]
+    
+    const tableInstance = useTable(
+      {
+        columns, 
+        data, 
+        filterTypes, 
+        initialState: 
+          { 
+            pageIndex : 0, 
+            pageSize : 5, 
+            hiddenColumns: ["Source Type", "Policy Violations", "Screenshots"] 
+          }
+      }, 
+      useGlobalFilter,
+      useFilters, 
+      useSortBy,
+      useFlexLayout, 
+      usePagination
     )
-
-    const defaultColumn = React.useMemo(
-        () => ({
-          // Let's set up our default Filter UI
-          Filter: DefaultColumnFilter,
-        }),
-        []
-      )
-
-      const filterTypes = React.useMemo(
-        () => ({
-          exists: (rows, id, filterValue) => {
-            return rows.filter(row => {
-              const rowValue = row.values[id]
-              return filterValue? rowValue && rowValue.length > 0: true
-            })
-          },
-          betweenDates: (rows, id, filterValue) => {
-            return rows.filter(row => {
-
-              if(filterValue && filterValue[0] && filterValue[1])
-              {
-
-                let rowValue = row.values[id]
-                if(rowValue)
-                {
-                rowValue = rowValue.map(val => moment(val))
-                let minDate = moment.min(rowValue)
-                let maxDate = moment.min(rowValue)
-                if(moment(filterValue[0]) <= minDate && moment(filterValue[1]) >= maxDate)
-                {
-                  return true
-                }
-                else
-                {
-                  return false
-                }
-              }
-              else
-              {
-                return false
-              }
-              }
-              else
-              {
-                return true
-              }
-              
-
-            })
-          },
-          inArray: (rows, id, filterValue) => {
-            return rows.filter(row => {
-              const rowValue = row.values[id]
-              if(filterValue && filterValue.length > 0)
-              {
-              if(rowValue)
-              {
-                const filteredArray = filterValue.filter(filterOption => row.values[id].includes(filterOption.value))
-                return filteredArray.length > 0
-              }
-              else
-              {
-                  return false
-              }
-            }
-            else
-            {
-                return true
-            }
-            })
-          },
-        }),
-        []
-      )
-
-    const columns = React.useMemo(
-        () => [
-            {
-                Header: "Network",
-                accessor: "Name",
-                className: 'network',
-                disableFilters: true
-            },
-            {
-                Header: "Disclosure Date",
-                accessor: "Dates",
-                // disableFilters: true,
-                Filter: DateColumnFilter,
-                filter: 'betweenDates',
-                Cell: CellDisclosureDate
-            }
-            ,
-            {
-                Header: "Source",
-                accessor: "Company",
-                Filter: SelectColumnFilter,
-                filter: 'inArray',
-                Cell: CellSource
-            }
-            ,
-            /* TODO: Change mapping to platform */
-            // {
-            //     Header: "Platform",
-            //     accessor: "Company"
-            // },
-
-            {
-                Header: "Removal Types",
-                accessor: "Removal Type",
-                Filter: SelectColumnFilter,
-                filter: 'inArray',
-                Cell: props => { return <div>{props.value.toString()}</div>}
-            },
-            {
-                Header: "Named Entities",
-                accessor: "Named Entities",
-                Filter: SelectColumnFilter,
-                filter: 'inArray',
-                Cell: CellNamedEntities
-            },
-            {
-                Header: "Origin Countries",
-                accessor: "Origin Countries Tagged",
-                Filter: SelectColumnFilter,
-                filter: 'inArray',
-                Cell: CellOriginCountry
-            },
-            {
-                Header: "Target Countries",
-                accessor: "Target Countries Tagged",
-                Filter: SelectColumnFilter,
-                filter: 'inArray',
-                Cell: CellTargetCountry,
-                // isVisible: true
-
-            },
-            {
-              Header: "Source Type",
-              accessor: "Source Type",
-              Filter: SelectColumnFilter,
-              isVisible: false,
-              filter: 'inArray',
-              defaultCanFilter: true,
-              Cell: () => <></>,
-              // Header: () => <></>
-              // Cell: props => { return <div>{props.value.toString()}</div>}
-          },
-          {
-            Header: "Policy Violations",
-            accessor: "Policy Violations",
-            Filter: SelectColumnFilter,
-            isVisible: false,
-            filter: 'inArray',
-            // Cell: props => { return <div>{props.value.toString()}</div>}
-        },
-        {
-          Header: "Screenshots",
-          accessor: "Screenshots",
-          Filter: BooleanColumnFilter,
-          isVisible: false,
-          filter: 'exists',
-          // Cell: props => { return <div>{props.value.toString()}</div>}
-      }
-        ], []
-    )
-
-    const tableInstance = useTable({ columns, data , filterTypes, defaultColumn, initialState: { pageIndex: 0, pageSize:5, hiddenColumns: ["Source Type", "Policy Violations", "Screenshots"] },}, useFilters, useFlexLayout, usePagination)
-    // console.log(tableInstance)
+    
     const {
         getTableProps,
         getTableBodyProps,
+        prepareRow,
         headerGroups,
         headers,
-        // rows,
-        prepareRow,
-
         page,
-        canPreviousPage,
-        canNextPage,
-        pageOptions,
-        pageCount,
-        gotoPage,
-        nextPage,
-        previousPage,
-        // setPageSize,
+        filteredRows,
         state: { pageIndex, pageSize },
-
-        // visibleColumns,
-
       } = tableInstance
 
+      const disclosureReducer = (accumulator, row) => {
+        let disclosures = row.original["Platform Reports"]
+        if(disclosures && disclosures.length)
+        {
+          return accumulator + disclosures.length
+        }
+        return accumulator
+      }
+      console.log(filteredRows)
 
     return (
         <>
+        <div className="" style={{"display":"flex", "alignItems":"center", "marginTop":"2rem", "marginBottom":"4rem", "flexDirection":"column"}}>
+          <GlobalFilter {...tableInstance}/>
+          <a href="/how-to" style={{"marginTop":"1.5rem"}}>Learn more about how the data is reported</a>
+        </div>
         <NetworkTableFilters {...{headers}}/>
+        <div className="" style={{"display":"flex",  "justifyContent":"space-between", "marginBottom":"3rem", "alignItems":"center", "fontSize":"0.85rem"}}>
+          <p style={{"marginBottom":"0rem"}}><b>{filteredRows.length} Results</b> | Viewing {pageSize} distinct networks across {page.reduce(disclosureReducer, 0)} disclosures</p>
+          <DownloadCSVButton {...tableInstance} />
+        </div>
+        <NetworkSorter {...{id: "Dates", ...tableInstance}}/>
         <div {...getTableProps()} className="table">
             {/* <colgroup>
                 {headerGroups.map(headerGroups => headerGroups.headers.map(column => <col className="col-1" span="1" style={{"width": "10%"}}/>))}
@@ -262,9 +93,16 @@ function Table(props)
 
                           return (
                             // Apply the header cell props
-                            <div {...column.getHeaderProps()} className={"table-header-cell " + column.Header}>
+                            <div {...column.getHeaderProps(column.getSortByToggleProps())} className={"table-header-cell " + column.Header}>
                             {// Render the header
                             column.render('Header')}
+                            <span className={column.isSorted && "active"}>
+                              {column.isSorted
+                                ? column.isSortedDesc
+                                  ? '↓'
+                                  : '↑'
+                                : ''}
+                            </span>
                             {/* <div>{column.canFilter ? column.render('Filter') : null}</div> */}
                             </div>
                             )
@@ -297,25 +135,7 @@ function Table(props)
             </div>
         </div>
         {isModalOpen && <NetworkCardModal {...{isModalOpen, setModelOpen, currentNetwork}}/>}
-        {/* <Modal show={isModalOpen} onHide={()=>setModelOpen(false)}>
-          <Modal.Header closeButton>
-
-          </Modal.Header>
-          <Modal.Body>
-                <NetworkCard {...currentNetwork}/>
-          </Modal.Body>
-        </Modal> */}
-        <NetworkTablePagination {...{
-          pageSize,
-          pageCount,
-          canPreviousPage,
-          canNextPage,
-          previousPage,
-          nextPage,
-          gotoPage,
-          pageOptions,
-          pageIndex
-        }}
+        <NetworkTablePagination {...{...tableInstance, pageIndex, pageSize}}
         />
         </>
     )
@@ -334,4 +154,4 @@ function NetworkCardModal(props)
         </Modal>
 }
 
-export default Table
+export default NetworksTable

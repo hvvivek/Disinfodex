@@ -1,8 +1,12 @@
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom' 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Home from './pages/Home'
+import './App.css'
 
+import Home from './pages/Home'
+import About from './pages/About'
+
+import HowItWorks from './pages/HowItWorks'
 
 import {getAllNetworks} from "./helpers/networks.js"
 import {getAllDisclosures} from "./helpers/disclosures.js"
@@ -49,6 +53,12 @@ class App extends React.Component{
     return (
         <Router>
           <Switch>
+            <Route path="/about">
+              <About></About>
+            </Route>
+            <Route path="/how-to">
+              <HowItWorks></HowItWorks>
+            </Route>
             <Route path="/">
               <DataContext.Provider value={data}>
                 <Home data={data}></Home>

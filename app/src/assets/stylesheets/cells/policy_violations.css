@@ -8,7 +8,7 @@
 
 .policy-violation span
 {
-    padding: 0.5rem 1rem;
+    padding: 2px 12px;
     background-color: var(--POLICY-VIOLATIONS-BG);
     color: var(--POLICY-VIOLATIONS-TEXT);
     border-radius: 2rem;

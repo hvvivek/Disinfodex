@@ -1,13 +1,9 @@
 .origin-country p
 {
-    margin-top: 5px;
-    margin-bottom: 0px;
-    
-}
-
-.origin-country p
-{
-    padding: 0.5rem 1rem;
+    margin-top: 0rem;
+    margin-bottom: 5px;
+    font-family: 'Roboto Mono';
+    padding: 2px 12px;
     background-color: rgba(0, 55, 255, 0.2);
     color: #0038FF;
     border-radius: 2rem;

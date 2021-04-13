@@ -1,24 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from "../components/Header/Header"
 import Footer from "../components/Footer/Footer"
 
 import NetworksTable from "../components/NetworksTable"
+import NetworksCards from "../components/NetworksCards"
 import "../assets/stylesheets/style.css"
 
-class Home extends React.Component
+import SwitchToggler from "../components/SwitchToggler"
+
+function Home(props)
 {
-    render()
-    {
-        return <div className="flex-container" style={{"flexDirection":"column"}}>
-                <Header {...{active: "database"}}/>
+    const [mode, setMode] = useState("table")
+    
+    return <div className="flex-container" style={{"flexDirection":"column"}}>
+            <Header {...{active: "database"}}/>
 
-                <div className="flex-9">
-                    <NetworksTable {...this.props.data}></NetworksTable>
-                </div>
+            <div className="flex-9">
+                <SwitchToggler {...{"active": mode, setMode}}/>
 
-                <Footer {...{active: "database"}}/>
+                {mode === "table" &&                
+                <NetworksTable {...props.data}></NetworksTable>}
+
+                {mode === "cards" &&                
+                <NetworksCards {...props.data}></NetworksCards>}
+
             </div>
-    }
+
+            <Footer {...{active: "database"}}/>
+        </div>
 }
 
 export default Home

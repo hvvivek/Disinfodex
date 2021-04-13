@@ -7,7 +7,7 @@
 
 .disclosure-date p::after
 {
-    content: ",";
+    content: ", ";
 }
 
 .disclosure-date p:last-of-type:after

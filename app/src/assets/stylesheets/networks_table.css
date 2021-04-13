@@ -23,6 +23,7 @@
 
 .table-body-cell, .table-header-cell
 {
+    font-family: 'Roboto';
     font-size: 13px;
     overflow-x: scroll;
     padding: 0.5rem;
@@ -52,6 +53,23 @@
 {
     padding-top: 1rem;
     padding-bottom: 1rem;
+    display: flex;
+    min-height: 4rem;
+    justify-content: space-between;
+    align-items: center;
+    /* font-size: 1rem; */
+}
+
+
+.table-header-cell span
+{
+    font-size: 1.2rem;
+}
+
+.table-header-cell span.active
+{
+    color: #0038FF;
+    font-weight: bold;
 }
 
 .table-header-cell span, .table-body-cell span

@@ -4,7 +4,7 @@ function CellDisclosureDate(props)
 {
     const [isExpanded, expand] = useState(false)
     let dates = props.value
-    if(dates.length > 2)
+    if(dates && dates.length > 2)
     {
         return <div className="disclosure-date">
             <p>{dates[0]}</p>
@@ -18,11 +18,15 @@ function CellDisclosureDate(props)
             }
         </div>
     }
-    else
+    else if(dates)
     {
         return <div className="disclosure-date">
             {dates.map((date, i) => <p key={i}>{date}</p>)}
         </div>
+    }
+    else
+    {
+        return <div>N/A</div>
     }
 }
 

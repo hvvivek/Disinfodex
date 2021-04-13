@@ -10,10 +10,10 @@ function CellNamedEntities(props)
     if(named_entities.length > 2)
     {
         return <div className="named-entity">
-            <p><span className={"named-entity-tag"}>{named_entities[0]}</span></p>
+            <p><span className={"named-entity-tag"}>{named_entities[0].toUpperCase()}</span></p>
             {isExpanded? 
                 <>
-                <p>{named_entities.map((named_entity, i) => named_entity && <span key={i} className={"named-entity-tag"}>{named_entity}</span>)}</p>
+                <p>{named_entities.map((named_entity, i) => named_entity && <span key={i} className={"named-entity-tag"}>{named_entity.toUpperCase()}</span>)}</p>
                 <p className="link" onClick={(e) => {e.stopPropagation(); e.preventDefault(); expand(false)}}>Show less</p>
                 </>
                 :<p className="link" onClick={(e) => {e.stopPropagation(); e.preventDefault(); expand(true)}}>+ {named_entities.length - 1} more</p>
@@ -24,7 +24,7 @@ function CellNamedEntities(props)
     else
     {
         return <div className="named-entity">
-            <p>{named_entities.map((named_entity, i) => named_entity && <span key={i} className={"named-entity-tag"}>{named_entity}</span>)}</p>
+            <p>{named_entities.map((named_entity, i) => named_entity && <span key={i} className={"named-entity-tag"}>{named_entity.toUpperCase()}</span>)}</p>
         </div>
     }
     }

@@ -1,7 +1,14 @@
 import "../assets/stylesheets/network_table_pagination.css"
+import Select from "react-select"
 
-
-
+const pageSizeOptions = [
+    {"label":5, value:5},
+    {"label":10, value:10},
+    {"label":20, value:20},
+    {"label":50, value:50},
+    {"label":100, value:100},
+    {"label":200, value:200},
+]
 
 function NetworkTablePagination(
     {
@@ -13,10 +20,12 @@ function NetworkTablePagination(
         nextPage,
         gotoPage,
         pageOptions,
-        pageIndex
+        pageIndex,
+        setPageSize
     }
 )
 {
+    
     const hasMoreThanNPages = pageCount > 4
     const currentPageGreaterThanOne = pageIndex > 0
     const isEllipsisRequired = pageIndex + 3 < pageCount
@@ -42,9 +51,9 @@ function NetworkTablePagination(
     }
 
     return (
-        <div className="flex-container" style={{justifyContent: "space-between"}}>
+        <div className="flex-container" id="pagination" style={{justifyContent: "space-between"}}>
         <div>
-            <p style={{"alignSelf":"flex-start"}}>Showing {pageSize} results per page</p>
+            <p style={{"alignSelf":"flex-start"}}>Showing <span style={{"display":"inline-block", "minWidth":"125px", "paddingLeft":"1rem", "paddingRight":"1rem"}}><Select options={pageSizeOptions} value={{label: pageSize, value:pageSize}} onChange={(e) => setPageSize(e.value)} /></span> results per page</p>
         </div>
         <div style={{}}>
           <button className="pagination-button" onClick={previousPage} disabled={!canPreviousPage}>← Previous</button>

@@ -1,13 +1,15 @@
 .go-to-page
 {
-    margin-left: 1rem;
-    margin-right: 1rem;
-    padding: 0.25rem;
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+    padding: 0.35rem;
     min-width: 1rem;
     text-align: center;
     border-radius: 3px;
     cursor: pointer;
     display: inline-block;
+    font-family: 'Roboto';
+
 }
 
 .go-to-page:hover
@@ -41,4 +43,10 @@
 .pagination-button:hover
 {
     background-color: #f7f7f7;
+}
+
+#pagination
+{
+    margin-top: 2rem;
+    font-family: 'Roboto';
 }
