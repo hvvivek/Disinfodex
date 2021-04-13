@@ -17,6 +17,7 @@ class ScreenshotsCarousel extends React.Component
     render()
     {
         let company_logo = null
+        
         switch(this.props.company)
         {
             case "Facebook":
@@ -40,6 +41,7 @@ class ScreenshotsCarousel extends React.Component
             default:
                 company_logo = facebook_logo
         }
+
         let render = null
         if(this.props.screenshots && this.props.screenshots.length > 0)
         {

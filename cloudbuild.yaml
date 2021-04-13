@@ -99,5 +99,4 @@ steps:
 
 images:
 - 'gcr.io/$PROJECT_ID/disinfodex-new-frontend-production'
-- 'gcr.io/$PROJECT_ID/disinfodex-frontend-production'
 - "gcr.io/$PROJECT_ID/disinfodex-backend-production:$SHORT_SHA"
