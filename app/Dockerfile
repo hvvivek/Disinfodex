@@ -8,7 +8,7 @@
 # CMD serve -p  $PORT -s build/s
 
 # build environment
-FROM node:8-alpine as react-build
+FROM node:alpine as react-build
 WORKDIR /app
 COPY . ./
 RUN yarn
