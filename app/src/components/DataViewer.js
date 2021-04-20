@@ -3,6 +3,8 @@ import DownloadCSVButton from "./DownloadCSVButton"
 
 const disclosureReducer = (accumulator, row) => {
     let disclosures = row.original["Platform Reports"]
+    let dates = row.original["Dates"]
+
     let network_id = row.original["Name"]
     let OSI_Sources = SOURCES.filter(source => source["type"] === "OSI")
     OSI_Sources = OSI_Sources.map(source => source["network_header"])
@@ -12,7 +14,7 @@ const disclosureReducer = (accumulator, row) => {
       let source_identifier = network_id.split("-")[0]
       if(!OSI_Sources.includes(source_identifier))
       {
-        return accumulator + disclosures.length
+        return accumulator + [...new Set(dates)].length
       }
     }
     return accumulator

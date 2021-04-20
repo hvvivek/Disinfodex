@@ -4,6 +4,7 @@ function CellDisclosureDate(props)
 {
     const [isExpanded, expand] = useState(false)
     let dates = props.value
+    dates = [...new Set(dates)]
     if(dates && dates.length > 2)
     {
         return <div className="disclosure-date">
