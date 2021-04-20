@@ -5,9 +5,7 @@ import NetworkTablePagination from './NetworkTablePagination'
 import { Modal } from 'react-bootstrap'
 import NetworkCard from './NetworkCard'
 import NetworkSorter from "./NetworkSorter"
-import DownloadCSVButton from "./DownloadCSVButton"
 import COLUMNS from "../config/TABLE_VIEW"
-import SOURCES from "../config/SOURCE_TYPES"
 import DataViewer from "./DataViewer"
 import "../assets/stylesheets/networks_table.css"
 
@@ -54,7 +52,6 @@ function NetworksTable(props)
         headerGroups,
         headers,
         page,
-        filteredRows,
         state: { pageIndex, pageSize },
       } = tableInstance
 

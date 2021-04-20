@@ -10,7 +10,6 @@ import NetworkCard from './NetworkCard'
 import NetworkSorter from "./NetworkSorter"
 import DataContext from '../contexts/DataContext'
 import ScreenshotCarousel from './ScreenshotCarousel'
-import DownloadCSVButton from "./DownloadCSVButton"
 import COLUMNS from '../config/CARD_VIEW'
 import DataViewer from "./DataViewer"
 
@@ -71,7 +70,7 @@ function Table(props)
         prepareRow,
 
         page,
-        filteredRows,
+        // filteredRows,
         canPreviousPage,
         canNextPage,
         pageOptions,

@@ -44,7 +44,6 @@ function DataViewer(props)
 
     let {
         filteredRows,
-        page
     } = tableInstance
 
     return(

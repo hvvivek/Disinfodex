@@ -4,6 +4,7 @@ import open from "../assets/images/icons/open.png"
 
 import "../assets/stylesheets/disclosure_card.css"
 import CellPolicyViolations from './CellRenderers/CellPolicyViolations'
+import COMPANY_LOGOS from "../config/COMPANY_LOGOS"
 
 
 function DisclosureCard(props)
@@ -23,12 +24,27 @@ function DisclosureCard(props)
         'DESCRIPTION_LONG': DESCRIPTION,
     } = props
 
+    let logo = null
+    let company_logo = COMPANY_LOGOS.filter(logo => logo.accessor === COMPANY[0])
+    if(company_logo && company_logo.length > 0 && company_logo[0].src)
+    {
+        logo = <img style={{"height":"auto", "width":"auto", "maxWidth":"30%"}}src={company_logo[0].src} alt={company_logo[0].name}></img>
+    }
+    else
+    {
+        logo = COMPANY
+    }
+
+    console.log(COMPANY)
+    console.log(COMPANY_LOGOS)
+
+    console.log(company_logo)
     
 
     return (
         <div className="disclosure-card">
             <div className="flex-container header" style={{"justifyContent":"space-between"}} onClick={() => setExpanded(!isExpanded)}>
-                <h1>{COMPANY}</h1>
+                <h1>{logo}</h1>
                 <div className="flex-container">
                     <h5>{DISCLOSURE_DATE}</h5>
                     {!isExpanded && <img src={close} onClick={() => setExpanded(true)} width="25" alt="close"></img>}
