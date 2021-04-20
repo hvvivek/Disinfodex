@@ -53,9 +53,9 @@ function NetworkTablePagination(
     return (
         <div className="flex-container" id="pagination" style={{justifyContent: "space-between"}}>
         <div>
-            <p style={{"alignSelf":"flex-start"}}>Showing <span style={{"display":"inline-block", "minWidth":"125px", "paddingLeft":"1rem", "paddingRight":"1rem"}}><Select options={pageSizeOptions} value={{label: pageSize, value:pageSize}} onChange={(e) => setPageSize(e.value)} /></span> results per page</p>
+            <div style={{"alignSelf":"flex-start"}}>Showing <span style={{"display":"inline-block", "minWidth":"125px", "paddingLeft":"1rem", "paddingRight":"1rem"}}><Select options={pageSizeOptions} value={{label: pageSize, value:pageSize}} onChange={(e) => setPageSize(e.value)} /></span> results per page</div>
         </div>
-        <div style={{}}>
+        <div className="pagination-wrapper">
           <button className="pagination-button" onClick={previousPage} disabled={!canPreviousPage}>← Previous</button>
           
           {hasMoreThanNPages? 
@@ -68,7 +68,7 @@ function NetworkTablePagination(
               </>} */}
 
          
-                {visiblePageOptions.map(e => <span className={e === pageIndex? "go-to-page active": "go-to-page"}
+                {visiblePageOptions.map(e => <span key={e} className={e === pageIndex? "go-to-page active": "go-to-page"}
                 onClick={() => gotoPage(e)}>{e+1}</span>)}
                 
 

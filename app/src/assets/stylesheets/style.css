@@ -37,3 +37,11 @@
     width: calc(90%);
 }
 
+@media (max-width: 1080px) {
+
+    .flex-9, .flex-9>div
+    {
+        flex-direction: column;
+    }
+}
+

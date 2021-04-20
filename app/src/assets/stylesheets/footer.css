@@ -31,3 +31,11 @@
     border: 1px solid silver;
     margin-right: 10px;
 }
+
+@media (max-width: 1080px) {
+
+#footer .logo-wrapper
+{
+    margin-top: 2rem;
+}
+}

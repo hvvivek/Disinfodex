@@ -72,3 +72,23 @@
     font-family: 'Roboto';
     font-size: 0.85rem;
 }
+.filters>div
+{
+    /* flex: 1 0 */
+    width: 11.11%;
+    display: inline-block;
+    padding: 0.5rem;
+}
+
+
+@media (max-width: 800px) {
+    .filters {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .filters>div
+    {
+        width: 100%
+    }
+}

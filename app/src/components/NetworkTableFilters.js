@@ -51,6 +51,7 @@ function DateColumnFilter({
                                         placeholder="End Date"
                                         value={endDate}
                                         min={startDate}
+                                        max={moment().format('YYYY-MM-DD')}
                                         onChange={(e) => setEndDate(e.target.value)}></input>
                                 </div>
                             </div>
@@ -69,7 +70,7 @@ function DateColumnFilter({
 function BooleanColumnFilter({ column: { filterValue, setFilter, preFilteredRows, id } }) {
     return (
         <div>
-            <label htmlFor="screenshots">CONTAINS SCREENSHOTS </label>
+            <label htmlFor="screenshots">CONTAINS SCREENSHOTS &nbsp;</label>
             <input id="screenshots" onChange={(e) => { console.log(e.target.checked); setFilter(e.target.checked) }} checked={filterValue} type="checkbox"></input>
         </div>
     )
@@ -167,7 +168,7 @@ function GlobalFilter({
     }, 200)
   
     return (
-      <span style={{"display":"flex", "alignItems":"center"}}>
+      <span style={{"display":"flex", "alignItems":"center", "width":"100%", "justifyContent":"center"}}>
 
         <i className="fas fa-search" style={{
             "border": "1px solid #ced4da",
@@ -190,7 +191,8 @@ function GlobalFilter({
             border: "1px solid #ced4da",
             "borderRadius": "0px 5px 5px 0px",
             "padding": "1rem",
-            "minWidth":"500px",
+            "minWidth":"200px",
+            "width":"40%",
             "borderLeft":"0"
           }}
         />

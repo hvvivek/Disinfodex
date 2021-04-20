@@ -1,5 +1,4 @@
-import { useState, useContext } from "react"
-import DataContext from "../contexts/DataContext"
+import { useState } from "react"
 import close from "../assets/images/icons/close.png"
 import open from "../assets/images/icons/open.png"
 
@@ -11,25 +10,20 @@ function DisclosureCard(props)
 {
     let {defaultExpanded = false} = props
     const [isExpanded, setExpanded] = useState(defaultExpanded)
-    const value = useContext(DataContext)
-    console.log(value)
-    console.log(value['disclosures'])
-    console.log(props)
-    let report_data = value.disclosures.filter((report) => report.sync_id === props.sync_id)
-    console.log(report_data)
-    report_data = report_data[0]
 
     const {
         COMPANY,
         DISCLOSURE_DATE,
-        'REMOVAL_TYPE': REMOVAL_TYPES,
-        'ENGAGEMENT_CONTEXT': ENGAGEMENT_TYPE,
+        REMOVAL_TYPES,
+        ENGAGEMENT_TYPE,
         POLICY_VIOLATIONS,
         'MAIN_URL': URL,
         SECONDARY_URL,
         NOTES,
         'DESCRIPTION_LONG': DESCRIPTION,
-    } = report_data
+    } = props
+
+    
 
     return (
         <div className="disclosure-card">
@@ -53,11 +47,11 @@ function DisclosureCard(props)
                 <div className="card-wrapper">
                     <div className="flex-5">
                         <p className="sub-title">REMOVAL TYPES</p>
-                        <p>{REMOVAL_TYPES}</p>
+                        {REMOVAL_TYPES}
                     </div>
                     <div className="flex-5">
                         <p className="sub-title">ENGAGEMENT</p>
-                        <p>{ENGAGEMENT_TYPE}</p>
+                        {ENGAGEMENT_TYPE}
                     </div>
                 </div>
 

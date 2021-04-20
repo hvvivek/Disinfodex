@@ -50,3 +50,36 @@
     margin-top: 2rem;
     font-family: 'Roboto';
 }
+
+@media (max-width: 800px) {
+
+.pagination-wrapper
+{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.pagination-wrapper>button:first-of-type
+{
+    order: 1;
+    margin-top: 1rem;
+    min-width: 30%;
+}
+
+.go-to-page-wrapper
+{
+    display: flex;
+    flex-basis: 100%;
+    order: 0;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.pagination-wrapper>button:last-of-type
+{
+    order: 2;
+    margin-top: 1rem;
+    min-width: 30%;
+}
+}

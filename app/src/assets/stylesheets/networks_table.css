@@ -30,7 +30,7 @@
     /* width: unset !important; */
 }
 
-.table-header-row
+.table-header-row>div
 {
     background-color: rgba(217, 203, 189, 0.2);
 }
@@ -112,20 +112,68 @@
     width: 15% !important
 }
 
+
+
 .table-header-cell
 {
     font-weight: bold;
 }
 
-.filters
-{
-    /* display: flex; */
-}
+@media (max-width: 1080px) {
+ 
+    .table
+    {
+        overflow: auto;
+    }
 
-.filters>div
-{
-    /* flex: 1 0 */
-    width: 11.11%;
-    display: inline-block;
-    padding: 0.5rem;
+    .table-body
+    {
+        width: max-content;
+        min-width: 100%;
+    }
+    /* style={{"overflowX":"auto"}} */
+
+    .table-body-cell.Network, .table-header-cell.Network
+    {
+        width: 120px !important;
+        /* width: 10% !important */
+    }
+    
+    .table-body-cell.Disclosure, .table-header-cell.Disclosure
+    {
+        width: 120px !important;
+        /* width: 10% !important */
+    }
+    
+    .table-body-cell.Source, .table-header-cell.Source
+    {
+        width: 200px !important;
+        /* width: 13% !important */
+    }
+    
+    .table-body-cell.Removal, .table-header-cell.Removal
+    {
+        width: 250px !important;
+        /* width: 15% !important */
+    }
+    
+    .table-body-cell.Named, .table-header-cell.Named
+    {
+        width: 300px !important;
+        /* width: 22% !important */
+    }
+    
+    .table-body-cell.Origin, .table-header-cell.Origin
+    {
+        width: 150px !important;
+        /* width: 15% !important */
+    }
+    
+    .table-body-cell.Target, .table-header-cell.Target
+    {
+        width: 150px !important;
+        /* width: 15% !important */
+    }
+
+   
 }

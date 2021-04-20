@@ -3,7 +3,7 @@ import "../assets/stylesheets/sorter.css"
 function NetworkSorter({id, toggleSortBy, columns})
 {
     const datesColumn = columns.filter(column => column.id === id)[0]
-    console.log(datesColumn)
+    // console.log(datesColumn)
     return (
         <div className="table-sorter" style={{"display":"flex", "justifyContent":"flex-end"}}>
             {datesColumn.isSortedDesc? 

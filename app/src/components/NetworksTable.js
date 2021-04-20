@@ -7,6 +7,8 @@ import NetworkCard from './NetworkCard'
 import NetworkSorter from "./NetworkSorter"
 import DownloadCSVButton from "./DownloadCSVButton"
 import COLUMNS from "../config/TABLE_VIEW"
+import SOURCES from "../config/SOURCE_TYPES"
+import DataViewer from "./DataViewer"
 import "../assets/stylesheets/networks_table.css"
 
 function NetworksTable(props)
@@ -56,15 +58,7 @@ function NetworksTable(props)
         state: { pageIndex, pageSize },
       } = tableInstance
 
-      const disclosureReducer = (accumulator, row) => {
-        let disclosures = row.original["Platform Reports"]
-        if(disclosures && disclosures.length)
-        {
-          return accumulator + disclosures.length
-        }
-        return accumulator
-      }
-      console.log(filteredRows)
+      
 
     return (
         <>
@@ -73,16 +67,17 @@ function NetworksTable(props)
           <a href="/how-to" style={{"marginTop":"1.5rem"}}>Learn more about how the data is reported</a>
         </div>
         <NetworkTableFilters {...{headers}}/>
-        <div className="" style={{"display":"flex",  "justifyContent":"space-between", "marginBottom":"3rem", "alignItems":"center", "fontSize":"0.85rem"}}>
-          <p style={{"marginBottom":"0rem"}}><b>{filteredRows.length} Results</b> | Viewing {pageSize} distinct networks across {page.reduce(disclosureReducer, 0)} disclosures</p>
+        {/* <div className="" style={{"display":"flex",  "justifyContent":"space-between", "marginBottom":"3rem", "alignItems":"center", "fontSize":"0.85rem"}}>
+          <p style={{"marginBottom":"0rem"}}><b>{filteredRows.length} Results</b> | Viewing {page.reduce(networkReducer, 0)} distinct networks across {page.reduce(disclosureReducer, 0)} disclosures</p>
           <DownloadCSVButton {...tableInstance} />
-        </div>
+        </div> */}
+        <DataViewer {...{tableInstance}}/>
         <NetworkSorter {...{id: "Dates", ...tableInstance}}/>
         <div {...getTableProps()} className="table">
             {/* <colgroup>
                 {headerGroups.map(headerGroups => headerGroups.headers.map(column => <col className="col-1" span="1" style={{"width": "10%"}}/>))}
             </colgroup> */}
-            <div className="table-header">
+            <div className="table-header" style={{"width":"auto"}}>
                 {// Loop over the header rows
                     headerGroups.map(headerGroup => (
                         // Apply the header row props
@@ -96,7 +91,7 @@ function NetworksTable(props)
                             <div {...column.getHeaderProps(column.getSortByToggleProps())} className={"table-header-cell " + column.Header}>
                             {// Render the header
                             column.render('Header')}
-                            <span className={column.isSorted && "active"}>
+                            <span className={column.isSorted? "active": ""}>
                               {column.isSorted
                                 ? column.isSortedDesc
                                   ? '↓'
@@ -144,7 +139,7 @@ function NetworksTable(props)
 function NetworkCardModal(props)
 {
     let {isModalOpen, setModelOpen, currentNetwork} = props
-      return <Modal show={isModalOpen} size="lg" onHide={()=>setModelOpen(false)} className="network-card">
+      return <Modal animation={false} show={isModalOpen} size="lg" onHide={()=>setModelOpen(false)} className="network-card">
           <Modal.Header closeButton>
             <h1>Network {currentNetwork.Name}</h1>
           </Modal.Header>

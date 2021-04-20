@@ -6,7 +6,7 @@ import "../assets/stylesheets/switch_toggler.css"
 
 function SwitchToggler(props)
 {
-    console.log(props)
+    // console.log(props)
     let {active, setMode} = props
 
     return <div id="switch-toggler" style={{"display":"flex", "justifyContent":"flex-end"}}>

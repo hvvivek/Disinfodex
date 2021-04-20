@@ -9,7 +9,7 @@ const url = "https://disinfodex.us7.list-manage.com/subscribe/post?u=499d0a85d3a
 
 function Footer() {
 
-        return <div fluid id="footer" className="flex-container">
+        return <div id="footer" className="flex-container">
             <footer className="flex-9">
                 <div className="flex-container align-items-start">
                     <div style={{"flex":"3 1 0%"}}>

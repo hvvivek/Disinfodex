@@ -13,10 +13,10 @@ function Header(props)
                         <div style={{"flex":"1 30%"}}>
                             <p>Disinfodex is a database of publicly available information about disinformation campaigns. It currently includes disclosures issued by major online platforms and accompanying reports from independent open source investigators.</p>
                         </div>
-                        <div  style={{"flex":"3 1 0%", "textAlign":"right"}}>
-                            <p className="links"><a href="/" className={props.active === "database" && "active"}>Database</a></p>
-                            <p className="links"><a href="/about" className={props.active === "about" && "active"}>About this project</a></p>
-                            <p className="links"><a href="how-to" className={props.active === "how-to" && "active"}>How it works</a></p>
+                        <div  style={{"flex":"3 1 0%"}}>
+                            <p className="links"><a href="/" className={props.active === "database"? "active":""}>Database</a></p>
+                            <p className="links"><a href="/about" className={props.active === "about"? "active": ""}>About this project</a></p>
+                            <p className="links"><a href="how-to" className={props.active === "how-to"? "active":""}>How it works</a></p>
                         </div>
                     </div>
                 </div>

@@ -12,6 +12,7 @@ import DataContext from '../contexts/DataContext'
 import ScreenshotCarousel from './ScreenshotCarousel'
 import DownloadCSVButton from "./DownloadCSVButton"
 import COLUMNS from '../config/CARD_VIEW'
+import DataViewer from "./DataViewer"
 
 // Define a default UI for filtering
 function DefaultColumnFilter({
@@ -86,16 +87,6 @@ function Table(props)
       } = tableInstance
 
     const {screenshots} = useContext(DataContext)
-    console.log(screenshots)
-
-    const disclosureReducer = (accumulator, row) => {
-      let disclosures = row.original["Platform Reports"]
-      if(disclosures && disclosures.length)
-      {
-        return accumulator + disclosures.length
-      }
-      return accumulator
-    }
 
     return (
         <>
@@ -104,10 +95,7 @@ function Table(props)
           <a href="/how-to" style={{"marginTop":"1.5rem"}}>Learn more about how the data is reported</a>
         </div>
         <NetworkTableFilters {...{headers}}/>
-        <div className="" style={{"display":"flex",  "justifyContent":"space-between", "marginBottom":"3rem", "alignItems":"center", "fontSize":"0.85rem"}}>
-          <p style={{"marginBottom":"0rem"}}><b>{filteredRows.length} Results</b> | Viewing {pageSize} distinct networks across {page.reduce(disclosureReducer, 0)} disclosures</p>
-          <DownloadCSVButton {...tableInstance} />
-        </div>
+        <DataViewer {...{tableInstance}} />
         <NetworkSorter {...{id: "Dates", ...tableInstance}}/>
         <div {...getTableProps()} className="table">
             <div {...getTableBodyProps()} className="card-body">
