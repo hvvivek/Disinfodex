@@ -28,7 +28,7 @@ function DisclosureCard(props)
     let company_logo = COMPANY_LOGOS.filter(logo => logo.accessor === COMPANY[0])
     if(company_logo && company_logo.length > 0 && company_logo[0].src)
     {
-        logo = <img style={{"height":"auto", "width":"auto", "maxWidth":"30%"}}src={company_logo[0].src} alt={company_logo[0].name}></img>
+        logo = <img src={company_logo[0].src} alt={company_logo[0].name}></img>
     }
     else
     {

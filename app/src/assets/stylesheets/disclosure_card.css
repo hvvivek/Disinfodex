@@ -18,3 +18,48 @@
 {
     margin-left: 0px;
 }
+
+.disclosure-card-wrapper .header>h1 img
+{
+    max-width: 300px;
+    max-height: 50px;
+    width: auto;
+    height: auto;
+}
+
+@media (max-width: 800px) {
+
+.network-card.modal .card-wrapper
+{
+    flex-direction: column;
+}
+
+.network-card.modal .card-wrapper>div
+{
+    width: 100%;
+}
+
+.disclosure-card-wrapper .header
+{
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+}
+
+.disclosure-card-wrapper .header>h1
+{
+    width: 100%;
+}
+
+.disclosure-card-wrapper .header>h1 img
+{
+    max-width: 80%;
+    margin-bottom: 1rem;
+}
+
+.disclosure-card-wrapper .header>div
+{
+    width: 100%;
+    justify-content: space-between;
+}
+}
