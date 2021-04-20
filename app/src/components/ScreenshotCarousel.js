@@ -40,7 +40,7 @@ function ScreenshotCarousel({row, screenshots})
         {
             (!row_screenshots || row_screenshots.length === 0) && <div style={{"width":"100%", "height":"100%", "display":"flex", "justifyContent":"center", "alignItems":"center", "flexDirection":"column"}}>
                 {company_logos.map(logo => 
-                <img src={logo} style={{"maxWidth":"80%", "maxHeight":"30%", "marginTop":"1rem"}} alt="facebook"></img>)}
+                <img key={logo} src={logo} style={{"maxWidth":"80%", "maxHeight":"30%", "marginTop":"1rem"}} alt="facebook"></img>)}
             </div>
         }
     </>

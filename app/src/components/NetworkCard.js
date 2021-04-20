@@ -21,11 +21,11 @@ function StackDisclosures(disclosures)
             // console.log(disclosure)
             if(disclosure["REMOVAL_NUMBER"])
             {
-                REMOVAL_TYPES.push(<p style={{"marginBottom":"0px"}}><b>{disclosure["REMOVAL_NUMBER"]}</b> {disclosure["REMOVAL_TYPE"]}</p>)
+                REMOVAL_TYPES.push(<p key={Math.random()} style={{"marginBottom":"0px"}}><b>{disclosure["REMOVAL_NUMBER"]}</b> {disclosure["REMOVAL_TYPE"]}</p>)
             } 
             else
             {
-                REMOVAL_TYPES.push(<p style={{"marginBottom":"0px"}}>{disclosure["REMOVAL_TYPE"]}</p>)
+                REMOVAL_TYPES.push(<p key={Math.random()} style={{"marginBottom":"0px"}}>{disclosure["REMOVAL_TYPE"]}</p>)
             }
         }
 

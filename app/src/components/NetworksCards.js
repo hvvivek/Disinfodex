@@ -39,7 +39,7 @@ function Table(props)
 
 
     const openNetworkCard = (row_data) => {
-      console.log(row_data)
+      // console.log(row_data)
       setCurrentNetwork(row_data)
       setModelOpen(true)
     }
@@ -104,7 +104,7 @@ function Table(props)
                 prepareRow(row)
                 return (
                     // Apply the row props
-                    <div  className="card-body-row" >
+                    <div  key={Math.random()} className="card-body-row" >
                     <div>
                       <div className="screenshots">
                           {/* <p>Screenshots</p> */}
@@ -115,8 +115,8 @@ function Table(props)
                       {row.cells.map(cell => {
                           // Apply the cell props
                           return (
-                          <div className={"card-body-cell " + cell.column.Header}>
-                            {console.log(cell)}
+                          <div key={Math.random()} className={"card-body-cell " + cell.column.Header}>
+                            {/* {console.log(cell)} */}
                               <p className="sub-title">{cell.render('Header').toUpperCase()}</p>
                               {// Render the cell contents
                               cell.render('Cell')}
@@ -159,7 +159,7 @@ function Table(props)
 function NetworkCardModal(props)
 {
     let {isModalOpen, setModelOpen, currentNetwork} = props
-      return <Modal show={isModalOpen} size="lg" onHide={()=>setModelOpen(false)} className="network-card">
+      return <Modal animation={false} show={isModalOpen} size="lg" onHide={()=>setModelOpen(false)} className="network-card">
           <Modal.Header closeButton>
             <h1>Network {currentNetwork.Name}</h1>
           </Modal.Header>
