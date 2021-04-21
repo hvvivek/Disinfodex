@@ -22,7 +22,7 @@ const COLUMNS = [
         },
         {
             Header          : "Source",
-            accessor        : "Company",
+            accessor        : "Company Unique",
             Filter          : SelectColumnFilter,
             filter          : 'inArray',
             Cell            : CellSource,

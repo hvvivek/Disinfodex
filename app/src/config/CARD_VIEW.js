@@ -9,7 +9,7 @@ import { BooleanColumnFilter, DateColumnFilter, SelectColumnFilter } from "../co
 const COLUMNS = [
     {
         Header          : "Source",
-        accessor        : "Company",
+        accessor        : "Company Unique",
         Filter          : SelectColumnFilter,
         filter          : 'inArray',
         Cell            : CellSource

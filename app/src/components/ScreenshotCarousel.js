@@ -7,7 +7,7 @@ function ScreenshotCarousel({row, screenshots})
 {
     let screenshot_ids = row.allCells.filter(cell => cell.column.Header === "Screenshots")[0].value
     let row_screenshots = []
-    let companies = row.values["Company"]
+    let companies = row.values["Company Unique"]
     let company_logos = []
     if(companies && companies.length > 0)
     {
@@ -20,6 +20,7 @@ function ScreenshotCarousel({row, screenshots})
                 company_logos.push(logo[0].src)
             }
         }
+        console.log(company_logos)
         
     }
 
