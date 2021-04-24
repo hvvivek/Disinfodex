@@ -9,7 +9,7 @@ function SwitchToggler(props)
     // console.log(props)
     let {active, setMode} = props
 
-    return <div id="switch-toggler" style={{"display":"flex", "justifyContent":"flex-end"}}>
+    return <div id="switch-toggler" style={{"display":"flex"}}>
                 <div style={{"display":"flex", "flexDirection":"row"}}>
                     <p>View As:</p>
                     <div onClick={() => setMode("table")} className={active === "table"? "active toggle": "toggle"} style={{"display":"flex", "flexDirection":"row"}}>

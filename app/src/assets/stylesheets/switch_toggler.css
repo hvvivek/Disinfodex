@@ -1,6 +1,7 @@
 #switch-toggler
 {
     margin-top: 1rem;
+    justify-content: flex-end;
 }
 
 #switch-toggler img
@@ -12,4 +13,13 @@
 #switch-toggler .toggle
 {
     cursor: pointer;
+}
+
+@media (max-width: 1024px)
+{
+    #switch-toggler
+    {
+        justify-content: center;
+        flex-direction: row;
+    }
 }
