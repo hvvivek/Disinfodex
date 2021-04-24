@@ -4,7 +4,6 @@ import {NetworkTableFilters, GlobalFilter, exists, betweenDates, inArray} from '
 import NetworkTablePagination from './NetworkTablePagination'
 import { Modal } from 'react-bootstrap'
 import NetworkCard from './NetworkCard'
-import NetworkSorter from "./NetworkSorter"
 import COLUMNS from "../config/TABLE_VIEW"
 import DataViewer from "./DataViewer"
 import "../assets/stylesheets/networks_table.css"

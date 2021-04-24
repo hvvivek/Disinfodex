@@ -7,7 +7,6 @@ import {NetworkTableFilters, GlobalFilter, exists, betweenDates, inArray} from '
 import NetworkTablePagination from './NetworkTablePagination'
 import { Modal } from 'react-bootstrap'
 import NetworkCard from './NetworkCard'
-import NetworkSorter from "./NetworkSorter"
 import DataContext from '../contexts/DataContext'
 import ScreenshotCarousel from './ScreenshotCarousel'
 import COLUMNS from '../config/CARD_VIEW'
