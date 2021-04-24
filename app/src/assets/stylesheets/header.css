@@ -68,15 +68,37 @@
     text-align: right;
 }
 
-@media (max-width: 1080px) {
 
-#header .sub-header
-{
-    flex-direction: column;
+
+/* For Tablet Screens and below */
+@media (max-width: 1024px) {
+
+    #header .sub-header
+    {
+        flex-direction: column;
+    }
+    
+    #header .sub-header>div:last-of-type
+    {
+        text-align: center;
+    }
+    
+        .header-links
+        {
+            display: flex;
+            gap: 2rem;
+        }
 }
 
-#header .sub-header>div:last-of-type
-{
-    text-align: center;
-}
-}
+/* For Tablet Screens and below */
+
+@media (max-width: 760px) {
+    
+        .header-links
+        {
+            display: flex;
+            flex-direction: column;
+            gap: 0rem;
+        }
+    }
+

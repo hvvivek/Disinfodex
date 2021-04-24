@@ -223,6 +223,9 @@ p.divider-body
     background: #ECECEC;
 }
 
+
+/* For Mobile Screens */
+
 @media (max-width: 1024px) { 
 
 .hidden-xs

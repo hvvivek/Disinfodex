@@ -95,7 +95,7 @@ function Table(props)
         </div>
         <NetworkTableFilters {...{headers}}/>
         <DataViewer {...{tableInstance}} />
-        <NetworkSorter {...{id: "Dates", ...tableInstance}}/>
+        {/* <NetworkSorter {...{id: "Dates", ...tableInstance}}/> */}
         <div {...getTableProps()} className="table">
             <div {...getTableBodyProps()} className="card-body">
                 {// Loop over the table rows
@@ -108,10 +108,10 @@ function Table(props)
                     <div>
                       <div className="screenshots">
                           {/* <p>Screenshots</p> */}
-                          <ScreenshotCarousel {...{row, screenshots}}/>
+                          <ScreenshotCarousel {...{row: row["original"]}}/>
                       </div>
 
-                      <div className="content" onClick={() => openNetworkCard(row.original)}>
+                      <div className="content" onClick={() => openNetworkCard(row)}>
                       {row.cells.map(cell => {
                           // Apply the cell props
                           return (
@@ -130,7 +130,7 @@ function Table(props)
                 })}
             </div>
         </div>
-        {isModalOpen && <NetworkCardModal {...{isModalOpen, setModelOpen, currentNetwork}}/>}
+        {isModalOpen && <NetworkCardModal {...{isModalOpen, setModelOpen, currentNetwork, screenshots}}/>}
         {/* <Modal show={isModalOpen} onHide={()=>setModelOpen(false)}>
           <Modal.Header closeButton>
 
@@ -161,10 +161,10 @@ function NetworkCardModal(props)
     let {isModalOpen, setModelOpen, currentNetwork} = props
       return <Modal animation={false} show={isModalOpen} size="lg" onHide={()=>setModelOpen(false)} className="network-card">
           <Modal.Header closeButton>
-            <h1>Network {currentNetwork.Name}</h1>
+            <h1>Network {currentNetwork.original.Name}</h1>
           </Modal.Header>
           <Modal.Body>
-                <NetworkCard {...currentNetwork}/>
+                <NetworkCard {...{...currentNetwork.original}}/>
           </Modal.Body>
         </Modal>
 }

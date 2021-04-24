@@ -7,6 +7,7 @@ import CellNamedEntities from './CellRenderers/CellNamedEntities'
 import CellTargetCountry from './CellRenderers/CellTargetCountry'
 import CellOriginCountry from './CellRenderers/CellOriginCountry'
 import DataContext from "../contexts/DataContext"
+import ScreenshotCarousel from './ScreenshotCarousel'
 
 
 function StackDisclosures(disclosures)
@@ -62,7 +63,7 @@ function NetworkCard(props)
 {
     const value = useContext(DataContext)
 
-    // console.log(props)
+    console.log(props)
 
     let {
         'Dates': DISCLOSURE_DATES,
@@ -70,7 +71,7 @@ function NetworkCard(props)
         'Target Countries Tagged': TARGET_COUNTRIES,
         'Company': PLATFORMS,
         'Named Entities': NAMED_ENTITIES,
-        'Platform Reports': PLATFORM_REPORTS
+        'Platform Reports': PLATFORM_REPORTS,
     } = props
 
     // let PLATFORM_REPORTS = value.disclosures.filter((report) => report.sync_id === props.sync_id)
@@ -123,6 +124,9 @@ function NetworkCard(props)
             {/* <div>
                 <h2>Network {NETWORK_ID}</h2>
             </div> */}
+            <div>
+                <ScreenshotCarousel {...{row: props, isLogoShown: false}}/>
+            </div>
             <div className="card-wrapper">
 
                 <div className="flex-5">

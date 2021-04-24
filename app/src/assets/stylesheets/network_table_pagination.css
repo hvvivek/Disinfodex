@@ -51,7 +51,10 @@
     font-family: 'Roboto';
 }
 
-@media (max-width: 800px) {
+
+/* For Mobile Screens */
+
+@media (max-width: 1024px) {
 
 .pagination-wrapper
 {

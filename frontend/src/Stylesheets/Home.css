@@ -722,6 +722,8 @@ cursor: pointer;
     font-size: 0.65rem;
 }
 
+
+/* For Mobile Screens */
 @media (max-width: 576px) { 
     .wrapper
     {

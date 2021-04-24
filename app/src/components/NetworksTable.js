@@ -69,7 +69,7 @@ function NetworksTable(props)
           <DownloadCSVButton {...tableInstance} />
         </div> */}
         <DataViewer {...{tableInstance}}/>
-        <NetworkSorter {...{id: "Dates", ...tableInstance}}/>
+        {/* <NetworkSorter {...{id: "Dates", ...tableInstance}}/> */}
         <div {...getTableProps()} className="table">
             {/* <colgroup>
                 {headerGroups.map(headerGroups => headerGroups.headers.map(column => <col className="col-1" span="1" style={{"width": "10%"}}/>))}

@@ -37,7 +37,29 @@
     width: calc(90%);
 }
 
-@media (max-width: 1080px) {
+
+.search-bar
+{
+    width: 40%;
+}
+/* For Tablet Screens and below */
+
+@media (max-width: 1024px) {
+
+    .flex-9, .flex-9>div
+    {
+        flex-direction: row;
+    }
+
+    .search-bar
+    {
+        width: 60%;
+    }
+}
+
+/* For Tablet Screens and below */
+
+@media (max-width: 760px) {
 
     .flex-9, .flex-9>div
     {

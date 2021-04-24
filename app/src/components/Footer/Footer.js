@@ -11,11 +11,13 @@ function Footer() {
 
         return <div id="footer" className="flex-container">
             <footer className="flex-9">
-                <div className="flex-container align-items-start">
-                    <div style={{"flex":"3 1 0%"}}>
+                <div className="flex-container" style={{"flexDirection":"column"}}>
+                    <div style={{}}>
                         <p><a href="http://disinfodex.org" target="_blank" rel="noreferrer">Disinfodex</a> is supported by the <a href="https://cyber.harvard.edu/" target="_blank" rel="noreferrer">Berkman Klein Center at Harvard University</a> and the Ethics and Governance of Artificial Intelligence Fund at <a href="https://miamifoundation.org/" target="_blank" rel="noreferrer">The Miami Foundation</a>. Disinfodex is a partner of <a href="https://carnegieendowment.org/specialprojects/counteringinfluenceoperations" target="_blank" rel="noreferrer">Carnegie Endowment’s Partnership for Countering Influence Operations</a>.</p>
                         <br /><br />
-
+                    </div>
+                    <div style={{display:"flex", "width":"100%"}}>
+                        <div style={{"flex":"3 1 75%"}}>
                         <label>Subscribe for news and updates</label>
                         <MailchimpSubscribe url={url}
                         messages = {
@@ -28,9 +30,9 @@ function Footer() {
                                 button: "Subscribe!"
                             }
                         } />
-                    </div>
-                    <div style={{"flex":"1 1 0%"}}>
-                        <div className="justify-content-end">
+                        </div>
+
+                        <div className="justify-content-end" style={{"flex":"1 1 75%"}}>
                             <div className="logo-wrapper">
                                 <a href="https://carnegieendowment.org/specialprojects/counteringinfluenceoperations" target="_blank" rel="noopener noreferrer" title="Carnegie Endowment for International Peace: Partnership for Countering Influence Operations" ><img alt="Carnegie Endowment for International Peace: Partnership for Countering Influence Operations" src={logo_1}></img></a>
                             </div>

@@ -1,13 +1,17 @@
 // import Slider from "react-slick";
+import {useContext} from "react"
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import COMPANY_LOGOS from "../config/COMPANY_LOGOS"
+import DataContext from '../contexts/DataContext'
 
-function ScreenshotCarousel({row, screenshots})
+function ScreenshotCarousel({row, isLogoShown=true})
 {
-    let screenshot_ids = row.allCells.filter(cell => cell.column.Header === "Screenshots")[0].value
+    console.log(row)
+    const {screenshots} = useContext(DataContext)
+    let screenshot_ids = row["Screenshots"]
     let row_screenshots = []
-    let companies = row.values["Company Unique"]
+    let companies = row["Company Unique"]
     let company_logos = []
     if(companies && companies.length > 0)
     {
@@ -33,13 +37,18 @@ function ScreenshotCarousel({row, screenshots})
      
 
     return <> 
-        {row_screenshots && row_screenshots.length > 0 && <Carousel showThumbs={false}>
-            {row_screenshots.map(screenshot => <div key={screenshot} style={{"display":"flex", "width":"auto", "height":"calc(360px - 2rem)"}}>
+        {row_screenshots && row_screenshots.length > 0 && 
+        <Carousel 
+            showThumbs={false}
+            centerMode={true}
+            >
+            {row_screenshots.map(screenshot => <div key={screenshot} style={{"display":"flex", "width":"auto", "height":"calc(360px - 2rem)", "justifyContent":"center"}}>
                 <img src={screenshot} style={{"height":"100%", "width":"auto"}} alt="screenshot"></img>
             </div>)}
         </Carousel>}
         {
-            (!row_screenshots || row_screenshots.length === 0) && <div style={{"width":"100%", "height":"100%", "display":"flex", "justifyContent":"center", "alignItems":"center", "flexDirection":"column"}}>
+            
+            isLogoShown && (!row_screenshots || row_screenshots.length === 0) && <div style={{"width":"100%", "height":"100%", "display":"flex", "justifyContent":"center", "alignItems":"center", "flexDirection":"column"}}>
                 {company_logos.map(logo => 
                 <img key={logo} src={logo} style={{"maxWidth":"80%", "maxHeight":"30%", "marginTop":"1rem"}} alt="facebook"></img>)}
             </div>

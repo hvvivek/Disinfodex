@@ -186,13 +186,14 @@ function GlobalFilter({
             onChange(e.target.value);
           }}
           placeholder={`Search the database`}
+          className="search-bar"
           style={{
             fontSize: '1rem',
             border: "1px solid #ced4da",
             "borderRadius": "0px 5px 5px 0px",
             "padding": "1rem",
             "minWidth":"200px",
-            "width":"40%",
+            // "width":"40%",
             "borderLeft":"0"
           }}
         />
