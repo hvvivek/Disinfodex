@@ -81,16 +81,18 @@ function getFilters(tableInstance)
   if(tableInstance && tableInstance.state.filters && tableInstance.state.filters.length > 0)
   {
     let spans = []
+    let null_filters = []
     for(let i=0; i<tableInstance.state.filters.length; i++)
     {
       let filter = tableInstance.state.filters[i]
       let filter_type = getFilterType(filter.id, tableInstance)
       let filter_header = getHeader(filter.id, tableInstance)
-
       
       switch(filter_type)
       {
         case 'inArray': 
+          null_filters.push({id: filter.id, value: []})
+
           for(let i=0; i<filter.value.length; i++)
           {
             spans.push(<span
@@ -105,9 +107,12 @@ function getFilters(tableInstance)
           }
           break
         case 'betweenDates': 
+          null_filters.push({id: filter.id, value: []})
           filter.value.length>1 && spans.push(<span className="filter-pill dates"><p>{filter_header}: Between {filter.value[0]} - {filter.value[1]}</p></span>)
           break
         case 'exists': 
+          null_filters.push({id: filter.id, value: undefined})
+
           if(filter.value)
           {
             spans.push(<span className="filter-pill screenshots"><p>{filter_header}: {filter.value.toString()}</p></span>)
@@ -119,7 +124,9 @@ function getFilters(tableInstance)
       }
       // spans.push(<p>{getHeader(filter.id, tableInstance)}</p>)
     }
-    return <div>{spans.length>0 && "Filtered to:"}{spans}</div>
+
+    
+    return <div>{spans.length>0 && "Filtered to:"}{spans}{spans.length>0 && <a style={{color:"blue", "cursor":"pointer"}} onClick={() => tableInstance.setAllFilters(null_filters)}>Clear Filters</a>}</div>
   }
 }
 
