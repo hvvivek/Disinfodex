@@ -17,7 +17,7 @@ function DateColumnFilter({
     const [startDate, setStartDate] = useState(filterValue ? filterValue[0] : null)
     const [endDate, setEndDate] = useState(moment(filterValue ? filterValue[1] : null).format('YYYY-MM-DD'))
     const [expanded, expand] = useState(false)
-
+    const minDate = '2017-01-01'
     // Calculate the options for filtering
     // using the preFilteredRows
 
@@ -25,23 +25,28 @@ function DateColumnFilter({
     return (
         <div style={{ "display": "flex" }} className="network-table-filters">
             <div className="date-filter-wrapper" onClick={() => expand(!expanded)}>
-                {startDate ?
+                {(startDate && endDate) ?
                     <p>{moment(startDate).format('DD-MMM-YY')} &rarr; {endDate ? moment(endDate).format('DD-MMM-YY') : moment().format('DD-MMM-YY')}</p>
                     :
                     <p style={{ "color": "hsl(0, 0%, 50%)", "width": "100%" }}>Select...</p>
+                }
+                {
+                    (startDate && endDate) && <i class="fas fa-times" onClick={(e) => {e.stopPropagation(); setStartDate(null, setEndDate(null, setFilter([null, null])));  }}></i> 
+                    
                 }
             </div>
             {expanded &&
                 <Modal show={expanded} onHide={() => expand(false)}>
                     <Modal.Header closeButton style={{ "border": "none" }}></Modal.Header>
                     <Modal.Body>
-                        <form onSubmit={(e) => { e.preventDefault(); setFilter([startDate, endDate]) }}>
+                        <form onSubmit={(e) => { e.preventDefault(); setFilter([startDate, endDate]); expand(false) }}>
                             <div className="date-range-picker" >
                                 <div>
                                     <label for="start_date">Start Date</label>
                                     <input type="date"
                                         placeholder="Start Date"
                                         value={startDate}
+                                        min={minDate}
                                         max={endDate}
                                         onChange={(e) => setStartDate(e.target.value)}></input>
                                 </div>

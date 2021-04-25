@@ -33,7 +33,7 @@ function NetworksTable(props)
         initialState: 
           { 
             pageIndex : 0, 
-            pageSize : 5, 
+            pageSize : 25, 
             hiddenColumns: ["Source Type", "Policy Violations", "Screenshots"] 
           }
       }, 

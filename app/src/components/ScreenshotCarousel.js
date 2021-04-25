@@ -5,7 +5,7 @@ import { Carousel } from 'react-responsive-carousel';
 import COMPANY_LOGOS from "../config/COMPANY_LOGOS"
 import DataContext from '../contexts/DataContext'
 
-function ScreenshotCarousel({row, isLogoShown=true})
+function ScreenshotCarousel({row, card=null, openNetworkCard=null, isLogoShown=true})
 {
     console.log(row)
     const {screenshots} = useContext(DataContext)
@@ -42,13 +42,18 @@ function ScreenshotCarousel({row, isLogoShown=true})
             showThumbs={false}
             centerMode={true}
             >
-            {row_screenshots.map(screenshot => <div key={screenshot} style={{"display":"flex", "width":"auto", "height":"calc(360px - 2rem)", "justifyContent":"center"}}>
+            {row_screenshots.map(screenshot => <div key={screenshot} 
+                                                    onClick={(e) => {card && openNetworkCard && openNetworkCard(card)}}
+                                                    style={{"display":"flex", "width":"auto", "height":"calc(360px - 2rem)", "justifyContent":"center"}}>
                 <img src={screenshot} style={{"height":"100%", "width":"auto"}} alt="screenshot"></img>
             </div>)}
         </Carousel>}
         {
             
-            isLogoShown && (!row_screenshots || row_screenshots.length === 0) && <div style={{"width":"100%", "height":"100%", "display":"flex", "justifyContent":"center", "alignItems":"center", "flexDirection":"column"}}>
+            isLogoShown && (!row_screenshots || row_screenshots.length === 0) && 
+            <div 
+            onClick={(e) => {card && openNetworkCard && openNetworkCard(card)}}
+            style={{"width":"100%", "height":"100%", "display":"flex", "justifyContent":"center", "alignItems":"center", "flexDirection":"column"}}>
                 {company_logos.map(logo => 
                 <img key={logo} src={logo} style={{"maxWidth":"80%", "maxHeight":"30%", "marginTop":"1rem"}} alt="facebook"></img>)}
             </div>

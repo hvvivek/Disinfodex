@@ -107,7 +107,7 @@ function Table(props)
                     <div>
                       <div className="screenshots">
                           {/* <p>Screenshots</p> */}
-                          <ScreenshotCarousel {...{row: row["original"]}}/>
+                          <ScreenshotCarousel {...{row: row["original"], card: row, openNetworkCard}}/>
                       </div>
 
                       <div className="content" onClick={() => openNetworkCard(row)}>
