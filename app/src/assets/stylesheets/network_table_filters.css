@@ -79,6 +79,19 @@
     padding: 0.5rem;
 }
 
+.select-option
+{
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    width: 100%;
+}
+
+
+.select-option:hover
+{
+    background-color: #ccc;
+}
 
 @media (min-width: 1201px) {
     .filters>div
