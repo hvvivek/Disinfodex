@@ -6,7 +6,7 @@
     
 }
 
-.policy-violation span
+.policy-violation span, span.filter-pill.policy-violations p
 {
     padding: 2px 12px;
     background-color: var(--POLICY-VIOLATIONS-BG);
@@ -14,6 +14,12 @@
     border-radius: 2rem;
     margin-left: 0.25rem;
     margin-top: 0.5rem;
+}
+
+span.filter-pill.policy-violations p
+{
+    margin-left: 0rem;
+    width: max-content;
 }
 
 .policy-violation p.link

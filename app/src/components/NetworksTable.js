@@ -62,7 +62,7 @@ function NetworksTable(props)
           <GlobalFilter {...tableInstance}/>
           <a href="/how-to" style={{"marginTop":"1.5rem"}}>Learn more about how the data is reported</a>
         </div>
-        <NetworkTableFilters {...{headers}}/>
+        <NetworkTableFilters {...{headers, tableInstance}}/>
         {/* <div className="" style={{"display":"flex",  "justifyContent":"space-between", "marginBottom":"3rem", "alignItems":"center", "fontSize":"0.85rem"}}>
           <p style={{"marginBottom":"0rem"}}><b>{filteredRows.length} Results</b> | Viewing {page.reduce(networkReducer, 0)} distinct networks across {page.reduce(disclosureReducer, 0)} disclosures</p>
           <DownloadCSVButton {...tableInstance} />

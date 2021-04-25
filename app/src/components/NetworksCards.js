@@ -92,7 +92,7 @@ function Table(props)
           <GlobalFilter {...tableInstance}/>
           <a href="/how-to" style={{"marginTop":"1.5rem"}}>Learn more about how the data is reported</a>
         </div>
-        <NetworkTableFilters {...{headers}}/>
+        <NetworkTableFilters {...{headers, tableInstance}}/>
         <DataViewer {...{tableInstance}} />
         {/* <NetworkSorter {...{id: "Dates", ...tableInstance}}/> */}
         <div {...getTableProps()} className="table">

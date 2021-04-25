@@ -28,32 +28,62 @@
 }
 
 
-span.facebook
+
+.filter-pill.source p
+{
+    width: max-content;
+    padding: 2px 12px;
+    border-radius: 2rem;
+    margin-bottom: 0px;
+    background-color: rgba(217, 203, 189, 1);
+}
+
+.source span.facebook, .filter-pill.source.facebook p
 {
     color: var(--FACEBOOK-COLOR);
     background-color: var(--FACEBOOK-BG-COLOR);
 }
 
-span.reddit
+.source span.reddit, .filter-pill.source.reddit p
 {
     color: var(--REDDIT-COLOR);
     background-color: var(--REDDIT-BG-COLOR);
 }
 
-span.graphika
+.source span.graphika, .filter-pill.source.graphika p
 {
     color: var(--GRAPHIKA-COLOR);
     background-color: var(--GRAPHIKA-BG-COLOR);
 }
 
-span.google
+.source span.google, .filter-pill.source.google p
 {
     color: var(--GOOGLE-COLOR);
     background-color: var(--GOOGLE-BG-COLOR);
 }
 
-span.twitter
+.source span.twitter, .filter-pill.source.twitter p
 {
     color: var(--TWITTER-COLOR);
     background-color: var(--TWITTER-BG-COLOR);
 }
+
+.filter-pill.source
+{
+    padding: 0rem;
+    border-radius: 2rem;
+    background-color: transparent;
+}
+
+
+.filter-pill.source-type p, .filter-pill.removal-types p, .filter-pill.dates p, .filter-pill.screenshots p
+
+{
+    width: max-content;
+    padding: 2px 12px;
+    border-radius: 2rem;
+    margin-bottom: 5px;
+    background-color: rgba(217, 203, 189, 1);
+    color: black;
+}
+

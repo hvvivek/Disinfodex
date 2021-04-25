@@ -3,7 +3,7 @@ import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import moment from 'moment'
 import Modal from 'react-bootstrap/Modal'
-import Select from 'react-select'
+import Select, {components} from 'react-select'
 import {useAsyncDebounce} from "react-table"
 
 import "../assets/stylesheets/network_table_filters.css"
@@ -101,12 +101,12 @@ function SelectColumnFilter({
             ...provided,
             textOverflow: "ellipsis",
             maxWidth: "90%",
-            whiteSpace: "nowrap",
-            //   overflow: "hidden",
-            //   display: "initial",
-            flexWrap: "nowrap",
+            // whiteSpace: "nowrap",
+            // flexWrap: "nowrap",
+            flexWrap: "wrap",
             display: "block",
-            "overflowX": "scroll"
+            // "overflowX": "auto",
+            "overflowY":"auto"
         }),
         multiValue: (provided, state) => ({
             ...provided,
@@ -139,17 +139,26 @@ function SelectColumnFilter({
             ...provided,
             "display": "none"
         }),
-        control: (provided, state) => ({
+        option: (provided, state) => ({
             ...provided,
-            // "display": "block"
+            ":hover": {
+                backgroundColor: "#cccccc"
+            }
         })
     };
 
+    const customOption = (props) => {
+        return <components.Option {...props}>
+            <input type={"checkbox"} style={{"marginRight":"0.5rem"}} checked={props.isSelected}/> {props.data.label}
+        </components.Option>
+    }
     // Render a multi-select box
     return (
         <Select value={filterValue}
             isMulti={true}
             styles={customStyles}
+            hideSelectedOptions={false}
+            components = {{Option: customOption}}
             onChange={e => {
                 console.log(e)
                 setFilter(e || undefined)
@@ -207,10 +216,10 @@ function GlobalFilter({
   }
 
 function NetworkTableFilters({
-    headers
+    headers, tableInstance
 }) {
+    // console.log(tableInstance)
     return <div className="filters">
-
         {
             // Apply the header row props
             // Loop over the headers in each row
