@@ -42,6 +42,11 @@
 {
     width: 40%;
 }
+
+.NA
+{
+    margin-bottom: 5px;
+}
 /* For Tablet Screens and below */
 
 @media (max-width: 1024px) {

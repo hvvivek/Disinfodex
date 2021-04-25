@@ -10,6 +10,7 @@ function CellNamedEntities(props)
     if(named_entities.length > 2)
     {
         return <div className="named-entity">
+            
             <p><span className={"named-entity-tag"}>{named_entities[0].toUpperCase()}</span></p>
             {isExpanded? 
                 <>

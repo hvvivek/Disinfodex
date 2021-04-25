@@ -36,3 +36,24 @@ span.filter-pill.named-entities p
 {
     text-decoration: underline;
 }
+
+.card-body-cell.Named
+{
+    /* width: 90%; */
+}
+
+.card-body-cell.Named p
+{
+    width: 90%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 1024px)
+{
+    .card-body-cell.Named
+    {
+        flex: 1 0 90%;
+    }
+}

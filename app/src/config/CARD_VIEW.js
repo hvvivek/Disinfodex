@@ -3,6 +3,7 @@ import CellSource from "../components/CellRenderers/CellSource"
 import CellOriginCountry from "../components/CellRenderers/CellOriginCountry"
 import CellTargetCountry from "../components/CellRenderers/CellTargetCountry"
 import CellNamedEntities from "../components/CellRenderers/CellNamedEntities"
+import CellRemovalType from "../components/CellRenderers/CellRemovalType"
 import { BooleanColumnFilter, DateColumnFilter, SelectColumnFilter } from "../components/NetworkTableFilters"
 
 
@@ -26,7 +27,7 @@ const COLUMNS = [
         accessor        : "Removal Type",
         Filter          : SelectColumnFilter,
         filter          : 'inArray',
-        Cell            : props => { return <div>{props.value && props.value.toString()}</div> }
+        Cell            : CellRemovalType
     },
     {
         Header          : "Origin Countries",

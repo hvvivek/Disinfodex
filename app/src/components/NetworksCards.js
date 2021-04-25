@@ -60,7 +60,7 @@ function Table(props)
         () => COLUMNS, []
     )
 
-    const tableInstance = useTable({ columns, data , filterTypes, defaultColumn, initialState: { pageIndex: 0, pageSize:10, hiddenColumns: ["Source Type", "Policy Violations", "Screenshots"] },}, useGlobalFilter, useFilters,useSortBy, useFlexLayout, usePagination)
+    const tableInstance = useTable({ columns, data , filterTypes, defaultColumn, initialState: { pageIndex: 0, pageSize:25, hiddenColumns: ["Source Type", "Policy Violations", "Screenshots"] },}, useGlobalFilter, useFilters,useSortBy, useFlexLayout, usePagination)
     // console.log(tableInstance)
     const {
         getTableProps,
@@ -69,7 +69,6 @@ function Table(props)
         prepareRow,
 
         page,
-        // filteredRows,
         canPreviousPage,
         canNextPage,
         pageOptions,

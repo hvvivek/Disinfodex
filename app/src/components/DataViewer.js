@@ -126,7 +126,7 @@ function getFilters(tableInstance)
     }
 
     
-    return <div>{spans.length>0 && "Filtered to:"}{spans}{spans.length>0 && <a style={{color:"blue", "cursor":"pointer"}} onClick={() => tableInstance.setAllFilters(null_filters)}>Clear Filters</a>}</div>
+    return <div>{spans.length>0 && "Filtered to:"}{spans}{spans.length>0 && <p style={{color:"blue", "cursor":"pointer"}} onClick={() => tableInstance.setAllFilters(null_filters)}>Clear Filters</p>}</div>
   }
 }
 

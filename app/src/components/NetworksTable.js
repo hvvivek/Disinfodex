@@ -63,16 +63,8 @@ function NetworksTable(props)
           <a href="/how-to" style={{"marginTop":"1.5rem"}}>Learn more about how the data is reported</a>
         </div>
         <NetworkTableFilters {...{headers, tableInstance}}/>
-        {/* <div className="" style={{"display":"flex",  "justifyContent":"space-between", "marginBottom":"3rem", "alignItems":"center", "fontSize":"0.85rem"}}>
-          <p style={{"marginBottom":"0rem"}}><b>{filteredRows.length} Results</b> | Viewing {page.reduce(networkReducer, 0)} distinct networks across {page.reduce(disclosureReducer, 0)} disclosures</p>
-          <DownloadCSVButton {...tableInstance} />
-        </div> */}
         <DataViewer {...{tableInstance}}/>
-        {/* <NetworkSorter {...{id: "Dates", ...tableInstance}}/> */}
         <div {...getTableProps()} className="table">
-            {/* <colgroup>
-                {headerGroups.map(headerGroups => headerGroups.headers.map(column => <col className="col-1" span="1" style={{"width": "10%"}}/>))}
-            </colgroup> */}
             <div className="table-header" style={{"width":"auto"}}>
                 {// Loop over the header rows
                     headerGroups.map(headerGroup => (
@@ -94,7 +86,6 @@ function NetworksTable(props)
                                   : '↑'
                                 : ''}
                             </span>
-                            {/* <div>{column.canFilter ? column.render('Filter') : null}</div> */}
                             </div>
                             )
                           })}

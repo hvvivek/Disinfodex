@@ -44,7 +44,7 @@ function ScreenshotCarousel({row, card=null, openNetworkCard=null, isLogoShown=t
             >
             {row_screenshots.map(screenshot => <div key={screenshot} 
                                                     onClick={(e) => {card && openNetworkCard && openNetworkCard(card)}}
-                                                    style={{"display":"flex", "width":"auto", "height":"calc(360px - 2rem)", "justifyContent":"center"}}>
+                                                    style={{"display":"flex", "width":"auto", "height":"calc(400px - 2rem)", "justifyContent":"center"}}>
                 <img src={screenshot} style={{"height":"100%", "width":"auto"}} alt="screenshot"></img>
             </div>)}
         </Carousel>}
