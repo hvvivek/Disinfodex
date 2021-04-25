@@ -7,7 +7,7 @@ import DataContext from '../contexts/DataContext'
 
 function ScreenshotCarousel({row, card=null, openNetworkCard=null, isLogoShown=true})
 {
-    console.log(row)
+    // console.log(row)
     const {screenshots} = useContext(DataContext)
     let screenshot_ids = row["Screenshots"]
     let row_screenshots = []
