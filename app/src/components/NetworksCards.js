@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { useTable, usePagination, useFilters, useFlexLayout, useSortBy, useGlobalFilter } from 'react-table'
 
 import "../assets/stylesheets/networks_cards.css"
@@ -35,7 +35,7 @@ function Table(props)
 
     const [isModalOpen, setModelOpen] = useState(false)
     const [currentNetwork, setCurrentNetwork] = useState(null)
-
+  console.log(props.filters)
 
     const openNetworkCard = (row_data) => {
       // console.log(row_data)
@@ -47,43 +47,65 @@ function Table(props)
         () => props.networks, [props.networks]
     )
 
-    const defaultColumn = React.useMemo(
-        () => ({
-          Filter: DefaultColumnFilter,
-        }),
-        []
-      )
-
-      const filterTypes = React.useMemo(() => ({exists, betweenDates,inArray}),[])
+    // const defaultColumn = React.useMemo(
+    //     () => ({
+    //       Filter: DefaultColumnFilter,
+    //     }),
+    //     []
+    //   )
+      
+    const filterTypes = React.useMemo(() => ({exists, betweenDates,inArray}),[])
 
     const columns = React.useMemo(
         () => COLUMNS, []
     )
 
-    const tableInstance = useTable({ columns, data , filterTypes, defaultColumn, initialState: { pageIndex: 0, pageSize:25, hiddenColumns: ["Source Type", "Policy Violations", "Screenshots"] },}, useGlobalFilter, useFilters,useSortBy, useFlexLayout, usePagination)
+    const defaultFilters = React.useMemo(
+      () => props.filters, [props.filters]
+  )
+    
+  console.log("Default Filters", defaultFilters)
+    const tableInstance = useTable(
+      { 
+        columns, 
+        data , 
+        filterTypes, 
+        // defaultColumn, 
+        initialState: { 
+              pageIndex: 0, 
+              pageSize:25, 
+              hiddenColumns: ["Source Type", "Policy Violations", "Screenshots"], 
+              filters: defaultFilters
+            }
+      }, 
+      useGlobalFilter, 
+      useFilters,
+      useSortBy, 
+      useFlexLayout, 
+      usePagination)
+
+    
     // console.log(tableInstance)
     const {
         getTableProps,
         getTableBodyProps,
-        headers,
         prepareRow,
-
+        headers,
         page,
-        canPreviousPage,
-        canNextPage,
-        pageOptions,
-        pageCount,
-        gotoPage,
-        nextPage,
-        previousPage,
-        setPageSize,
         state: { pageIndex, pageSize },
-
-        // visibleColumns,
-
       } = tableInstance
-
+    
+      console.log("Instance Filters", tableInstance.state.filters)
+      useEffect(() => {
+        if(tableInstance.state.filters.length > 0 )
+        {
+          console.log(tableInstance.state.filters)
+          props.setFilters(tableInstance.state.filters)
+        }
+      })
     const {screenshots} = useContext(DataContext)
+
+    
 
     return (
         <>
@@ -137,18 +159,7 @@ function Table(props)
                 <NetworkCard {...currentNetwork}/>
           </Modal.Body>
         </Modal> */}
-        <NetworkTablePagination {...{
-          pageSize,
-          pageCount,
-          canPreviousPage,
-          canNextPage,
-          previousPage,
-          nextPage,
-          gotoPage,
-          pageOptions,
-          pageIndex,
-          setPageSize
-        }}
+        <NetworkTablePagination {...{...tableInstance, pageIndex, pageSize}}
         />
         </>
     )

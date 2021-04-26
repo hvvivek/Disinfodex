@@ -35,7 +35,7 @@ const COLUMNS = [
             disableFilters  : true,
             disableSortBy   : true,
             width           : widths["Name"],
-            minWidth           : minWidths["Name"],
+            minWidth        : minWidths["Name"],
             
         },
         {
@@ -45,7 +45,7 @@ const COLUMNS = [
             filter          : 'betweenDates',
             Cell            : CellDisclosureDate,
             width           : widths["Dates"],
-            minWidth           : minWidths["Dates"]
+            minWidth        : minWidths["Dates"]
         },
         {
             Header          : "Source",
@@ -55,7 +55,7 @@ const COLUMNS = [
             Cell            : CellSource,
             disableSortBy   : true,
             width           : widths["Company Unique"],
-            minWidth           : minWidths["Company Unique"]
+            minWidth        : minWidths["Company Unique"]
 
         },
         {
@@ -66,7 +66,7 @@ const COLUMNS = [
             Cell            : props => { return <div>{props.value && props.value.toString()}</div> },
             disableSortBy   : true,
             width           : widths["Removal Type"],
-            minWidth           : minWidths["Removal Type"]
+            minWidth        : minWidths["Removal Type"]
 
         },
         {
@@ -77,7 +77,7 @@ const COLUMNS = [
             Cell            : CellNamedEntities,
             disableSortBy   : true,
             width           : widths["Named Entities"],
-            minWidth           : minWidths["Named Entities"]
+            minWidth        : minWidths["Named Entities"]
 
         },
         {
@@ -88,7 +88,7 @@ const COLUMNS = [
             Cell            : CellOriginCountry,
             disableSortBy   : true,
             width           : widths["Origin Countries Tagged"],
-            minWidth           : minWidths["Origin Countries Tagged"]
+            minWidth        : minWidths["Origin Countries Tagged"]
 
         },
         {
@@ -99,7 +99,7 @@ const COLUMNS = [
             Cell            : CellTargetCountry,
             disableSortBy   : true,
             width           : widths["Target Countries Tagged"],
-            minWidth           : minWidths["Target Countries Tagged"]
+            minWidth        : minWidths["Target Countries Tagged"]
 
         },
         {

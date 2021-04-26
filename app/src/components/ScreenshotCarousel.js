@@ -7,7 +7,6 @@ import DataContext from '../contexts/DataContext'
 
 function ScreenshotCarousel({row, card=null, openNetworkCard=null, isLogoShown=true})
 {
-    // console.log(row)
     const {screenshots} = useContext(DataContext)
     let screenshot_ids = row["Screenshots"]
     let row_screenshots = []
@@ -24,14 +23,12 @@ function ScreenshotCarousel({row, card=null, openNetworkCard=null, isLogoShown=t
                 company_logos.push(logo[0].src)
             }
         }
-        console.log(company_logos)
         
     }
 
     if(screenshot_ids && screenshot_ids.length > 0)
     {
         row_screenshots = screenshot_ids.map(id => screenshots.filter(screenshot => screenshot.sync_id === id)[0].SCREENSHOT)
-        // console.log(row_screenshots)
 
     }
      

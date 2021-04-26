@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTable, usePagination, useFilters, useSortBy, useGlobalFilter, useResizeColumns, useBlockLayout } from 'react-table'
 import {NetworkTableFilters, GlobalFilter, exists, betweenDates, inArray} from './NetworkTableFilters'
 import NetworkTablePagination from './NetworkTablePagination'
@@ -25,7 +25,11 @@ function NetworksTable(props)
       setModelOpen(true)
     }
 
-    
+    const defaultFilters = React.useMemo(
+      () => props.filters, [props.filters]
+  )
+  console.log("Default Filters", defaultFilters)
+
     const tableInstance = useTable(
       {
         columns, 
@@ -35,7 +39,8 @@ function NetworksTable(props)
           { 
             pageIndex : 0, 
             pageSize : 25, 
-            hiddenColumns: ["Source Type", "Policy Violations", "Screenshots"] 
+            hiddenColumns: ["Source Type", "Policy Violations", "Screenshots"],
+            filters: defaultFilters
           }
       }, 
       useGlobalFilter,
@@ -55,7 +60,17 @@ function NetworksTable(props)
         page,
         state: { pageIndex, pageSize },
       } = tableInstance
+      console.log("Instance Filters", tableInstance.state.filters)
 
+    
+    useEffect(() => {
+      if(tableInstance.state.filters.length > 0 )
+        {
+          console.log(tableInstance.state.filters)
+          props.setFilters(tableInstance.state.filters)
+        }
+      // props.setFilters(tableInstance.state.filters)
+    })
 
     return (
         <>

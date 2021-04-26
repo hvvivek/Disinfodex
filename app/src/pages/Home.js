@@ -20,8 +20,8 @@ const override = css`
 function Home(props)
 {
     const [mode, setMode] = useState("table")
+    const [filters, setFilters] = useState([])
     let data = useContext(DataContext)
-    console.log(data)
 
     return <div className="flex-container" style={{"flexDirection":"column"}}>
             <Header {...{active: "database"}}/>
@@ -40,10 +40,10 @@ function Home(props)
                 }
 
                 {data.networks && data.networks.length > 0 && mode === "table" &&                
-                <NetworksTable {...props.data}></NetworksTable>}
+                <NetworksTable {...{...props.data, filters, setFilters}}></NetworksTable>}
 
                 {data.networks && data.networks.length > 0 && mode === "cards" &&                
-                <NetworksCards {...props.data}></NetworksCards>}
+                <NetworksCards {...{...props.data, filters, setFilters}}></NetworksCards>}
             </div>
 
             <Footer {...{active: "database"}}/>
