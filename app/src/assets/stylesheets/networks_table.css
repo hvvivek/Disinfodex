@@ -1,22 +1,36 @@
-/* td, th
-{
-    max-width: 100px;
-    overflow-x: hidden;
-    overflow-y: hidden;
-} */
+.resizer {
+    display: inline-block;
+    background: rgba(217, 203, 189, 0.3);
+    width: 3px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    /* transform: translateX(50%); */
+    z-index: 1;
+}
 
-
+.isResizing {
+    background: rgba(217, 203, 189, 1);
+  }
+  
 .table-header
 {
     /* display: flex; */
 }
 
+.table
+{
+    overflow-x: auto;
+    border-right: 1px solid #cecece;
+}
+
 .table-body
 {
     /* display: flex; */
-    overflow-x: hidden;
-    overflow-y: scroll;
-    border-right: 1px solid #cecece;
+    /* overflow-x: hidden;
+    overflow-y: scroll; */
+    /* border-right: 1px solid #cecece; */
     border-bottom: 1px solid #cecece;
 }
 
@@ -27,7 +41,7 @@
     font-size: 13px;
     overflow-x: auto;
     padding: 0.5rem;
-    /* width: unset !important; */
+    /* width: unset ; */
 }
 
 .table-header-row>div
@@ -76,41 +90,41 @@
 {
     display: inline-block;
 }
-
+/* 
 .table-body-cell.Network, .table-header-cell.Network
 {
-    width: 10% !important
+    min-width: 10% 
 }
 
 .table-body-cell.Disclosure, .table-header-cell.Disclosure
 {
-    width: 10% !important
+    min-width: 10% 
 }
 
 .table-body-cell.Source, .table-header-cell.Source
 {
-    width: 13% !important
+    min-width: 13%
 }
 
 .table-body-cell.Removal, .table-header-cell.Removal
 {
-    width: 15% !important
+    min-width: 15% 
 }
 
 .table-body-cell.Named, .table-header-cell.Named
 {
-    width: 22% !important
+    min-width: 22% 
 }
 
 .table-body-cell.Origin, .table-header-cell.Origin
 {
-    width: 15% !important
+    min-width: 15% 
 }
 
 .table-body-cell.Target, .table-header-cell.Target
 {
-    width: 15% !important
-}
+    min-width: 15% 
+} */
 
 
 
@@ -138,44 +152,44 @@
 
     .table-body-cell.Network, .table-header-cell.Network
     {
-        width: 120px !important;
-        /* width: 10% !important */
+        width: 120px ;
+        /* width: 10%  */
     }
     
     .table-body-cell.Disclosure, .table-header-cell.Disclosure
     {
-        width: 120px !important;
-        /* width: 10% !important */
+        width: 120px ;
+        /* width: 10%  */
     }
     
     .table-body-cell.Source, .table-header-cell.Source
     {
-        width: 200px !important;
-        /* width: 13% !important */
+        width: 200px ;
+        /* width: 13%  */
     }
     
     .table-body-cell.Removal, .table-header-cell.Removal
     {
-        width: 250px !important;
-        /* width: 15% !important */
+        width: 250px ;
+        /* width: 15%  */
     }
     
     .table-body-cell.Named, .table-header-cell.Named
     {
-        width: 300px !important;
-        /* width: 22% !important */
+        width: 300px ;
+        /* width: 22%  */
     }
     
     .table-body-cell.Origin, .table-header-cell.Origin
     {
-        width: 150px !important;
-        /* width: 15% !important */
+        width: 150px ;
+        /* width: 15%  */
     }
     
     .table-body-cell.Target, .table-header-cell.Target
     {
-        width: 150px !important;
-        /* width: 15% !important */
+        width: 150px ;
+        /* width: 15%  */
     }
 
    
