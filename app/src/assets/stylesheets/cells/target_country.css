@@ -10,6 +10,7 @@
     border-radius: 2rem;
     margin-left: 0.25rem;
     width: fit-content;
+    cursor: pointer
 }
 
 .target-country p.link

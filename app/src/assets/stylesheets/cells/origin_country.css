@@ -4,6 +4,7 @@
     margin-top: 0rem;
     margin-bottom: 5px;
     font-family: 'Roboto Mono';
+    cursor: pointer;
     padding: 2px 12px;
     background-color: rgba(0, 55, 255, 0.2);
     color: #0038FF;

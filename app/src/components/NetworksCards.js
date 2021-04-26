@@ -12,24 +12,6 @@ import ScreenshotCarousel from './ScreenshotCarousel'
 import COLUMNS from '../config/CARD_VIEW'
 import DataViewer from "./DataViewer"
 
-// Define a default UI for filtering
-function DefaultColumnFilter({
-    column: { filterValue, preFilteredRows, setFilter },
-  }) {
-    const count = preFilteredRows.length
-  
-    return (
-        // <></>
-      <input
-        value={filterValue || ''}
-        onChange={e => {
-          setFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
-        }}
-        placeholder={`Search ${count} records...`}
-      />
-    )
-  }
-
 function Table(props)
 {
 
@@ -46,13 +28,6 @@ function Table(props)
     const data = React.useMemo(
         () => props.networks, [props.networks]
     )
-
-    // const defaultColumn = React.useMemo(
-    //     () => ({
-    //       Filter: DefaultColumnFilter,
-    //     }),
-    //     []
-    //   )
       
     const filterTypes = React.useMemo(() => ({exists, betweenDates,inArray}),[])
 
@@ -63,7 +38,7 @@ function Table(props)
     const defaultFilters = React.useMemo(
       () => props.filters, [props.filters]
   )
-    
+  
   console.log("Default Filters", defaultFilters)
     const tableInstance = useTable(
       { 

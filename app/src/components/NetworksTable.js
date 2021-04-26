@@ -60,6 +60,7 @@ function NetworksTable(props)
         page,
         state: { pageIndex, pageSize },
       } = tableInstance
+      
       console.log("Instance Filters", tableInstance.state.filters)
 
     

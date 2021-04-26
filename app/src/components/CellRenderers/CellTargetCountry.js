@@ -1,4 +1,6 @@
 import { useState } from "react"
+import {setFilter} from "../NetworkTableFilters"
+
 import "../../assets/stylesheets/cells/target_country.css"
 function CellTargetCountry(props)
 {
@@ -11,7 +13,9 @@ function CellTargetCountry(props)
         return <div className="target-country">
             {isExpanded? 
                 <>
-                {countries.map((country, i) => <p key={i}>{country.toUpperCase()}</p>)}
+                {countries.map((country, i) => <p key={i}
+                                onClick={(e) => {e.stopPropagation(); setFilter({props, value: country})}}
+                                >{country.toUpperCase()}</p>)}
                 <p className="link" onClick={(e) => {e.stopPropagation(); e.preventDefault(); expand(false)}}>SHOW LESS</p>
                 </>
                 :<><p>{countries[0].toUpperCase()}</p><p className="link" onClick={(e) => {e.stopPropagation(); e.preventDefault(); expand(true)}}>+ {countries.length - 1} MORE</p></>
@@ -22,7 +26,9 @@ function CellTargetCountry(props)
     else
     {
         return <div className="target-country">
-            {countries.map((country, i) => <p key={i}>{country.toUpperCase()}</p>)}
+            {countries.map((country, i) => <p key={i}
+                                onClick={(e) => {e.stopPropagation(); setFilter({props, value: country})}}
+                                >{country.toUpperCase()}</p>)}
         </div>
     }
     }

@@ -301,6 +301,22 @@ function inArray(rows, id, filterValue)
       })
 }
 
+
+function setFilter({props, value})
+{
+    let columnFilter = props.state.filters.filter(column => column.id === props.column.id)[0]
+
+    if(columnFilter)
+    {
+        let values = columnFilter.value
+        values.push({value: value, label: value})
+        props.setFilter(props.column.id, values)
+    }
+    else{
+        props.setFilter(props.column.id, [{value: value, label: value}])
+    }
+}
+
 export {
     NetworkTableFilters,
     DateColumnFilter,
@@ -309,5 +325,6 @@ export {
     GlobalFilter,
     exists,
     betweenDates,
-    inArray
+    inArray,
+    setFilter
 }
