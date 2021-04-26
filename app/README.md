@@ -33,7 +33,7 @@ Each field in the card at most needs the following fields:
 | Cell            | React Component | Optional - This is a custom react component used to display the value,         |
 | isVisible       | Boolean         | Optional - Can be used to hide a field from the card. Hidden fields can still be used to filter |
 
-c. Source
+### c. Source
 
 When a new source is added, they do not need to be individually configured unless:
 - The source is a OSI
