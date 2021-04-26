@@ -95,9 +95,10 @@ function getFilters(tableInstance)
 
           for(let i=0; i<filter.value.length; i++)
           {
-            spans.push(<span
+            spans.push(<span key={i}
               
-               className={"filter-pill " + filter_header.toLowerCase().split(" ").join("-") + " " + filter.value[i].label.toLowerCase()}><p>{filter_header}: {filter.value[i].label}
+               className={"filter-pill " + filter_header.toLowerCase().split(" ").join("-") + " " + filter.value[i].label.toLowerCase()}>
+                 <p>{filter_header}: {filter.value[i].label}
                <i 
                onClick={(e) => {removeSelectOption(filter.id, filter.value, filter.value[i].label, tableInstance)}}
                className={"fas fa-times"} style={{"padding":"0.3rem", "borderRadius":"2rem", "fontSize":"0.7rem", "marginLeft":"1rem", "cursor":"pointer"}}></i>

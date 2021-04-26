@@ -28,7 +28,7 @@ function NetworksTable(props)
     const defaultFilters = React.useMemo(
       () => props.filters, [props.filters]
   )
-  console.log("Default Filters", defaultFilters)
+  // console.log("Default Filters", defaultFilters)
 
     const tableInstance = useTable(
       {
@@ -61,7 +61,7 @@ function NetworksTable(props)
         state: { pageIndex, pageSize },
       } = tableInstance
       
-      console.log("Instance Filters", tableInstance.state.filters)
+      // console.log("Instance Filters", tableInstance.state.filters)
 
     
     useEffect(() => {

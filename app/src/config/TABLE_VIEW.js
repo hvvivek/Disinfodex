@@ -7,9 +7,10 @@ import { BooleanColumnFilter, DateColumnFilter, SelectColumnFilter } from "../co
 
 
 const widths = {
+    "Serial Number"             :0.02 * 0.9 * window.innerWidth,
     "Name"                      :0.10 * 0.9 * window.innerWidth,
     "Dates"                     :0.10 * 0.9 * window.innerWidth,
-    "Company Unique"            :0.13 * 0.9 * window.innerWidth,
+    "Company Unique"            :0.11 * 0.9 * window.innerWidth,
     "Removal Type"              :0.15 * 0.9 * window.innerWidth,
     "Named Entities"            :0.22 * 0.9 * window.innerWidth,
     "Origin Countries Tagged"   :0.15 * 0.9 * window.innerWidth,
@@ -17,6 +18,7 @@ const widths = {
 }
 
 const minWidths = {
+    "Serial Number"             :50,
     "Name"                      :150,
     "Dates"                     :150,
     "Company Unique"            :200,
@@ -28,6 +30,18 @@ const minWidths = {
 
 
 const COLUMNS = [
+        {
+            Header          : "",
+            // accessor        : "",
+            id              : "serial_number",
+            className       : 'network',
+            disableFilters  : true,
+            disableSortBy   : true,
+            width           : widths["Serial Number"],
+            minWidth        : minWidths["Serial Number"],
+            Cell            : (props) => {return <div>{props.rows.indexOf(props["row"]) + 1}</div>}
+            
+        },
         {
             Header          : "Network",
             accessor        : "Name",
