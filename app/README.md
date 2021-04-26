@@ -42,3 +42,5 @@ When a new source is added, they do not need to be individually configured unles
 To update the logos, upload a new image into the logos folder under assets - [Link](https://github.com/hvvivek/Disinfodex/tree/master/app/src/assets/images/source_logos). And then update the logos config [here](https://github.com/hvvivek/Disinfodex/blob/master/app/src/config/COMPANY_LOGOS.js)
 
 To update the OSIs, head over [here](https://github.com/hvvivek/Disinfodex/blob/master/app/src/config/SOURCE_TYPES.js) to add a new source as a OSI 
+
+To update the colors for the sources, add a new CSS variable in [Root CSS File](https://github.com/hvvivek/Disinfodex/blob/master/app/src/assets/stylesheets/style.css). Once the variable has been created, you can assign them to the pills in the [Source CSS File](https://github.com/hvvivek/Disinfodex/blob/master/app/src/assets/stylesheets/cells/source.css). You can see examples for facebook, twitter etc in that file. 
