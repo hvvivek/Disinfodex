@@ -37,6 +37,11 @@
     width: calc(90%);
 }
 
+.flex-6
+{
+    width: calc(60%);
+}
+
 
 .search-bar
 {
@@ -46,6 +51,22 @@
 .NA
 {
     margin-bottom: 5px;
+}
+
+.permalink
+{
+    color: #0038FF;
+    opacity: 0.5;
+}
+
+.permalink:active
+{
+    transform: scale(0.9);
+}
+
+.permalink:hover
+{
+    opacity: 1;
 }
 /* For Tablet Screens and below */
 

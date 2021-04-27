@@ -3,6 +3,8 @@ import CellSource from "../components/CellRenderers/CellSource"
 import CellNamedEntities from "../components/CellRenderers/CellNamedEntities"
 import CellOriginCountry from "../components/CellRenderers/CellOriginCountry"
 import CellTargetCountry from "../components/CellRenderers/CellTargetCountry"
+import CellNetwork from "../components/CellRenderers/CellNetwork"
+
 import { BooleanColumnFilter, DateColumnFilter, SelectColumnFilter } from "../components/NetworkTableFilters"
 
 
@@ -50,6 +52,7 @@ const COLUMNS = [
             disableSortBy   : true,
             width           : widths["Name"],
             minWidth        : minWidths["Name"],
+            Cell            : CellNetwork
             
         },
         {

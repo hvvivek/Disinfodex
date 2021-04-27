@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { useTable, usePagination, useFilters, useSortBy, useGlobalFilter, useResizeColumns, useBlockLayout } from 'react-table'
 import {NetworkTableFilters, GlobalFilter, exists, betweenDates, inArray} from './NetworkTableFilters'
 import NetworkTablePagination from './NetworkTablePagination'
-import { Modal } from 'react-bootstrap'
-import NetworkCard from './NetworkCard'
 import COLUMNS from "../config/TABLE_VIEW"
 import DataViewer from "./DataViewer"
+import NetworkCardModal from "./NetworkCardModal"
 import "../assets/stylesheets/networks_table.css"
 
 function NetworksTable(props)
@@ -135,7 +134,7 @@ function NetworksTable(props)
                 // console.log(row.getRowProps())
                 return (
                     // Apply the row props
-                    <div {...{...row.getRowProps(), style: {"width":"max-content", "display":"flex"}}} className="table-body-row" onClick={() => openNetworkCard(row.original)}>
+                    <div {...{...row.getRowProps(), style: {"width":"max-content", "display":"flex"}}} className="table-body-row" onClick={() => openNetworkCard(row)}>
                     {// Loop over the rows cells
                     row.cells.map(cell => {
                         // Apply the cell props
@@ -162,19 +161,6 @@ function NetworksTable(props)
         />
         </>
     )
-}
-
-function NetworkCardModal(props)
-{
-    let {isModalOpen, setModelOpen, currentNetwork} = props
-      return <Modal animation={false} show={isModalOpen} size="lg" onHide={()=>setModelOpen(false)} className="network-card">
-          <Modal.Header closeButton>
-            <h1>Network {currentNetwork.Name}</h1>
-          </Modal.Header>
-          <Modal.Body>
-                <NetworkCard {...currentNetwork}/>
-          </Modal.Body>
-        </Modal>
 }
 
 export default NetworksTable

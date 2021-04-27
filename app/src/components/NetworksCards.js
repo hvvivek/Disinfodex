@@ -5,13 +5,11 @@ import "../assets/stylesheets/networks_cards.css"
 
 import {NetworkTableFilters, GlobalFilter, exists, betweenDates, inArray} from './NetworkTableFilters'
 import NetworkTablePagination from './NetworkTablePagination'
-import { Modal } from 'react-bootstrap'
-import NetworkCard from './NetworkCard'
 import DataContext from '../contexts/DataContext'
 import ScreenshotCarousel from './ScreenshotCarousel'
 import COLUMNS from '../config/CARD_VIEW'
 import DataViewer from "./DataViewer"
-
+import NetworkCardModal from "./NetworkCardModal"
 function Table(props)
 {
 
@@ -140,17 +138,5 @@ function Table(props)
     )
 }
 
-function NetworkCardModal(props)
-{
-    let {isModalOpen, setModelOpen, currentNetwork} = props
-      return <Modal animation={false} show={isModalOpen} size="lg" onHide={()=>setModelOpen(false)} className="network-card">
-          <Modal.Header closeButton>
-            <h1>Network {currentNetwork.original.Name}</h1>
-          </Modal.Header>
-          <Modal.Body>
-                <NetworkCard {...{...currentNetwork.original}}/>
-          </Modal.Body>
-        </Modal>
-}
 
 export default Table

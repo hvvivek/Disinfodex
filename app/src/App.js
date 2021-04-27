@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom' 
+import {BrowserRouter as Router, Switch, Route, useParams} from 'react-router-dom' 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 
@@ -13,6 +13,14 @@ import {getAllDisclosures} from "./helpers/disclosures.js"
 import {getAllScreenshots} from "./helpers/assets.js"
 
 import DataContext from './contexts/DataContext.js'
+import Network from './pages/Network';
+
+function NetworkPage()
+{
+  let {id} = useParams();
+  console.log(id)
+  return <Network {...{id}}></Network>
+}
 class App extends React.Component{
   
   constructor()
@@ -48,24 +56,34 @@ class App extends React.Component{
       "disclosures": this.state.disclosures, 
     }
 
+    
+
     // console.log(data)
 
     return (
+      <DataContext.Provider value={data}>
+
         <Router>
           <Switch>
             <Route path="/about">
               <About></About>
             </Route>
+
             <Route path="/how-to">
               <HowItWorks></HowItWorks>
             </Route>
-            <Route path="/">
-              <DataContext.Provider value={data}>
-                <Home data={data}></Home>
-              </DataContext.Provider>
+
+            <Route path="/:id" children={<NetworkPage></NetworkPage>}>
             </Route>
+
+            <Route path="/">
+                <Home data={data}></Home>
+            </Route>
+
+            
           </Switch>
         </Router>
+        </DataContext.Provider>
       );
   }
 }

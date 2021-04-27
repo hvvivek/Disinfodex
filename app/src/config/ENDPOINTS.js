@@ -1,0 +1,6 @@
+let {REACT_APP_FRONTEND_URI} = process.env
+const FRONTEND_ENDPOINT = REACT_APP_FRONTEND_URI
+
+export {
+    FRONTEND_ENDPOINT
+}
