@@ -5,3 +5,8 @@
     margin-top: 5px;
     font-family: 'Roboto Mono';
 }
+
+.data-viewer-text p
+{
+    font-size: 0.95rem;
+}

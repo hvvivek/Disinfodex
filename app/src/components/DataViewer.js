@@ -143,8 +143,8 @@ function DataViewer(props)
 
 
     return(
-        <div className="" style={{"display":"flex",  "justifyContent":"space-between", "marginBottom":"3rem", "alignItems":"center", "fontSize":"0.85rem"}}>
-          <div>
+        <div className="" style={{"display":"flex",  "justifyContent":"space-between", "marginBottom":"3rem", "alignItems":"center", "marginTop":"1rem"}}>
+          <div className={"data-viewer-text"}>
             <p style={{"marginBottom":"0rem"}}><b>{filteredRows.length} Results</b> | Viewing {filteredRows.reduce(networkReducer, 0)} distinct networks across {filteredRows.reduce(disclosureReducer, 0)} disclosures</p>
             {<p>{getFilters(tableInstance)}</p>}
             <NetworkSorter {...{id: "Dates", ...tableInstance}}/>
