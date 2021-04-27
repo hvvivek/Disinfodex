@@ -18,7 +18,6 @@ import Network from './pages/Network';
 function NetworkPage()
 {
   let {id} = useParams();
-  console.log(id)
   return <Network {...{id}}></Network>
 }
 class App extends React.Component{
@@ -35,8 +34,6 @@ class App extends React.Component{
 
   async componentDidMount()
   {
-    // console.log("Downloading Data")
-    // getAllNetworks()
     let networks = await getAllNetworks()
     let screenshots = await getAllScreenshots()
     let disclosures = await getAllDisclosures()
@@ -57,8 +54,6 @@ class App extends React.Component{
     }
 
     
-
-    // console.log(data)
 
     return (
       <DataContext.Provider value={data}>

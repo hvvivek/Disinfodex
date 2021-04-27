@@ -10,11 +10,8 @@ import { Zoom } from 'react-toastify';
 
 function Network(props)
 {
-    console.log(props.id)
     const {networks} = useContext(DataContext)
-    console.log(networks)
     let network_data = networks.filter(network => network._id === props.id)[0]
-    console.log(network_data)
     if(network_data)
     {
         return <>

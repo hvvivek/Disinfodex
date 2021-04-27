@@ -76,7 +76,7 @@ function BooleanColumnFilter({ column: { filterValue, setFilter, preFilteredRows
     return (
         <div>
             <label htmlFor="screenshots">CONTAINS SCREENSHOTS &nbsp;</label>
-            <input id="screenshots" onChange={(e) => { console.log(e.target.checked); setFilter(e.target.checked) }} checked={filterValue} type="checkbox"></input>
+            <input id="screenshots" onChange={(e) => { setFilter(e.target.checked) }} checked={filterValue} type="checkbox"></input>
         </div>
     )
 }
@@ -160,7 +160,6 @@ function SelectColumnFilter({
             hideSelectedOptions={false}
             components = {{Option: customOption}}
             onChange={e => {
-                console.log(e)
                 setFilter(e || undefined)
             }}
             options={select_options}>
@@ -218,7 +217,6 @@ function GlobalFilter({
 function NetworkTableFilters({
     headers, tableInstance
 }) {
-    // console.log(tableInstance)
     return <div className="filters">
         {
             // Apply the header row props

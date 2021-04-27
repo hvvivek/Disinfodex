@@ -34,11 +34,6 @@ function DisclosureCard(props)
     {
         logo = COMPANY
     }
-
-    // console.log(COMPANY)
-    // console.log(COMPANY_LOGOS)
-
-    // console.log(company_logo)
     
 
     return (

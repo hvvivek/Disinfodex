@@ -19,7 +19,6 @@ function StackDisclosures(disclosures)
         let disclosure = disclosures[i]
         if(disclosure["REMOVAL_TYPE"])
         {
-            // console.log(disclosure)
             if(disclosure["REMOVAL_NUMBER"])
             {
                 REMOVAL_TYPES.push(<p key={Math.random()} style={{"marginBottom":"0px"}}><b>{disclosure["REMOVAL_NUMBER"]}</b> {disclosure["REMOVAL_TYPE"]}</p>)
@@ -62,9 +61,6 @@ function StackDisclosures(disclosures)
 function NetworkCard(props)
 {
     const value = useContext(DataContext)
-
-    console.log(props)
-
     let {
         'Dates': DISCLOSURE_DATES,
         'Origin Countries Tagged': ORIGIN_COUNTRIES,
@@ -82,14 +78,12 @@ function NetworkCard(props)
     {
         let platform_report = PLATFORM_REPORTS[i]
         platform_report = value.disclosures.filter((report) => report.sync_id === platform_report)[0]
-        // console.log(platform_report)
 
         let disclosure_id = platform_report["RECORD_ID"].split("-").slice(0, -1).join("-")
 
         if(disclosure_id in disclosures)
         {
             disclosures[disclosure_id] = [platform_report, ...disclosures[disclosure_id]]
-            // console.log(disclosures)
         } 
         else
         {
@@ -97,17 +91,14 @@ function NetworkCard(props)
         }
     }
     let disclosure_ids = Object.keys(disclosures)
-    // console.log(disclosure_ids)
 
     PLATFORM_REPORTS = []
     for(let i=0; i<disclosure_ids.length; i++)
     {
         let reports = disclosures[disclosure_ids[i]]
-        // console.log(reports)
 
         if(reports.length > 1)
         {
-            // console.log(StackDisclosures(reports))
             PLATFORM_REPORTS.push([StackDisclosures(reports)])
         }
         else
@@ -116,14 +107,10 @@ function NetworkCard(props)
         }
     }
 
-    // console.log(PLATFORM_REPORTS)
 
 
     return(
         <div>
-            {/* <div>
-                <h2>Network {NETWORK_ID}</h2>
-            </div> */}
             <div>
                 <ScreenshotCarousel {...{row: props, isLogoShown: false}}/>
             </div>

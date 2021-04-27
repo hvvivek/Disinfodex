@@ -15,10 +15,8 @@ function Table(props)
 
     const [isModalOpen, setModelOpen] = useState(false)
     const [currentNetwork, setCurrentNetwork] = useState(null)
-  console.log(props.filters)
 
     const openNetworkCard = (row_data) => {
-      // console.log(row_data)
       setCurrentNetwork(row_data)
       setModelOpen(true)
     }
@@ -37,7 +35,6 @@ function Table(props)
       () => props.filters, [props.filters]
   )
   
-  console.log("Default Filters", defaultFilters)
     const tableInstance = useTable(
       { 
         columns, 
@@ -58,7 +55,6 @@ function Table(props)
       usePagination)
 
     
-    // console.log(tableInstance)
     const {
         getTableProps,
         getTableBodyProps,
@@ -68,11 +64,9 @@ function Table(props)
         state: { pageIndex, pageSize },
       } = tableInstance
     
-      console.log("Instance Filters", tableInstance.state.filters)
       useEffect(() => {
         if(tableInstance.state.filters.length > 0 )
         {
-          console.log(tableInstance.state.filters)
           props.setFilters(tableInstance.state.filters)
         }
       })
@@ -109,7 +103,6 @@ function Table(props)
                           // Apply the cell props
                           return (
                           <div key={Math.random()} className={"card-body-cell " + cell.column.Header}>
-                            {/* {console.log(cell)} */}
                               <p className="sub-title">{cell.render('Header').toUpperCase()}</p>
                               {// Render the cell contents
                               cell.render('Cell')}

@@ -27,7 +27,6 @@ function NetworksTable(props)
     const defaultFilters = React.useMemo(
       () => props.filters, [props.filters]
   )
-  // console.log("Default Filters", defaultFilters)
 
     const tableInstance = useTable(
       {
@@ -60,16 +59,13 @@ function NetworksTable(props)
         state: { pageIndex, pageSize },
       } = tableInstance
       
-      // console.log("Instance Filters", tableInstance.state.filters)
 
     
     useEffect(() => {
       if(tableInstance.state.filters.length > 0 )
         {
-          console.log(tableInstance.state.filters)
           props.setFilters(tableInstance.state.filters)
         }
-      // props.setFilters(tableInstance.state.filters)
     })
 
     return (
@@ -88,18 +84,10 @@ function NetworksTable(props)
                         <div {...{...headerGroup.getHeaderGroupProps(), style: {"width":"max-content", "display":"flex"}}} className="table-header-row">
                         {// Loop over the headers in each row
                         headerGroup.headers.map(column => {
-                          // let width = column.getHeaderProps(column.getSortByToggleProps()).style.width
-                          
-                          // console.log(column.getHeaderProps(column.getSortByToggleProps()))
                           let headerProps = column.getHeaderProps(column.getSortByToggleProps())
                           let propWidth = headerProps.style.width
                           let width = propWidth
 
-                          // let width = widths[headerProps.key.split("_").pop()] * 0.9 * window.innerWidth
-                          // console.log(width)
-                          // console.log(widths)
-                          // console.log(0.9* window.innerWidth)
-                          // console.log(headerProps)
 
                           return (
                             // Apply the header cell props
@@ -131,14 +119,12 @@ function NetworksTable(props)
                 page.map(row => {
                 // Prepare the row for display
                 prepareRow(row)
-                // console.log(row.getRowProps())
                 return (
                     // Apply the row props
                     <div {...{...row.getRowProps(), style: {"width":"max-content", "display":"flex"}}} className="table-body-row" onClick={() => openNetworkCard(row)}>
                     {// Loop over the rows cells
                     row.cells.map(cell => {
                         // Apply the cell props
-                        // console.log({...cell.getCellProps(), style: {"width":"xx"}})
                         // let width = cell.getCellProps().style.width
                         let cellProps = cell.getCellProps()
                         let propWidth = cellProps.style.width
