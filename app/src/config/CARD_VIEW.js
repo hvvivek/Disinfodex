@@ -24,7 +24,7 @@ const COLUMNS = [
     },
     {
         Header          : "Removal Types",
-        accessor        : "Removal Type",
+        accessor        : "Removal Type Unique",
         Filter          : SelectColumnFilter,
         filter          : 'inArray',
         Cell            : CellRemovalType

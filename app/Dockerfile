@@ -14,8 +14,8 @@ COPY . ./
 RUN yarn
 ARG REACT_APP_BACKEND_URI=https://disinfodex-backend-production-e2kyhghera-ue.a.run.app
 ENV REACT_APP_BACKEND_URI https://disinfodex-backend-production-e2kyhghera-ue.a.run.app
-ARG REACT_APP_FRONTEND_URI=https://disinfodex-new-frontend-production-e2kyhghera-ue.a.run.app/
-ENV REACT_APP_FRONTEND_URI https://disinfodex-new-frontend-production-e2kyhghera-ue.a.run.app/
+ARG REACT_APP_FRONTEND_URI=https://disinfodex-new-frontend-production-e2kyhghera-ue.a.run.app
+ENV REACT_APP_FRONTEND_URI https://disinfodex-new-frontend-production-e2kyhghera-ue.a.run.app
 RUN yarn build
 
 # server environment

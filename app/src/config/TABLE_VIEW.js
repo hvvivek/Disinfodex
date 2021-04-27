@@ -77,7 +77,7 @@ const COLUMNS = [
         },
         {
             Header          : "Removal Types",
-            accessor        : "Removal Type",
+            accessor        : "Removal Type Unique",
             Filter          : SelectColumnFilter,
             filter          : 'inArray',
             Cell            : props => { return <div>{props.value && props.value.toString()}</div> },
