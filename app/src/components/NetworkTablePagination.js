@@ -79,7 +79,7 @@ function NetworkTablePagination(
               </p>
           :
           <p className="go-to-page-wrapper">
-              {[...Array(pageCount)].map((e, i) => <span 
+              {[...Array(pageCount)].map((e, i) => <span key={i}
                                                         className="go-to-page"
                                                         onClick={() => gotoPage(pageIndex + i)}>{pageIndex + i+1}</span>)}
               </p>

@@ -14,8 +14,8 @@ function DateColumnFilter({
     column: { filterValue, setFilter, preFilteredRows, id },
 }) {
 
-    const [startDate, setStartDate] = useState(filterValue ? filterValue[0] : null)
-    const [endDate, setEndDate] = useState(moment(filterValue ? filterValue[1] : null).format('YYYY-MM-DD'))
+    const [startDate, setStartDate] = useState(filterValue ? filterValue[0] : "")
+    const [endDate, setEndDate] = useState(moment(filterValue ? filterValue[1] : "").format('YYYY-MM-DD'))
     const [expanded, expand] = useState(false)
     const minDate = '2017-01-01'
     // Calculate the options for filtering
@@ -31,18 +31,18 @@ function DateColumnFilter({
                     <p style={{ "color": "hsl(0, 0%, 50%)", "width": "100%" }}>Select...</p>
                 }
                 {
-                    (startDate && endDate) && <i class="fas fa-times" onClick={(e) => {e.stopPropagation(); setStartDate(null, setEndDate(null, setFilter([null, null])));  }}></i> 
+                    (startDate && endDate) && <i className="fas fa-times" onClick={(e) => {e.stopPropagation(); setStartDate(null, setEndDate(null, setFilter([null, null])));  }}></i> 
                     
                 }
             </div>
             {expanded &&
-                <Modal show={expanded} onHide={() => expand(false)}>
+                <Modal show={expanded} onHide={() => expand(false)} animation={false}>
                     <Modal.Header closeButton style={{ "border": "none" }}></Modal.Header>
                     <Modal.Body>
                         <form onSubmit={(e) => { e.preventDefault(); setFilter([startDate, endDate]); expand(false) }}>
                             <div className="date-range-picker" >
                                 <div>
-                                    <label for="start_date">Start Date</label>
+                                    <label htmlFor="start_date">Start Date</label>
                                     <input type="date"
                                         placeholder="Start Date"
                                         value={startDate}
@@ -51,7 +51,7 @@ function DateColumnFilter({
                                         onChange={(e) => setStartDate(e.target.value)}></input>
                                 </div>
                                 <div>
-                                    <label for="start_date">End Date</label>
+                                    <label htmlFor="start_date">End Date</label>
                                     <input type="date"
                                         placeholder="End Date"
                                         value={endDate}
@@ -76,7 +76,7 @@ function BooleanColumnFilter({ column: { filterValue, setFilter, preFilteredRows
     return (
         <div>
             <label htmlFor="screenshots">CONTAINS SCREENSHOTS &nbsp;</label>
-            <input id="screenshots" onChange={(e) => { setFilter(e.target.checked) }} checked={filterValue} type="checkbox"></input>
+            <input id="screenshots" onChange={(e) => { setFilter(e.target.checked) }} checked={filterValue? filterValue: false} type="checkbox"></input>
         </div>
     )
 }
@@ -149,7 +149,7 @@ function SelectColumnFilter({
 
     const customOption = (props) => {
         return <components.Option {...props}>
-            <input type={"checkbox"} style={{"marginRight":"0.5rem"}} checked={props.isSelected}/> {props.data.label}
+            <input type={"checkbox"} readOnly style={{"marginRight":"0.5rem"}} checked={props.isSelected}/> {props.data.label}
         </components.Option>
     }
     // Render a multi-select box

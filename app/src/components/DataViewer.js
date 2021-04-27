@@ -52,6 +52,26 @@ function removeSelectOption(columnId, columnValues, label, tableInstance)
   }
 }
 
+function removeBooleanOption(columnId, columnValue, tableInstance)
+{
+  try {
+    tableInstance.setFilter(columnId, !columnValue)
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
+function removeDateOption(columnId, tableInstance)
+{
+  try {
+    tableInstance.setFilter(columnId, [])
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}
+
 function getHeader(columnId, tableInstance)
 {
   try {
@@ -95,7 +115,7 @@ function getFilters(tableInstance)
 
           for(let i=0; i<filter.value.length; i++)
           {
-            spans.push(<span key={i}
+            spans.push(<div key={i}
               
                className={"filter-pill " + filter_header.toLowerCase().split(" ").join("-") + " " + filter.value[i].label.toLowerCase()}>
                  <p>{filter_header}: {filter.value[i].label}
@@ -104,19 +124,31 @@ function getFilters(tableInstance)
                className={"fas fa-times"} style={{"padding":"0.3rem", "borderRadius":"2rem", "fontSize":"0.7rem", "marginLeft":"1rem", "cursor":"pointer"}}></i>
                </p>
 
-               </span>)
+               </div>)
           }
           break
         case 'betweenDates': 
           null_filters.push({id: filter.id, value: []})
-          filter.value.length>1 && spans.push(<span className="filter-pill dates"><p>{filter_header}: Between {filter.value[0]} - {filter.value[1]}</p></span>)
+          filter.value.length>1 && spans.push(<span key={filter.value[0]} className="filter-pill dates"><p>{filter_header}: Between {filter.value[0]} - {filter.value[1]}
+          <i 
+               onClick={(e) => {removeDateOption(filter.id, tableInstance)}}
+               className={"fas fa-times"} style={{"padding":"0.3rem", "borderRadius":"2rem", "fontSize":"0.7rem", "marginLeft":"1rem", "cursor":"pointer"}}></i>
+          </p></span>)
           break
         case 'exists': 
           null_filters.push({id: filter.id, value: undefined})
 
           if(filter.value)
           {
-            spans.push(<span className="filter-pill screenshots"><p>{filter_header}: {filter.value.toString()}</p></span>)
+            spans.push(<span key={filter.value.toString()} className="filter-pill screenshots">
+            <p>
+              {filter_header}: {filter.value.toString()}
+              <i 
+               onClick={(e) => {removeBooleanOption(filter.id, filter.value, tableInstance)}}
+               className={"fas fa-times"} style={{"padding":"0.3rem", "borderRadius":"2rem", "fontSize":"0.7rem", "marginLeft":"1rem", "cursor":"pointer"}}></i>
+            </p>
+            
+            </span>)
           }
           break
         default: 
@@ -145,8 +177,8 @@ function DataViewer(props)
     return(
         <div className="" style={{"display":"flex",  "justifyContent":"space-between", "marginBottom":"3rem", "alignItems":"center", "marginTop":"1rem"}}>
           <div className={"data-viewer-text"}>
-            <p style={{"marginBottom":"0rem"}}><b>{filteredRows.length} Results</b> | Viewing {filteredRows.reduce(networkReducer, 0)} distinct networks across {filteredRows.reduce(disclosureReducer, 0)} disclosures</p>
-            {<p>{getFilters(tableInstance)}</p>}
+            <div style={{"marginBottom":"0rem"}}><b>{filteredRows.length} Results</b> | Viewing {filteredRows.reduce(networkReducer, 0)} distinct networks across {filteredRows.reduce(disclosureReducer, 0)} disclosures</div>
+            {<div>{getFilters(tableInstance)}</div>}
             <NetworkSorter {...{id: "Dates", ...tableInstance}}/>
           </div>
           <DownloadCSVButton {...tableInstance} />
