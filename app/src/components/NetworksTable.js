@@ -38,7 +38,13 @@ function NetworksTable(props)
             pageIndex : 0, 
             pageSize : 25, 
             hiddenColumns: ["Source Type", "Policy Violations", "Screenshots"],
-            filters: defaultFilters
+            filters: defaultFilters,
+            sortBy: [
+              {
+                id:"Dates",
+                desc: true
+              }
+            ]
           }
       }, 
       useGlobalFilter,
