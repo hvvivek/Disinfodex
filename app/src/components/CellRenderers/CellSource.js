@@ -37,7 +37,7 @@ function CellSource(props)
         return <div className="source">
             <p>{sources.map((source, i) => <span key={i} 
                                 onClick={(e) => {e.stopPropagation(); setFilter({props, value: source})}}
-                                className={source.toLowerCase().split("/")[0] + " source-tag"}>{source.toUpperCase()}</span>)}</p>
+                                className={source && source.toLowerCase().split("/")[0] + " source-tag"}>{source && source.toUpperCase()}</span>)}</p>
         </div>
     }
 }
