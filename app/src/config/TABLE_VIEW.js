@@ -4,9 +4,8 @@ import CellNamedEntities from "../components/CellRenderers/CellNamedEntities"
 import CellOriginCountry from "../components/CellRenderers/CellOriginCountry"
 import CellTargetCountry from "../components/CellRenderers/CellTargetCountry"
 import CellNetwork from "../components/CellRenderers/CellNetwork"
-
+import {dateSorter} from "../components/SortFunctions"
 import { BooleanColumnFilter, DateColumnFilter, SelectColumnFilter } from "../components/NetworkTableFilters"
-
 
 const widths = {
     "Serial Number"             :0.02 * 0.9 * window.innerWidth,
@@ -62,7 +61,8 @@ const COLUMNS = [
             filter          : 'betweenDates',
             Cell            : CellDisclosureDate,
             width           : widths["Dates"],
-            minWidth        : minWidths["Dates"]
+            minWidth        : minWidths["Dates"],
+            sortType        : dateSorter
         },
         {
             Header          : "Source",

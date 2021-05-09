@@ -8,7 +8,7 @@
     
 }
 
-.named-entity span, span.filter-pill.named-entities p
+.named-entity span, .filter-pill.named-entities p
 
 {
     padding: 2px 12px;

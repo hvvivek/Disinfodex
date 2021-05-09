@@ -4,6 +4,7 @@ import CellOriginCountry from "../components/CellRenderers/CellOriginCountry"
 import CellTargetCountry from "../components/CellRenderers/CellTargetCountry"
 import CellNamedEntities from "../components/CellRenderers/CellNamedEntities"
 import CellRemovalType from "../components/CellRenderers/CellRemovalType"
+import {dateSorter} from "../components/SortFunctions"
 import { BooleanColumnFilter, DateColumnFilter, SelectColumnFilter } from "../components/NetworkTableFilters"
 
 
@@ -20,7 +21,8 @@ const COLUMNS = [
         accessor        : "Dates",
         Filter          : DateColumnFilter,
         filter          : 'betweenDates',
-        Cell            : CellDisclosureDate
+        Cell            : CellDisclosureDate,
+        sortType        : dateSorter
     },
     {
         Header          : "Removal Types",
