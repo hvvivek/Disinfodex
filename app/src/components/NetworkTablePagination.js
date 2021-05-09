@@ -48,8 +48,6 @@ function NetworkTablePagination(
             visiblePageOptions = pageOptions.slice(0, 5)
         }
     }
-    visiblePageOptions.map(e => 
-        {console.log(e, pageIndex, e===pageIndex);})
 
     return (
         <div className="flex-container" id="pagination" style={{justifyContent: "space-between"}}>
@@ -69,12 +67,11 @@ function NetworkTablePagination(
               </>} */}
 
          
-                {visiblePageOptions.map(e => 
-                {console.log(e, pageIndex); return <span   key={e} 
+                {visiblePageOptions.map(e => <span   key={e} 
                         className={e === pageIndex? "go-to-page active": "go-to-page"}
                         onClick={() => gotoPage(e)}>
                     {e+1}
-                </span>}
+                </span>
 
                 )}
                 
