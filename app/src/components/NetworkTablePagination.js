@@ -27,8 +27,9 @@ function NetworkTablePagination(
     const hasMoreThanNPages = pageCount > 4
     const currentPageGreaterThanOne = pageIndex > 0
     const isEllipsisRequired = pageIndex + 3 < pageCount
-
+    
     let visiblePageOptions = pageOptions
+    
     if(pageOptions.length > 4)
     {
         if(pageIndex > 2)
@@ -47,6 +48,8 @@ function NetworkTablePagination(
             visiblePageOptions = pageOptions.slice(0, 5)
         }
     }
+    visiblePageOptions.map(e => 
+        {console.log(e, pageIndex, e===pageIndex);})
 
     return (
         <div className="flex-container" id="pagination" style={{justifyContent: "space-between"}}>
@@ -66,8 +69,14 @@ function NetworkTablePagination(
               </>} */}
 
          
-                {visiblePageOptions.map(e => <span key={e} className={e === pageIndex? "go-to-page active": "go-to-page"}
-                onClick={() => gotoPage(e)}>{e+1}</span>)}
+                {visiblePageOptions.map(e => 
+                {console.log(e, pageIndex); return <span   key={e} 
+                        className={e === pageIndex? "go-to-page active": "go-to-page"}
+                        onClick={() => gotoPage(e)}>
+                    {e+1}
+                </span>}
+
+                )}
                 
 
 
@@ -79,9 +88,16 @@ function NetworkTablePagination(
               </p>
           :
           <p className="go-to-page-wrapper">
-              {[...Array(pageCount)].map((e, i) => <span key={i}
+              {visiblePageOptions.map(e => <span   key={e} 
+                        className={e === pageIndex? "go-to-page active": "go-to-page"}
+                        onClick={() => gotoPage(e)}>
+                    {e+1}
+                </span>)
+
+                }
+              {/* {[...Array(pageCount)].map((e, i) => <span key={i}
                                                         className="go-to-page"
-                                                        onClick={() => gotoPage(pageIndex + i)}>{pageIndex + i+1}</span>)}
+                                                        onClick={() => gotoPage(pageIndex + i)}>{pageIndex + i+1}</span>)} */}
               </p>
         }
 
