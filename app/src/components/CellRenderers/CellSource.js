@@ -18,7 +18,7 @@ function CellSource(props)
             </p>
             {isExpanded? 
                 <>
-                <p>{sources.map((source, i) => 
+                <p>{sources.slice(1, sources.length).map((source, i) => 
                         <span key={i} 
                                 className={source.toLowerCase() + " source-tag"}
                                 onClick={(e) => {e.stopPropagation(); setFilter({props, value: source})}}
