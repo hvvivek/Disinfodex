@@ -77,12 +77,12 @@ function DisclosureCard(props)
                 <div className="card-wrapper">
                     <div className="flex-5">
                         <p className="sub-title">URL</p>
-                        <a href={URL}>{URL}</a>
+                        <a target="_blank" rel="noreferrer noopener" href={URL}>{URL}</a>
                     </div>
 
                     <div className="flex-5">
                         <p className="sub-title">SECONDARY_URL</p>
-                        <a href={URL}>{SECONDARY_URL}</a>
+                        <a target="_blank" rel="noreferrer noopener" href={URL}>{SECONDARY_URL}</a>
                     </div>
                 </div>
                 <div>

@@ -31,7 +31,7 @@ function StackDisclosures(disclosures)
 
         if(disclosure["ENGAGEMENT_CONTEXT"])
         {
-            ENGAGEMENT_TYPE.push(<p style={{"marginBottom":"0px"}}>{disclosure["ENGAGEMENT_CONTEXT"]}</p>)
+            ENGAGEMENT_TYPE.push(<p key={disclosure["ENGAGEMENT_CONTEXT"]} style={{"marginBottom":"0px"}}>{disclosure["ENGAGEMENT_CONTEXT"]}</p>)
         }
     }
 
