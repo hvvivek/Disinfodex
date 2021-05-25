@@ -40,7 +40,7 @@ function DisclosureCard(props)
         <div className="disclosure-card">
             <div className="flex-container header" style={{"justifyContent":"space-between"}} onClick={() => setExpanded(!isExpanded)}>
                 <h1>{logo}</h1>
-                <div className="flex-container">
+                <div className="flex-container" style={{"justifyContent":"right"}}>
                     <h5>{DISCLOSURE_DATE}</h5>
                     {!isExpanded && <img src={close} onClick={() => setExpanded(true)} width="25" alt="close"></img>}
                     {isExpanded && <img src={open} onClick={() => setExpanded(false)} width="25" alt="open"></img>}
