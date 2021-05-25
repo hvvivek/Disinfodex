@@ -8,7 +8,8 @@ import DataContext from '../contexts/DataContext'
 function ScreenshotCarousel({row, card=null, openNetworkCard=null, isLogoShown=true})
 {
     const {screenshots} = useContext(DataContext)
-    let screenshot_ids = row["Screenshots"]
+    // Combining info from related networks
+    let screenshot_ids = row["Screenshots (from Related Networks)"]
     let row_screenshots = []
     let companies = row["Company Unique"]
     let company_logos = []
