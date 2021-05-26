@@ -26,7 +26,8 @@
     "react-scripts": "3.4.3",
     "react-spinners": "^0.9.0",
     "react-table": "^7.5.1",
-    "react-toggle": "^4.1.1"
+    "react-toggle": "^4.1.1",
+    "slick-carousel": "^1.8.1"
   },
   "scripts": {
     "start": "react-scripts start",

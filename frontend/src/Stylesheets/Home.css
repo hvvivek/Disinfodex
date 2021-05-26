@@ -28,7 +28,9 @@
     max-width: 1400px;
     margin: 0 auto;
 }
-
+#home {
+    margin: 48px;
+}
 #home hr
 {
     padding: 0px;
