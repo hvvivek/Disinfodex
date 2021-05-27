@@ -8,7 +8,12 @@ function HowItWorks()
         <Header {...{active: "how-to"}}/>
         <div style={{"display":"flex", "justifyContent":"center", "margin":"2rem"}} id="home">
                     <div style={{"width":"90%"}}>
+
                         <div xs={12}>
+
+                            <p style={{color: "#ff0000"}}><b>NOTE: This page will be updated shortly following recent changes to the database. Please feel free to <a href="mailto:teamdisinfodex@gmail.com
+                            ">contact us over email</a> for any questions in the meantime.</b></p>
+                            <hr />
 
                             <h2>How it Works</h2>
 
