@@ -87,17 +87,6 @@ const COLUMNS = [
 
         },
         {
-            Header          : "Named Entities",
-            accessor        : "Named Entities",
-            Filter          : SelectColumnFilter,
-            filter          : 'inArray',
-            Cell            : CellNamedEntities,
-            disableSortBy   : true,
-            width           : widths["Named Entities"],
-            minWidth        : minWidths["Named Entities"]
-
-        },
-        {
             Header          : "Origin Countries",
             accessor        : "Origin Countries Tagged",
             Filter          : SelectColumnFilter,
@@ -117,6 +106,17 @@ const COLUMNS = [
             disableSortBy   : true,
             width           : widths["Target Countries Tagged"],
             minWidth        : minWidths["Target Countries Tagged"]
+
+        },
+        {
+            Header          : "Named Entities",
+            accessor        : "Named Entities Tagged",
+            Filter          : SelectColumnFilter,
+            filter          : 'inArray',
+            Cell            : CellNamedEntities,
+            disableSortBy   : true,
+            width           : widths["Named Entities"],
+            minWidth        : minWidths["Named Entities"]
 
         },
         {

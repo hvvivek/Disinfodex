@@ -47,7 +47,7 @@ const COLUMNS = [
     },
     {
         Header          : "Named Entities",
-        accessor        : "Named Entities",
+        accessor        : "Named Entities Tagged",
         Filter          : SelectColumnFilter,
         filter          : 'inArray',
         isVisible       : false,
