@@ -148,7 +148,7 @@ function NetworksTable(props)
                 })}
             </div>
         </div>
-        {isModalOpen && <NetworkCardModal {...{isModalOpen, setModelOpen, currentNetwork}}/>}
+        {isModalOpen && <NetworkCardModal {...{isModalOpen, setModelOpen, currentNetwork, tableInstance}}/>}
         <NetworkTablePagination {...{...tableInstance, pageIndex, pageSize}}
         />
         </>

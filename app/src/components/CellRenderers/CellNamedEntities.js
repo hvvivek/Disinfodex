@@ -4,7 +4,7 @@ import "../../assets/stylesheets/cells/named_entity.css"
 
 function CellNamedEntities(props)
 {
-    
+
 
     const [isExpanded, expand] = useState(false)
     let named_entities = props.value

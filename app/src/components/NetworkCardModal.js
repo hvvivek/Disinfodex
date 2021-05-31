@@ -9,7 +9,7 @@ import NetworkCard from './NetworkCard'
 
 function NetworkCardModal(props)
 {
-    let {isModalOpen, setModelOpen, currentNetwork} = props
+    let {isModalOpen, setModelOpen, currentNetwork, tableInstance} = props
       return <Modal animation={false} show={isModalOpen} size="lg" onHide={()=>setModelOpen(false)} className="network-card">
           <Modal.Header closeButton>
             <h1>Network {currentNetwork.original.Name} 
@@ -19,7 +19,7 @@ function NetworkCardModal(props)
               </h1>
           </Modal.Header>
           <Modal.Body>
-                <NetworkCard {...{...currentNetwork.original}}/>
+                <NetworkCard {...{...currentNetwork.original, tableInstance}}/>
           </Modal.Body>
           <ToastContainer autoClose={2000} hideProgressBar pauseOnFocusLoss={false} transition={Zoom} />
         </Modal>

@@ -62,13 +62,15 @@ function NetworkCard(props)
 {
     const value = useContext(DataContext)
     let {
-        'Dates': DISCLOSURE_DATES,
-        'Origin Countries Tagged': ORIGIN_COUNTRIES,
-        'Target Countries Tagged': TARGET_COUNTRIES,
-        'Company': PLATFORMS,
-        'Named Entities Tagged': NAMED_ENTITIES,
-        'Platform Reports': PLATFORM_REPORTS,
+        'Dates'                     : DISCLOSURE_DATES,
+        'Origin Countries Tagged'   : ORIGIN_COUNTRIES,
+        'Target Countries Tagged'   : TARGET_COUNTRIES,
+        'Company'                   : PLATFORMS,
+        'Named Entities Tagged'     : NAMED_ENTITIES,
+        'Platform Reports'          : PLATFORM_REPORTS,
     } = props
+
+    let {tableInstance} = props
 
     // let PLATFORM_REPORTS = value.disclosures.filter((report) => report.sync_id === props.sync_id)
 
@@ -124,7 +126,7 @@ function NetworkCard(props)
 
                     <div className="module">
                         <p className="sub-title">ORIGIN COUNTRY</p>
-                        <CellOriginCountry {...{value:ORIGIN_COUNTRIES}} />
+                        <CellOriginCountry {...{value:ORIGIN_COUNTRIES, id:"Origin Countries Tagged", tableInstance}} />
 
                     </div>
 
@@ -132,11 +134,11 @@ function NetworkCard(props)
                 <div className="flex-5">
                     <div className="module">
                         <p className="sub-title">PLATFORM</p>
-                        <CellSource {...{value: PLATFORMS}}/>
+                        <CellSource {...{value: PLATFORMS, id:"Company Unique", tableInstance}}/>
                     </div>
                     <div className="module">
                         <p className="sub-title">TARGET COUNTRY</p>
-                        <CellTargetCountry {...{value:TARGET_COUNTRIES}} />
+                        <CellTargetCountry {...{value:TARGET_COUNTRIES, id:"Target Countries Tagged", tableInstance}} />
                     </div>
                 </div>
                 
@@ -144,12 +146,12 @@ function NetworkCard(props)
             <div className="card-wrapper" style={{"flexDirection":"column"}}>
                 <div className="module"> 
                     <p className="sub-title">NAMED ENTITIES</p>
-                    <CellNamedEntities {...{value:NAMED_ENTITIES}}/>
+                    <CellNamedEntities {...{...props, value:NAMED_ENTITIES, id:"Named Entities Tagged", tableInstance}}/>
                 </div>
                 
             </div>
             <div>
-                {PLATFORM_REPORTS.map(report => <div key={Math.random()} className="disclosure-card-wrapper"><DisclosureCard {...report[0]} /></div>)}
+                {PLATFORM_REPORTS.map(report => <div key={Math.random()} className="disclosure-card-wrapper"><DisclosureCard {...{...report[0], tableInstance}} /></div>)}
             </div>
         </div>
     )

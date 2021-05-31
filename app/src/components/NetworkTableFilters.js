@@ -302,16 +302,25 @@ function inArray(rows, id, filterValue)
 
 function setFilter({props, value})
 {
-    let columnFilter = props.state.filters.filter(column => column.id === props.column.id)[0]
-
-    if(columnFilter)
+    // console.log(props["tableInstance"])
+    let {id, tableInstance} = props
+    if(!tableInstance)
     {
-        let values = columnFilter.value
-        values.push({value: value, label: value})
-        props.setFilter(props.column.id, values)
+        let columnFilter = props.state.filters.filter(column => column.id === props.column.id)[0]
+
+        if(columnFilter)
+        {
+            let values = columnFilter.value
+            values.push({value: value, label: value})
+            props.setFilter(props.column.id, values)
+        }
+        else{
+            props.setFilter(props.column.id, [{value: value, label: value}])
+        }
     }
-    else{
-        props.setFilter(props.column.id, [{value: value, label: value}])
+    else
+    {
+        tableInstance.setFilter(id, [{value: value, label: value}])
     }
 }
 

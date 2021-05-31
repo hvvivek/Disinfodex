@@ -122,7 +122,7 @@ function Table(props)
                 })}
             </div>
         </div>
-        {isModalOpen && <NetworkCardModal {...{isModalOpen, setModelOpen, currentNetwork, screenshots}}/>}
+        {isModalOpen && <NetworkCardModal {...{isModalOpen, setModelOpen, currentNetwork, screenshots, tableInstance}}/>}
         {/* <Modal show={isModalOpen} onHide={()=>setModelOpen(false)}>
           <Modal.Header closeButton>
 
