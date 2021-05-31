@@ -14,11 +14,7 @@ function CellNamedEntities(props)
     {
         return <div className="named-entity">
             
-            <p onClick={(e) => {e.stopPropagation(); setFilter({props, value: named_entities[0]})}}>
-                <span className={"named-entity-tag"}>
-                    {named_entities[0].toUpperCase()}
-                </span>
-            </p>
+            
             {isExpanded? 
                 <>
                 <p>{named_entities.map((named_entity, i) => 
@@ -29,7 +25,11 @@ function CellNamedEntities(props)
                         >{named_entity.toUpperCase()}</span>)}</p>
                 <p className="link" onClick={(e) => {e.stopPropagation(); e.preventDefault(); expand(false)}}>Show less</p>
                 </>
-                :<p className="link" onClick={(e) => {e.stopPropagation(); e.preventDefault(); expand(true)}}>+ {named_entities.length - 1} more</p>
+                :<><p onClick={(e) => {e.stopPropagation(); setFilter({props, value: named_entities[0]})}}>
+                <span className={"named-entity-tag"}>
+                    {named_entities[0].toUpperCase()}
+                </span>
+            </p><p className="link" onClick={(e) => {e.stopPropagation(); e.preventDefault(); expand(true)}}>+ {named_entities.length - 1} more</p></>
             
             }
         </div>

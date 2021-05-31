@@ -66,7 +66,7 @@ function NetworkCard(props)
         'Origin Countries Tagged': ORIGIN_COUNTRIES,
         'Target Countries Tagged': TARGET_COUNTRIES,
         'Company': PLATFORMS,
-        'Named Entities': NAMED_ENTITIES,
+        'Named Entities Tagged': NAMED_ENTITIES,
         'Platform Reports': PLATFORM_REPORTS,
     } = props
 
