@@ -576,11 +576,30 @@ class Home extends React.Component
         let FILTERS = ['COMPANY', 'REMOVAL_TYPE', 'POLICY_VIOLATIONS', 'SOURCE_TYPE', 'ORIGIN_COUNTRY','DESTINATION_COUNTRY', 'SCREENSHOTS', 'DOD', 'SEARCH']
         
         let filtered_records = []
+        let csv_records = []
         
         if(this.state.platform_records)
         {
             filtered_records = [...this.state.platform_records]
         }
+
+        csv_records = filtered_records.map(record => {
+            return {
+                "NAME": record["Name"],
+                "COMPANY": record["Company Unique"],
+                "EARLIEST DATE": record["Earliest Date"],
+                "LATEST DATE": record["Latest Date"],
+                "DATES": record["Dates"],
+                "NAMED ENTITIES": record["Named Entities Unique"],
+                "NUMBER OF REPORTS": record["Num of Reports"],
+                "ORIGIN COUNTRIES": record["Origin Countries Unique"],
+                "TARGET COUNTRIES": record["Target Countries Unique"],
+                "POLICY VIOLATION": record["Policy Violations Unique"],
+                "REMOVAL TYPE": record["Removal Type Unique"],
+
+
+            }
+        })
 
         let filter_labels = {}
 
@@ -1223,7 +1242,8 @@ class Home extends React.Component
                                     <Row>
                                     <Col  xs={12} className="download-csv">
                                                 <CSVLink
-                                                    data={filtered_records}
+                                                    // data={filtered_records}
+                                                    data={csv_records}
                                                     filename={"my-file.csv"}
                                                     className="btn btn-primary"
                                                     target="_blank">

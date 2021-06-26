@@ -38,6 +38,7 @@
   "scripts": {
     "start": "react-scripts start",
     "quick": "REACT_APP_BACKEND_URI=https://disinfodex-backend-production-e2kyhghera-ue.a.run.app react-scripts start",
+    "quick windows": "set REACT_APP_BACKEND_URI=https://disinfodex-backend-production-e2kyhghera-ue.a.run.app react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
