@@ -232,7 +232,7 @@ class Sync(MongoORM):
         MongoORM.__init__(self, model_name="Sync", data=data, db=db)
 
     def get_all(self):
-        results = self.collection.find({})
+        results = self.collection.find({}, limit=10)
         results = [result for result in results]
         for result in results:
             result["_id"] = str(result["_id"])
