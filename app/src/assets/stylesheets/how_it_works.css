@@ -1,3 +1,9 @@
+#contents
+{
+    display: flex;
+    justify-content: center;
+}
+
 .lst-kix_zmhx99cbuyq-2>li:before {
     content: "\0025a0  "
 }
@@ -874,7 +880,7 @@ table th {
 .c10 {
     background-color: #ffffff;
     max-width: 90%;
-    padding: 72pt 72pt 72pt 72pt
+    /* padding: 72pt 72pt 72pt 72pt */
 }
 
 .c6 {
