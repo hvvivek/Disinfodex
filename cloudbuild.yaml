@@ -2,18 +2,18 @@
 #####################################################################
 # FRONTEND
 steps:
-# - name: 'gcr.io/cloud-builders/yarn'
-#   args: ['--cwd', './app' ,'install', '--ignore-engines']
-# - name: 'gcr.io/cloud-builders/yarn'
-#   args: ['--cwd', './app' , 'build']
-#   env:
-#   - 'REACT_APP_BACKEND_URI=https://disinfodex-backend-production-e2kyhghera-ue.a.run.app'
-# - name: gcr.io/cloud-builders/docker
-#   args: ['build', '-t', 'gcr.io/$PROJECT_ID/disinfodex-new-frontend-production:${SHORT_SHA}', './app']
-# - name: 'gcr.io/cloud-builders/docker'
-#   args: ["push", "gcr.io/$PROJECT_ID/disinfodex-new-frontend-production:${SHORT_SHA}"]
-# - name: 'gcr.io/cloud-builders/gcloud'
-#   args: ['beta', 'run', 'deploy', 'disinfodex-new-frontend-production', '--image', 'gcr.io/$PROJECT_ID/disinfodex-new-frontend-production:${SHORT_SHA}', '--region', 'us-east1', '--platform', 'managed']
+- name: 'gcr.io/cloud-builders/yarn'
+  args: ['--cwd', './app' ,'install', '--ignore-engines']
+- name: 'gcr.io/cloud-builders/yarn'
+  args: ['--cwd', './app' , 'build']
+  env:
+  - 'REACT_APP_BACKEND_URI=https://disinfodex-backend-production-e2kyhghera-ue.a.run.app'
+- name: gcr.io/cloud-builders/docker
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/disinfodex-new-frontend-production:${SHORT_SHA}', './app']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ["push", "gcr.io/$PROJECT_ID/disinfodex-new-frontend-production:${SHORT_SHA}"]
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['beta', 'run', 'deploy', 'disinfodex-new-frontend-production', '--image', 'gcr.io/$PROJECT_ID/disinfodex-new-frontend-production:${SHORT_SHA}', '--region', 'us-east1', '--platform', 'managed']
 
 
   #####################################################################
