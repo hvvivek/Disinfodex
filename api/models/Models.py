@@ -11,7 +11,7 @@ class MongoORM:
             self.data = data
         else:
             self.data = {'updatedAt': now, 'createdAt': now}
-        if db:
+        if db != None:
             self.connect(db)
         else:
             self.collection = False
