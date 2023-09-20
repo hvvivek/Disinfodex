@@ -80,7 +80,7 @@ function NetworkCard(props)
     {
         let platform_report = PLATFORM_REPORTS[i]
         platform_report = value.disclosures.filter((report) => report.sync_id === platform_report)[0]
-
+        if (platform_report === undefined) continue
         let disclosure_id = platform_report["RECORD_ID"].split("-").slice(0, -1).join("-")
 
         if(disclosure_id in disclosures)

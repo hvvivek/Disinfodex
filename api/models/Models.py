@@ -25,7 +25,7 @@ class MongoORM:
             return {"status": False, "data": self.collection}
 
     def get(self, filter, project=None, return_data=False):
-        if self.collection:
+        if self.collection != None:
             if "_id" in filter:
                 filter['_id'] = ObjectId(filter["_id"])
             find_one_result = self.collection.find_one(filter)
@@ -54,7 +54,7 @@ class MongoORM:
     
     def save(self, return_data = False):
         now = datetime.now().isoformat()
-        if self.collection:
+        if self.collection != None:
             if '_id' in self.data:  
                 self.data["updatedAt"] = now  
                 update_result = self.collection.replace_one({'_id': self.data['_id']}, self.data)
@@ -81,7 +81,7 @@ class MongoORM:
             return {"status": False, "error": "Not connected to Database"}
 
     def delete(self):
-        if self.collection:
+        if self.collection != None:
             if "_id" in self.data:
                 delete_result = self.collection.delete_one({"_id": self.data["_id"]})
                 if delete_result.acknowledged:
@@ -113,7 +113,7 @@ class Platforms(MongoORM):
     
 
     def delete_filter(self, filter):
-        if self.collection:
+        if self.collection != None:
             delete_result = self.collection.delete_many(filter)
             if delete_result.acknowledged:
                 return {"status": True, "count": delete_result.deleted_count}
@@ -138,7 +138,7 @@ class ThirdPartyReports(MongoORM):
         return results
 
     def delete_filter(self, filter):
-        if self.collection:
+        if self.collection != None:
             delete_result = self.collection.delete_many(filter)
             if delete_result.acknowledged:
                 return {"status": True, "count": delete_result.deleted_count}
@@ -163,7 +163,7 @@ class Screenshots(MongoORM):
         return results
 
     def delete_filter(self, filter):
-        if self.collection:
+        if self.collection != None:
             delete_result = self.collection.delete_many(filter)
             if delete_result.acknowledged:
                 return {"status": True, "count": delete_result.deleted_count}
@@ -188,7 +188,7 @@ class Companies(MongoORM):
         return results
 
     def delete_filter(self, filter):
-        if self.collection:
+        if self.collection != None:
             delete_result = self.collection.delete_many(filter)
             if delete_result.acknowledged:
                 return {"status": True, "count": delete_result.deleted_count}
@@ -213,7 +213,7 @@ class Networks(MongoORM):
         return results
 
     def delete_filter(self, filter):
-        if self.collection:
+        if self.collection != None:
             delete_result = self.collection.delete_many(filter)
             if delete_result.acknowledged:
                 return {"status": True, "count": delete_result.deleted_count}

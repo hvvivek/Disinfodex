@@ -9,8 +9,8 @@ let app = express()
 
 app.use(cors())
 
-let API_URI = process.env.API_URI || "http://localhost:5000"
-// API_URI = "https://disinfodex-backend-production-e2kyhghera-ue.a.run.app"
+let API_URI = process.env.API_URI || "http://localhost:3020"
+// let API_URI = "https://disinfodex-backend-production-e2kyhghera-ue.a.run.app"
 
 console.log(API_URI)
 

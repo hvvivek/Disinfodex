@@ -9,7 +9,7 @@ function ScreenshotCarousel({row, card=null, openNetworkCard=null, isLogoShown=t
 {
     const {screenshots} = useContext(DataContext)
     // Combining info from related networks
-    let screenshot_ids = row["Screenshots (from Related Networks)"]
+    let screenshot_ids = row["Screenshots"]
     let row_screenshots = []
     let companies = row["Company Unique"]
     let company_logos = []
